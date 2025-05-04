@@ -1,0 +1,74 @@
+Website Name: Pan Eventz
+
+Owner: Imran Mirza, Owner of Pan Eventz
+
+Website Structure:
+
+Homepage:
+
+Professional and creative UI/UX design showcasing the brand identity of Pan Eventz.
+
+Sections highlighting services such as audio/video shooting, content creation, event planning, stage setups, laser shows, LED walls, etc.
+
+A dynamic, visually appealing slideshow showcasing previous event photos or videos.
+
+Call to action for contacting and booking services.
+
+Services Pages:
+
+Corporate Events: Showcase previous corporate event setups, conferences, seminars, and any services related to corporate events.
+
+Weddings: Display wedding planning services, decorations, stage setups, cultural elements, etc.
+
+Sports Events: Highlight services for sports events, including sound systems, lighting, and live streaming.
+
+School/College Events: Showcase event services for educational institutions like annual functions, fests, or inter-school competitions.
+
+Cultural Events: A page dedicated to cultural events like TED Talks, performances, and more.
+
+Logistics: Show the logistics management aspect, like transportation, resource procurement, and on-ground coordination.
+
+Custom Pages: For any additional services such as fireworks, mapping, LED walls, and other niche offerings.
+
+Core Functionalities:
+
+Admin Dashboard:
+
+A back-end admin panel for managing and updating the entire website.
+
+Event Content Management: Admin should be able to upload new events, edit event descriptions, add images, videos, or even create a gallery for each event.
+
+Text Content Management: Admin should have the ability to edit all text content across the website, including service descriptions and homepage content.
+
+Slideshow/Media Gallery Management: Admin should be able to add and remove images/videos for the homepage slideshow or the galleries for each event category.
+
+SEO and Analytics: Admin can edit metadata for each page and track website analytics for performance monitoring.
+
+Event Booking Management: Ability to manage incoming booking requests, schedule events, and add new inquiries.
+
+Design & User Experience:
+
+Clean and professional UI/UX design with a focus on creativity.
+
+Easy-to-navigate layout with clear category segregation for each type of event.
+
+Visual elements (images, videos, sliders) to help showcase the brand's creativity and portfolio.
+
+Mobile-responsive design, ensuring seamless access across devices.
+
+Integrated forms for user inquiries or bookings.
+
+Key Pages:
+
+Homepage: Introduction to Pan Eventz, with dynamic event displays and services summary.
+
+About Us: Information about the company, its mission, vision, and the team behind Pan Eventz.
+
+Services: Dedicated page showcasing all the services, segmented by event types (corporate, weddings, cultural, etc.).
+
+Gallery: Media gallery showing images and videos of past events.
+
+Blog/News: Section for news, event updates, and featured blog posts.
+
+Contact Us: Contact form, location, and social media links.
+
