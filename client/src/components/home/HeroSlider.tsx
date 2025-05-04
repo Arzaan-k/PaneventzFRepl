@@ -4,17 +4,22 @@ import { Link } from "wouter";
 import { scrollToSection } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 
+interface CTA {
+  text: string;
+  link: string;
+}
+
 interface Slide {
   id: number;
   title: string;
   titleHighlight: string;
   description: string;
   backgroundImage: string;
-  primaryCta: {
+  primaryCta?: {
     text: string;
     link: string;
   };
-  secondaryCta: {
+  secondaryCta?: {
     text: string;
     link: string;
   };
@@ -137,90 +142,151 @@ const HeroSlider = () => {
   return (
     <section id="home" className="hero-slider pt-20 md:pt-16 relative overflow-hidden">
       <div className="relative h-full">
-        {displaySlides.map((slide, index) => (
+        {displaySlides.map((slide: Slide, index: number) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 w-full h-full bg-center bg-cover transition-opacity duration-500 ${
-              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            className={`absolute inset-0 w-full h-full bg-center bg-cover transition-all duration-1000 ${
+              index === currentSlide ? "opacity-100 z-10 scale-100" : "opacity-0 z-0 scale-110"
             }`}
             style={{ backgroundImage: `url('${slide.backgroundImage}')` }}
           >
-            <div className="absolute inset-0 bg-black/50"></div>
+            {/* Gradient overlay with accent color */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+            
+            {/* Decorative elements */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+              <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/20 blur-3xl"></div>
+              <div className="absolute bottom-20 right-30 w-80 h-80 rounded-full bg-accent/10 blur-3xl"></div>
+            </div>
+            
             <div className="container mx-auto px-4 h-full flex items-center">
-              <div className="text-white max-w-3xl slide-in">
-                <h1 className="text-4xl md:text-6xl font-bold font-montserrat leading-tight mb-4">
-                  {slide.title} <span className="text-primary">{slide.titleHighlight}</span> {slide.title.includes("Experiences") ? "" : "Experiences"}
-                </h1>
-                <p className="text-xl md:text-2xl mb-8 font-opensans">
-                  {slide.description}
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  {slide.primaryCta.link.startsWith("http") ? (
-                    <a 
-                      href={slide.primaryCta.link}
-                      className="bg-primary hover:bg-primary/90 text-white font-medium px-8 py-3 rounded-full transition-colors"
-                    >
-                      {slide.primaryCta.text}
-                    </a>
-                  ) : (
-                    <Button
-                      onClick={() => scrollToSection(slide.primaryCta.link)}
-                      className="bg-primary hover:bg-primary/90 text-white font-medium px-8 py-3 rounded-full transition-colors"
-                    >
-                      {slide.primaryCta.text}
-                    </Button>
-                  )}
+              <div className="text-white max-w-3xl z-10 relative">
+                {/* Animated slide content */}
+                <div className={`transform transition-all duration-1000 delay-300 ${
+                  index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+                }`}>
+                  {/* Tag line */}
+                  <div className="inline-block bg-primary/90 text-white text-sm font-medium px-4 py-1 rounded-full mb-4">
+                    Premium Event Services
+                  </div>
                   
-                  {slide.secondaryCta.link.startsWith("http") ? (
-                    <a 
-                      href={slide.secondaryCta.link}
-                      className="bg-transparent border-2 border-white hover:bg-white hover:text-secondary text-white font-medium px-8 py-3 rounded-full transition-colors"
-                    >
-                      {slide.secondaryCta.text}
-                    </a>
-                  ) : (
-                    <Button
-                      variant="outline"
-                      onClick={() => scrollToSection(slide.secondaryCta.link)}
-                      className="bg-transparent border-2 border-white hover:bg-white hover:text-secondary text-white font-medium px-8 py-3 rounded-full transition-colors"
-                    >
-                      {slide.secondaryCta.text}
-                    </Button>
-                  )}
+                  {/* Main heading with gradient text */}
+                  <h1 className="text-5xl md:text-7xl font-bold font-montserrat leading-tight mb-6">
+                    {slide.title}{" "}
+                    <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                      {slide.titleHighlight}
+                    </span>{" "}
+                    <span className="relative">
+                      Experiences
+                      <span className="absolute bottom-2 left-0 w-full h-1 bg-primary rounded-full"></span>
+                    </span>
+                  </h1>
+                  
+                  <p className="text-xl md:text-2xl mb-8 font-sans text-white/90 max-w-2xl">
+                    {slide.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-6">
+                    {slide.primaryCta && slide.primaryCta.link ? (
+                      slide.primaryCta.link.startsWith("http") ? (
+                        <a 
+                          href={slide.primaryCta.link}
+                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl"
+                        >
+                          {slide.primaryCta.text || "Learn More"}
+                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+                        </a>
+                      ) : (
+                        <Button
+                          onClick={() => scrollToSection(slide.primaryCta.link)}
+                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl"
+                        >
+                          {slide.primaryCta.text || "Learn More"}
+                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+                        </Button>
+                      )
+                    ) : (
+                      <Button
+                        onClick={() => scrollToSection('services')}
+                        className="group bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl"
+                      >
+                        Our Services
+                        <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+                      </Button>
+                    )}
+                    
+                    {slide.secondaryCta && slide.secondaryCta.link ? (
+                      slide.secondaryCta.link.startsWith("http") ? (
+                        <a 
+                          href={slide.secondaryCta.link}
+                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition-all flex items-center"
+                        >
+                          {slide.secondaryCta.text || "Contact Us"}
+                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+                        </a>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          onClick={() => scrollToSection(slide.secondaryCta.link)}
+                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition-all flex items-center"
+                        >
+                          {slide.secondaryCta.text || "Contact Us"}
+                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+                        </Button>
+                      )
+                    ) : (
+                      <Button
+                        variant="outline"
+                        onClick={() => scrollToSection('contact')}
+                        className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition-all flex items-center"
+                      >
+                        Contact Us
+                        <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         ))}
         
-        {/* Slider Controls */}
-        <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        {/* Modern Slider Controls */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-3 z-20 backdrop-blur-md bg-black/20 px-4 py-2 rounded-full">
           {displaySlides.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentSlide ? "bg-white" : "bg-white/50 hover:bg-white/70"
+              className={`relative w-10 h-2 rounded-full transition-all duration-300 overflow-hidden ${
+                index === currentSlide ? "w-16 bg-primary" : "bg-white/30 hover:bg-white/50"
               }`}
               onClick={() => goToSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
-            />
+            >
+              {index === currentSlide && (
+                <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent animate-pulse"></span>
+              )}
+            </button>
           ))}
         </div>
         
-        {/* Slider Arrows */}
+        {/* Modern Slider Arrows */}
         <button
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-12 h-12 rounded-full flex items-center justify-center z-20 focus:outline-none"
+          className="absolute left-8 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white w-14 h-14 rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all hover:scale-110 border border-white/10"
           onClick={prevSlide}
           aria-label="Previous slide"
         >
-          <i className="fas fa-chevron-left"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
         </button>
         <button
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-12 h-12 rounded-full flex items-center justify-center z-20 focus:outline-none"
+          className="absolute right-8 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white w-14 h-14 rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all hover:scale-110 border border-white/10"
           onClick={nextSlide}
           aria-label="Next slide"
         >
-          <i className="fas fa-chevron-right"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
         </button>
       </div>
     </section>

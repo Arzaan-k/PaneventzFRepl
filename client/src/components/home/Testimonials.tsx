@@ -114,59 +114,122 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-20 bg-neutral-100">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-4">
-            Client <span className="text-primary">Testimonials</span>
+    <section className="py-24 bg-gradient-to-b from-white to-neutral-50 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl -z-10 transform translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-accent/5 rounded-full blur-3xl -z-10 transform -translate-x-1/3 translate-y-1/3"></div>
+      
+      {/* Large quotation mark */}
+      <div className="absolute top-24 left-10 text-primary/10 text-[200px] font-serif leading-none z-0">
+        "
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Modern section header */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <div className="inline-block mb-3">
+            <span className="inline-block h-1 w-10 bg-primary rounded-full mr-2"></span>
+            <span className="inline-block h-1 w-20 bg-primary rounded-full"></span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-6">
+            Client <span className="relative">
+              <span className="relative z-10">Feedback</span>
+              <span className="absolute -bottom-2 left-0 w-full h-3 bg-primary/20 -z-10 rounded-lg"></span>
+            </span>
           </h2>
-          <p className="text-lg text-neutral-600">
-            Don't just take our word for it. Here's what our clients have to say about their experience with Pan Eventz.
+          <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+            Discover what our clients have to say about their transformative experiences with Pan Eventz.
           </p>
         </div>
         
-        <div className="relative testimonial-slider overflow-hidden">
+        <div className="relative testimonial-slider overflow-hidden pb-16">
           {isLoading ? (
             <div className="flex justify-center py-12">
-              <div className="animate-pulse text-xl text-center">
-                Loading testimonials...
+              <div className="animate-pulse flex flex-col items-center">
+                <div className="w-20 h-2 bg-neutral-200 rounded-full mb-6"></div>
+                <div className="w-64 h-6 bg-neutral-200 rounded-full mb-3"></div>
+                <div className="w-80 h-4 bg-neutral-100 rounded-full mb-2"></div>
+                <div className="w-72 h-4 bg-neutral-100 rounded-full mb-8"></div>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-full bg-neutral-200 mr-4"></div>
+                  <div>
+                    <div className="w-32 h-4 bg-neutral-200 rounded-full mb-2"></div>
+                    <div className="w-24 h-3 bg-neutral-100 rounded-full"></div>
+                  </div>
+                </div>
               </div>
             </div>
           ) : (
             <>
               <div 
                 ref={containerRef}
-                className="flex transition-transform duration-500"
+                className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(${translateValue}%)` }}
               >
-                {displayTestimonials.map((testimonial) => (
+                {displayTestimonials.map((testimonial, index) => (
                   <div 
                     key={testimonial.id} 
-                    className="testimonial-slide min-w-full md:min-w-[33.333%] px-4"
+                    className="testimonial-slide min-w-full md:min-w-[33.333%] px-5"
                   >
-                    <div className="bg-white p-8 rounded-lg shadow-lg h-full">
-                      <div className="flex items-center mb-4">
-                        <div className="text-primary">
-                          {renderStars(testimonial.rating)}
+                    <div 
+                      className={`bg-white p-10 rounded-2xl shadow-xl h-full border border-neutral-100 hover:shadow-2xl hover:border-primary/10 transition-all duration-500 relative`}
+                      style={{
+                        transform: `scale(${currentSlide === index ? 1.02 : 1})`,
+                        opacity: isMobile 
+                          ? 1 
+                          : (Math.abs(currentSlide - index) <= 1 ? 1 : 0.7)
+                      }}
+                    >
+                      {/* Modern rating display */}
+                      <div className="mb-6">
+                        <div className="inline-flex items-center bg-primary/10 px-4 py-2 rounded-full">
+                          <div className="text-primary flex mr-2">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <svg 
+                                key={i} 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                className={`h-4 w-4 ${i < Math.floor(testimonial.rating) ? 'text-primary' : 'text-neutral-300'}`}
+                                viewBox="0 0 20 20" 
+                                fill="currentColor"
+                              >
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                            ))}
+                          </div>
+                          <span className="text-sm font-semibold">{testimonial.rating.toFixed(1)}/5.0</span>
                         </div>
                       </div>
-                      <p className="italic text-neutral-600 mb-6">
-                        "{testimonial.content}"
+                      
+                      {/* Testimonial content with fancy quotes */}
+                      <p className="text-lg text-neutral-600 mb-8 relative">
+                        <span className="text-primary/30 text-6xl absolute -top-8 -left-3 font-serif">"</span>
+                        {testimonial.content}
+                        <span className="text-primary/30 text-6xl absolute -bottom-8 -right-3 font-serif">"</span>
                       </p>
-                      <div className="flex items-center">
-                        <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                          <img 
-                            src={testimonial.author.avatar} 
-                            alt={testimonial.author.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                      
+                      {/* Author info with gradient border */}
+                      <div className="flex items-center pt-4 mt-auto border-t border-neutral-100">
+                        {testimonial.author && testimonial.author.avatar ? (
+                          <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-primary/20 p-[2px]">
+                            <img 
+                              src={testimonial.author.avatar} 
+                              alt={testimonial.author.name || 'Client'}
+                              className="w-full h-full object-cover rounded-full"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 text-primary flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                        )}
                         <div>
                           <h4 className="font-bold text-neutral-800">
-                            {testimonial.author.name}
+                            {testimonial.author?.name || 'Happy Client'}
                           </h4>
-                          <p className="text-sm text-neutral-500">
-                            {testimonial.author.title}
+                          <p className="text-sm text-primary/80 font-medium">
+                            {testimonial.author?.title || 'Verified Customer'}
                           </p>
                         </div>
                       </div>
@@ -175,44 +238,63 @@ const Testimonials = () => {
                 ))}
               </div>
               
-              {/* Testimonial Controls (Desktop) */}
-              {!isMobile && (
-                <>
-                  <button 
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white text-primary w-10 h-10 rounded-full flex items-center justify-center shadow-md focus:outline-none"
-                    onClick={prevSlide}
-                    disabled={currentSlide === 0}
-                  >
-                    <i className={`fas fa-chevron-left ${currentSlide === 0 ? 'opacity-50' : ''}`}></i>
-                  </button>
-                  <button 
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-primary w-10 h-10 rounded-full flex items-center justify-center shadow-md focus:outline-none"
-                    onClick={nextSlide}
-                    disabled={currentSlide >= displayTestimonials.length - 3}
-                  >
-                    <i className={`fas fa-chevron-right ${currentSlide >= displayTestimonials.length - 3 ? 'opacity-50' : ''}`}></i>
-                  </button>
-                </>
-              )}
+              {/* Modern navigation controls */}
+              <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center gap-6 mt-10 z-10">
+                <button 
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    currentSlide === 0 
+                      ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed' 
+                      : 'bg-white text-primary shadow-lg hover:shadow-xl hover:bg-primary hover:text-white'
+                  }`}
+                  onClick={prevSlide}
+                  disabled={currentSlide === 0}
+                  aria-label="Previous testimonial"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                
+                {/* Testimonial indicators */}
+                <div className="flex items-center gap-2">
+                  {displayTestimonials.map((_, index) => {
+                    const isActive = isMobile 
+                      ? index === currentSlide 
+                      : (index >= currentSlide && index < currentSlide + 3);
+                    
+                    return (
+                      <button
+                        key={index}
+                        className={`transition-all duration-300 ${
+                          isActive
+                            ? 'w-10 h-3 bg-primary rounded-full'
+                            : 'w-3 h-3 bg-neutral-300 hover:bg-neutral-400 rounded-full'
+                        }`}
+                        onClick={() => goToSlide(index)}
+                        aria-label={`Go to testimonial ${index + 1}`}
+                      />
+                    );
+                  })}
+                </div>
+                
+                <button 
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    currentSlide >= (isMobile ? displayTestimonials.length - 1 : displayTestimonials.length - 3) 
+                      ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed' 
+                      : 'bg-white text-primary shadow-lg hover:shadow-xl hover:bg-primary hover:text-white'
+                  }`}
+                  onClick={nextSlide}
+                  disabled={currentSlide >= (isMobile ? displayTestimonials.length - 1 : displayTestimonials.length - 3)}
+                  aria-label="Next testimonial"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
             </>
           )}
         </div>
-        
-        {/* Testimonial Dots (Mobile) */}
-        {isMobile && !isLoading && (
-          <div className="flex justify-center space-x-2 mt-6">
-            {displayTestimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full ${
-                  index === currentSlide ? 'bg-primary' : 'bg-neutral-300'
-                }`}
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );
