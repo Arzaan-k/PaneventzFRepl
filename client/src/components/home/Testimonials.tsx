@@ -257,7 +257,7 @@ const Testimonials = () => {
                 
                 {/* Testimonial indicators */}
                 <div className="flex items-center gap-2">
-                  {displayTestimonials.map((_, index: number) => {
+                  {displayTestimonials.map((_: any, index: number) => {
                     const isActive = isMobile 
                       ? index === currentSlide 
                       : (index >= currentSlide && index < currentSlide + 3);
