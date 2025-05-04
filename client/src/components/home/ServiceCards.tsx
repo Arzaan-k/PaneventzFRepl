@@ -150,7 +150,7 @@ const ServiceCards = () => {
               </div>
             ))
           ) : (
-            displayServices.map((service, index) => (
+            displayServices.map((service: Service, index: number) => (
               <div 
                 key={service.id}
                 id={service.slug}
@@ -191,7 +191,7 @@ const ServiceCards = () => {
                   
                   {/* Service features with modern checkmarks */}
                   <ul className="mb-8 space-y-3">
-                    {service.features.map((feature) => (
+                    {service.features.map((feature: ServiceFeature) => (
                       <li key={feature.id} className="flex items-center">
                         <span className="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-3 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">

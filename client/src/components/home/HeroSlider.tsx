@@ -198,10 +198,10 @@ const HeroSlider = () => {
                         </a>
                       ) : (
                         <Button
-                          onClick={() => scrollToSection(slide.primaryCta.link)}
+                          onClick={() => scrollToSection(slide.primaryCta?.link || 'services')}
                           className="group bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl"
                         >
-                          {slide.primaryCta.text || "Learn More"}
+                          {slide.primaryCta?.text || "Learn More"}
                           <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
                         </Button>
                       )
@@ -227,10 +227,10 @@ const HeroSlider = () => {
                       ) : (
                         <Button
                           variant="outline"
-                          onClick={() => scrollToSection(slide.secondaryCta.link)}
+                          onClick={() => scrollToSection(slide.secondaryCta?.link || 'contact')}
                           className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition-all flex items-center"
                         >
-                          {slide.secondaryCta.text || "Contact Us"}
+                          {slide.secondaryCta?.text || "Contact Us"}
                           <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
                         </Button>
                       )
@@ -253,7 +253,7 @@ const HeroSlider = () => {
         
         {/* Modern Slider Controls */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-3 z-20 backdrop-blur-md bg-black/20 px-4 py-2 rounded-full">
-          {displaySlides.map((_, index) => (
+          {displaySlides.map((_: Slide, index: number) => (
             <button
               key={index}
               className={`relative w-10 h-2 rounded-full transition-all duration-300 overflow-hidden ${

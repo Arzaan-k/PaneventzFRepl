@@ -166,7 +166,7 @@ const Testimonials = () => {
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(${translateValue}%)` }}
               >
-                {displayTestimonials.map((testimonial, index) => (
+                {displayTestimonials.map((testimonial: Testimonial, index: number) => (
                   <div 
                     key={testimonial.id} 
                     className="testimonial-slide min-w-full md:min-w-[33.333%] px-5"
@@ -257,7 +257,7 @@ const Testimonials = () => {
                 
                 {/* Testimonial indicators */}
                 <div className="flex items-center gap-2">
-                  {displayTestimonials.map((_, index) => {
+                  {displayTestimonials.map((_, index: number) => {
                     const isActive = isMobile 
                       ? index === currentSlide 
                       : (index >= currentSlide && index < currentSlide + 3);
