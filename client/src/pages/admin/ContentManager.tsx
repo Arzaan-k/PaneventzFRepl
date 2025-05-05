@@ -697,9 +697,9 @@ const ContentManager = () => {
       setCurrentTestimonial(testimonial);
       testimonialForm.reset({
         content: testimonial.content,
-        authorName: testimonial.author.name,
-        authorTitle: testimonial.author.title,
-        authorAvatar: testimonial.author.avatar,
+        authorName: testimonial.authorName,
+        authorTitle: testimonial.authorTitle,
+        authorAvatar: testimonial.authorAvatar,
         rating: testimonial.rating,
       });
     } else {
@@ -1264,14 +1264,14 @@ const ContentManager = () => {
                           <div className="mt-4 flex items-center">
                             <div className="h-10 w-10 rounded-full overflow-hidden mr-3">
                               <img 
-                                src={testimonial.author.avatar} 
-                                alt={testimonial.author.name}
+                                src={testimonial.authorAvatar} 
+                                alt={testimonial.authorName}
                                 className="w-full h-full object-cover"
                               />
                             </div>
                             <div>
-                              <p className="font-semibold">{testimonial.author.name}</p>
-                              <p className="text-sm text-muted-foreground">{testimonial.author.title}</p>
+                              <p className="font-semibold">{testimonial.authorName}</p>
+                              <p className="text-sm text-muted-foreground">{testimonial.authorTitle}</p>
                             </div>
                           </div>
                           <div className="flex justify-end mt-4 space-x-2">
