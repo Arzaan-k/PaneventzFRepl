@@ -512,11 +512,17 @@ const GalleryPage = () => {
                     </div>
                   </div>
                   
-                  <div className="mt-10 flex justify-center md:justify-start">
-                    <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-full shadow-lg">
+                  <div className="mt-10 flex justify-center md:justify-start space-x-4">
+                    <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-5 rounded-full shadow-lg">
                       Request Similar Event
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </Button>
+                    <Button variant="outline" className="border-primary border-2 text-primary hover:bg-primary hover:text-white px-6 py-5 rounded-full shadow-md">
+                      View Photos/Videos
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                       </svg>
                     </Button>
                   </div>

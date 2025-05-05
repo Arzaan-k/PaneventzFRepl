@@ -79,7 +79,7 @@ const FeaturedTechnologies = () => {
               </div>
             ))
           ) : (
-            displayTechnologies.map((tech) => (
+            displayTechnologies.map((tech: Technology) => (
               <div key={tech.id} className="flex flex-col items-center">
                 <div className="w-16 h-16 mb-4 rounded-full bg-neutral-800 flex items-center justify-center text-primary text-2xl">
                   {tech.id === 1 && (
