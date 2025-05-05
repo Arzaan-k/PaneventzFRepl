@@ -3,6 +3,9 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import * as schema from "@shared/schema";
 import jwt from "jsonwebtoken";
+import upload from "./fileUpload";
+import * as path from "path";
+import * as fs from "fs";
 
 // JWT secret 
 const JWT_SECRET = process.env.JWT_SECRET || "pan-eventz-secret-key";
