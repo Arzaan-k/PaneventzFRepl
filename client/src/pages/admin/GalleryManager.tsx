@@ -446,33 +446,33 @@ const GalleryManager = () => {
           </div>
           
           <div className="flex overflow-x-auto pb-2">
-            <TabsList className="h-9 bg-transparent p-0">
-              <TabsTrigger
-                value="all"
-                onClick={() => setActiveCategory("all")}
-                className={`rounded-md px-3 py-1 font-medium ${
-                  activeCategory === "all"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-background hover:bg-muted"
-                }`}
-              >
-                All
-              </TabsTrigger>
-              {categories.map((category) => (
+            <Tabs value={activeCategory} onValueChange={setActiveCategory}>
+              <TabsList className="h-9 bg-transparent p-0">
                 <TabsTrigger
-                  key={category}
-                  value={category}
-                  onClick={() => setActiveCategory(category)}
+                  value="all"
                   className={`rounded-md px-3 py-1 font-medium ${
-                    activeCategory === category
+                    activeCategory === "all"
                       ? "bg-primary text-primary-foreground"
                       : "bg-background hover:bg-muted"
                   }`}
                 >
-                  {category}
+                  All
                 </TabsTrigger>
-              ))}
-            </TabsList>
+                {categories.map((category) => (
+                  <TabsTrigger
+                    key={category}
+                    value={category.toLowerCase()}
+                    className={`rounded-md px-3 py-1 font-medium ${
+                      activeCategory === category
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-background hover:bg-muted"
+                    }`}
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
           </div>
         </div>
 

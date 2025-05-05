@@ -24,6 +24,7 @@ interface GalleryItem {
 
 const GalleryPage = () => {
   const [filter, setFilter] = useState("all");
+  const [eventFilter, setEventFilter] = useState("");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -147,10 +148,16 @@ const GalleryPage = () => {
   // Use actual gallery items or fallback
   const displayGalleryItems = galleryItems.length > 0 ? galleryItems : fallbackGalleryItems;
 
-  // Filter gallery items based on selected category
-  const filteredItems = filter === "all" 
-    ? displayGalleryItems 
-    : displayGalleryItems.filter((item: GalleryItem) => item.category === filter);
+  // Filter gallery items based on selected category and event
+  const filteredItems = displayGalleryItems.filter((item: GalleryItem) => {
+    // First check category filter
+    const matchesCategory = filter === "all" || item.category === filter;
+    
+    // Then check event filter if it exists
+    const matchesEvent = !eventFilter || (item.event && item.event.includes(eventFilter));
+    
+    return matchesCategory && matchesEvent;
+  });
 
   // Open image modal
   const openImageModal = (item: GalleryItem) => {
@@ -158,8 +165,20 @@ const GalleryPage = () => {
     setIsOpen(true);
   };
 
-  // Set page title
+  // Parse URL params for filters
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
+    const eventParam = urlParams.get('event');
+    
+    if (filterParam) {
+      setFilter(filterParam.toLowerCase());
+    }
+    
+    if (eventParam) {
+      setEventFilter(eventParam);
+    }
+    
     document.title = "Event Gallery - Pan Eventz";
   }, []);
 
@@ -219,6 +238,26 @@ const GalleryPage = () => {
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold font-montserrat mb-4">Browse Our <span className="text-primary">Portfolio</span></h2>
               <p className="text-neutral-600 max-w-xl mx-auto">Filter through our extensive collection of events to find inspiration for your next celebration</p>
+              
+              {eventFilter && (
+                <div className="mt-4 inline-flex items-center justify-center bg-primary/10 text-primary font-medium px-4 py-2 rounded-full">
+                  <span className="mr-2">Showing photos from event:</span>
+                  <span className="font-bold">{eventFilter}</span>
+                  <button 
+                    className="ml-3 p-1 rounded-full hover:bg-white/30 transition-colors duration-200"
+                    onClick={() => {
+                      setEventFilter("");
+                      const url = new URL(window.location.href);
+                      url.searchParams.delete('event');
+                      window.history.pushState({}, '', url.toString());
+                    }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              )}
             </div>
             
             <div className="mb-16 max-w-4xl mx-auto">
@@ -519,7 +558,18 @@ const GalleryPage = () => {
                         <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
                     </Button>
-                    <Button variant="outline" className="border-primary border-2 text-primary hover:bg-primary hover:text-white px-6 py-5 rounded-full shadow-md">
+                    <Button 
+                      variant="outline" 
+                      className="border-primary border-2 text-primary hover:bg-primary hover:text-white px-6 py-5 rounded-full shadow-md"
+                      onClick={() => {
+                        if (selectedImage && selectedImage.event) {
+                          const eventPhotosUrl = `/gallery?filter=${selectedImage.category}&event=${encodeURIComponent(selectedImage.event)}`;
+                          window.open(eventPhotosUrl, '_blank');
+                        } else {
+                          window.open(`/gallery?filter=${selectedImage.category}`, '_blank');
+                        }
+                      }}
+                    >
                       View Photos/Videos
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
