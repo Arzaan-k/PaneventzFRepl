@@ -319,7 +319,7 @@ const AboutPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-                {content.values.map((value: { id: number; title: string; description: string }) => (
+                {content && content.values && content.values.map((value: { id: number; title: string; description: string }) => (
                   <div key={value.id} 
                     className="group bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:-translate-y-2 text-center relative overflow-hidden">
                     {/* Background decoration */}
@@ -407,7 +407,7 @@ const AboutPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                {content.team.map((member: TeamMember) => (
+                {content && content.team && content.team.map((member: TeamMember) => (
                   <div key={member.id} className="group relative overflow-hidden rounded-2xl shadow-lg transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
                     {/* Image container with overlay effect */}
                     <div className="relative overflow-hidden h-80">
