@@ -163,6 +163,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Events
+  app.get(`${apiPrefix}/events`, async (req, res) => {
+    try {
+      const status = req.query.status as string;
+      const events = await storage.getEvents(status);
+      res.json(events);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      res.status(500).json({ message: 'Failed to fetch events' });
+    }
+  });
+  
+  app.get(`${apiPrefix}/events/:slug`, async (req, res) => {
+    try {
+      const event = await storage.getEventBySlug(req.params.slug);
+      if (!event) {
+        return res.status(404).json({ message: 'Event not found' });
+      }
+      res.json(event);
+    } catch (error) {
+      console.error('Error fetching event:', error);
+      res.status(500).json({ message: 'Failed to fetch event' });
+    }
+  });
+
   // Blog
   app.get(`${apiPrefix}/blog`, async (req, res) => {
     try {

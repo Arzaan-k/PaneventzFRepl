@@ -562,15 +562,17 @@ const GalleryPage = () => {
                       variant="outline" 
                       className="border-primary border-2 text-primary hover:bg-primary hover:text-white px-6 py-5 rounded-full shadow-md"
                       onClick={() => {
+                        // If event name exists, navigate to event detail page, otherwise filter gallery
                         if (selectedImage && selectedImage.event) {
-                          const eventPhotosUrl = `/gallery?filter=${selectedImage.category}&event=${encodeURIComponent(selectedImage.event)}`;
-                          window.open(eventPhotosUrl, '_blank');
+                          // Create slug from event name
+                          const eventSlug = selectedImage.event.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
+                          window.open(`/event/${eventSlug}`, '_blank');
                         } else {
                           window.open(`/gallery?filter=${selectedImage.category}`, '_blank');
                         }
                       }}
                     >
-                      View Photos/Videos
+                      View Case Study
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                       </svg>
