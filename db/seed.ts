@@ -6,7 +6,7 @@ async function seed() {
   try {
     console.log("🌱 Starting database seeding...");
 
-    // Create admin user
+    // Create admin users
     const existingAdmin = await db.query.users.findFirst({
       where: (users, { eq }) => eq(users.username, "admin")
     });
@@ -25,6 +25,27 @@ async function seed() {
       console.log("✅ Admin user created");
     } else {
       console.log("⏩ Admin user already exists, skipping");
+    }
+    
+    // Create eventninja12@ admin user
+    const existingEventNinja = await db.query.users.findFirst({
+      where: (users, { eq }) => eq(users.username, "eventninja12@")
+    });
+
+    if (!existingEventNinja) {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash("9323641780", saltRounds);
+      
+      await db.insert(schema.users).values({
+        username: "eventninja12@",
+        password: hashedPassword,
+        name: "Event Ninja",
+        role: "admin"
+      });
+      
+      console.log("✅ Event Ninja admin user created");
+    } else {
+      console.log("⏩ Event Ninja admin user already exists, skipping");
     }
 
     // Seed services
