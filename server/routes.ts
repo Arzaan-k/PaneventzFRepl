@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import upload from "./fileUpload";
 import * as path from "path";
 import * as fs from "fs";
+import express from "express";
 
 // JWT secret 
 const JWT_SECRET = process.env.JWT_SECRET || "pan-eventz-secret-key";
@@ -33,6 +34,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // API prefix
   const apiPrefix = '/api';
+  
+  // Serve uploaded files
+  const uploadsDir = path.join(process.cwd(), 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+  app.use('/uploads', express.static(uploadsDir));
   
   // Public routes
   // Slides
@@ -324,6 +332,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error deleting gallery item:', error);
       res.status(500).json({ message: 'Failed to delete gallery item' });
+    }
+  });
+  
+  // File upload route
+  app.post(`${apiPrefix}/upload`, authenticateToken, upload.single('file'), (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+      }
+      
+      // Return the file path that can be stored in the database
+      const filePath = `/uploads/${req.file.filename}`;
+      
+      res.json({
+        message: 'File uploaded successfully',
+        filePath,
+        originalName: req.file.originalname,
+        size: req.file.size
+      });
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      res.status(500).json({ message: 'Failed to upload file' });
     }
   });
   
