@@ -263,7 +263,7 @@ const ServicePage = () => {
                               <div className="h-px bg-neutral-200 flex-grow ml-4"></div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                              {displayServiceDetail?.features.map((feature) => (
+                              {displayServiceDetail?.features.map((feature: { id: number; title: string; description: string }) => (
                                 <div 
                                   key={feature.id} 
                                   className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
@@ -301,7 +301,7 @@ const ServicePage = () => {
                               <div className="absolute left-6 top-0 bottom-0 w-1 bg-neutral-200 hidden md:block"></div>
                               
                               <div className="space-y-10">
-                                {displayServiceDetail?.process.map((step, index) => (
+                                {displayServiceDetail?.process.map((step: { id: number; title: string; description: string }, index: number) => (
                                   <div key={step.id} className="relative flex">
                                     {/* Timeline dot */}
                                     <div className="relative z-10 mr-6">
@@ -356,7 +356,7 @@ const ServicePage = () => {
                             Previous Events
                           </h3>
                           <div className="space-y-6">
-                            {displayServiceDetail?.gallery.map((item) => (
+                            {displayServiceDetail?.gallery.map((item: { id: number; imageUrl: string; alt: string }) => (
                               <div key={item.id} className="overflow-hidden rounded-xl shadow-md group relative">
                                 <img 
                                   src={item.imageUrl}
