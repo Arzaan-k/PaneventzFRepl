@@ -55,14 +55,14 @@ const AboutSection = () => {
             ) : (
               <>
                 <p className="text-lg text-neutral-600 mb-6">
-                  {content.description && content.description.includes('. ') 
-                    ? `${content.description.split('. ')[0]}.` 
-                    : content.description}
+                  {content?.description || "Pan Eventz is a premier event management company dedicated to creating extraordinary experiences."}
                 </p>
                 <p className="text-lg text-neutral-600 mb-8">
-                  {content.description && content.description.includes('. ') 
-                    ? content.description.split('. ').slice(1).join('. ') 
-                    : ''}
+                  {content?.description 
+                    ? (content.description.includes('. ') 
+                        ? content.description.split('. ').slice(1).join('. ') 
+                        : '')
+                    : "With over a decade of industry experience, we specialize in conceptualizing, planning, and executing events of all scales - from intimate gatherings to grand celebrations."}
                 </p>
                 
                 <div className="grid grid-cols-2 gap-6 mb-8">
@@ -134,14 +134,14 @@ const AboutSection = () => {
                 <div className="space-y-4">
                   <div className="rounded-lg overflow-hidden shadow-lg h-64">
                     <img 
-                      src={content.images[0]} 
+                      src={content?.images && content.images.length > 0 ? content.images[0] : "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
                       alt="Event Planning" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="rounded-lg overflow-hidden shadow-lg h-48">
                     <img 
-                      src={content.images[1]} 
+                      src={content?.images && content.images.length > 1 ? content.images[1] : "https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
                       alt="Corporate Event" 
                       className="w-full h-full object-cover"
                     />
@@ -150,14 +150,14 @@ const AboutSection = () => {
                 <div className="space-y-4 mt-6">
                   <div className="rounded-lg overflow-hidden shadow-lg h-48">
                     <img 
-                      src={content.images[2]} 
+                      src={content?.images && content.images.length > 2 ? content.images[2] : "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
                       alt="Wedding Event" 
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="rounded-lg overflow-hidden shadow-lg h-64">
                     <img 
-                      src={content.images[3]} 
+                      src={content?.images && content.images.length > 3 ? content.images[3] : "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
                       alt="Stage Setup" 
                       className="w-full h-full object-cover"
                     />
