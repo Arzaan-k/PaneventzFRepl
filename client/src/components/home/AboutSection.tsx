@@ -54,8 +54,16 @@ const AboutSection = () => {
               </div>
             ) : (
               <>
-                <p className="text-lg text-neutral-600 mb-6">{content.description.split('. ')[0]}.</p>
-                <p className="text-lg text-neutral-600 mb-8">{content.description.split('. ').slice(1).join('. ')}</p>
+                <p className="text-lg text-neutral-600 mb-6">
+                  {content.description && content.description.includes('. ') 
+                    ? `${content.description.split('. ')[0]}.` 
+                    : content.description}
+                </p>
+                <p className="text-lg text-neutral-600 mb-8">
+                  {content.description && content.description.includes('. ') 
+                    ? content.description.split('. ').slice(1).join('. ') 
+                    : ''}
+                </p>
                 
                 <div className="grid grid-cols-2 gap-6 mb-8">
                   <div className="flex items-start">
