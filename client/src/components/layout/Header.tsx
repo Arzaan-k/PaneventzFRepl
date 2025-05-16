@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
+import MobileMenu from "./MobileMenu";
 
 const Header = () => {
   const [location] = useLocation();
@@ -132,71 +133,8 @@ const Header = () => {
         )}
       </div>
       
-      {/* Mobile Navigation Menu */}
-      {isMobile && (
-        <div className={cn(
-          "bg-white shadow-lg absolute w-full left-0 top-full mt-0.5 transition-all duration-300",
-          !mobileMenuOpen && "hidden"
-        )}>
-          <div className="container mx-auto px-4 py-3">
-            <Link href="/" className="block py-2 px-4 text-neutral-800 hover:bg-neutral-100">
-              Home
-            </Link>
-            
-            <div className="relative">
-              <div 
-                className="flex justify-between items-center py-2 px-4 text-neutral-800 hover:bg-neutral-100 cursor-pointer"
-                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-              >
-                Services 
-                <i className={`fas fa-chevron-down ml-1 text-xs transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`}></i>
-              </div>
-              
-              <div className={cn("bg-neutral-50 px-4", !servicesDropdownOpen && "hidden")}>
-                <Link href="/services/corporate" className="block py-2 text-neutral-700 hover:text-primary border-b border-neutral-200">
-                  Corporate Events
-                </Link>
-                <Link href="/services/wedding" className="block py-2 text-neutral-700 hover:text-primary border-b border-neutral-200">
-                  Weddings
-                </Link>
-                <Link href="/services/sports" className="block py-2 text-neutral-700 hover:text-primary border-b border-neutral-200">
-                  Sports Events
-                </Link>
-                <Link href="/services/education" className="block py-2 text-neutral-700 hover:text-primary border-b border-neutral-200">
-                  School/College Events
-                </Link>
-                <Link href="/services/cultural" className="block py-2 text-neutral-700 hover:text-primary">
-                  Cultural Events
-                </Link>
-              </div>
-            </div>
-            
-            <Link href="/gallery" className="block py-2 px-4 text-neutral-800 hover:bg-neutral-100">
-              Gallery
-            </Link>
-            
-            <Link href="/about" className="block py-2 px-4 text-neutral-800 hover:bg-neutral-100">
-              About Us
-            </Link>
-            
-            <Link href="/blog" className="block py-2 px-4 text-neutral-800 hover:bg-neutral-100">
-              Blog
-            </Link>
-            
-            <Link href="/contact" className="block py-2 px-4 text-neutral-800 hover:bg-neutral-100">
-              Contact
-            </Link>
-            
-            <div className="mt-2 mb-2">
-              <Link href="/contact">
-                <Button className="w-full bg-primary text-white font-medium rounded-full">
-                  Book Now
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Mobile Menu Component */}
+      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
     </header>
   );
 };

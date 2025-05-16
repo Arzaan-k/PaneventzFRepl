@@ -85,7 +85,7 @@
 
 @layer components {
   .hero-slider {
-    @apply h-[80vh] max-h-[800px];
+    @apply h-[80vh] max-h-[800px] sm:h-[70vh] max-sm:h-[60vh];
   }
   
   .service-card {
@@ -94,6 +94,69 @@
   
   .slide-in {
     animation: slideIn 0.5s ease-out forwards;
+  }
+  
+  /* Responsive containers */
+  .container {
+    @apply px-4 md:px-6 mx-auto;
+  }
+  
+  /* Responsive Typography */
+  .responsive-heading {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+  
+  .responsive-subheading {
+    @apply text-xl md:text-2xl lg:text-3xl font-medium;
+  }
+  
+  /* Mobile optimizations */
+  .mobile-menu {
+    @apply fixed inset-0 bg-neutral-900/95 backdrop-blur-sm z-50 flex flex-col p-6 transition-all duration-300 ease-in-out;
+  }
+  
+  .mobile-menu-item {
+    @apply text-white text-xl py-3 border-b border-neutral-700 w-full font-medium transition-all hover:text-primary;
+  }
+  
+  /* Responsive grid layouts */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+  
+  .responsive-grid-large {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  }
+  
+  /* Admin CMS styles */
+  .admin-sidebar {
+    @apply bg-neutral-900 text-white w-64 h-screen fixed left-0 top-0 overflow-y-auto shadow-lg transition-all duration-300 ease-in-out;
+  }
+  
+  .admin-content {
+    @apply ml-64 px-8 py-6 min-h-screen bg-neutral-50;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-sidebar {
+      @apply -left-64;
+    }
+    
+    .admin-sidebar.open {
+      @apply left-0;
+    }
+    
+    .admin-content {
+      @apply ml-0;
+    }
+  }
+  
+  .admin-nav-item {
+    @apply flex items-center gap-3 px-4 py-3 text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors;
+  }
+  
+  .admin-nav-item.active {
+    @apply bg-primary/20 text-primary border-l-4 border-primary;
   }
 }
 

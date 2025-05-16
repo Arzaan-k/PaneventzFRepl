@@ -10,15 +10,16 @@ import EventDetailPage from "@/pages/EventDetailPage";
 import AboutPage from "@/pages/AboutPage";
 import BlogPage from "@/pages/BlogPage";
 import ContactPage from "@/pages/ContactPage";
-import Dashboard from "@/pages/admin/Dashboard";
+// Admin Pages
+import AdminLogin from "@/pages/admin/AdminLogin";
 import EventManager from "@/pages/admin/EventManager";
 import ContentManager from "@/pages/admin/ContentManager";
 import GalleryManager from "@/pages/admin/GalleryManager";
-import Login from "@/pages/admin/Login";
 
 function Router() {
   return (
     <Switch>
+      {/* Public Routes */}
       <Route path="/" component={HomePage} />
       <Route path="/services/:serviceType?" component={ServicePage} />
       <Route path="/gallery" component={GalleryPage} />
@@ -28,8 +29,8 @@ function Router() {
       <Route path="/contact" component={ContactPage} />
       
       {/* Admin Routes */}
-      <Route path="/admin" component={Dashboard} />
-      <Route path="/admin/login" component={Login} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin" component={EventManager} />
       <Route path="/admin/events" component={EventManager} />
       <Route path="/admin/content" component={ContentManager} />
       <Route path="/admin/gallery" component={GalleryManager} />
