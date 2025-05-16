@@ -5,7 +5,54 @@ import bcrypt from 'bcrypt';
 
 // User operations
 export const storage = {
-  // User operations
+  // Replit Auth user operations
+  async upsertUser(userData: { id: string; email?: string; firstName?: string; lastName?: string; profileImageUrl?: string }) {
+    try {
+      // Check if the user exists
+      const existingUser = await db.query.users.findFirst({
+        where: eq(schema.users.username, userData.id)
+      });
+      
+      if (existingUser) {
+        // Update the existing user
+        const [updatedUser] = await db.update(schema.users)
+          .set({
+            name: `${userData.firstName || ''} ${userData.lastName || ''}`.trim(),
+            // Keep other fields the same
+          })
+          .where(eq(schema.users.username, userData.id))
+          .returning();
+        return updatedUser;
+      } else {
+        // Create a new user
+        const [newUser] = await db.insert(schema.users)
+          .values({
+            username: userData.id,
+            password: await bcrypt.hash(Math.random().toString(36), 10), // Random password
+            name: `${userData.firstName || ''} ${userData.lastName || ''}`.trim(),
+            role: 'user'
+          })
+          .returning();
+        return newUser;
+      }
+    } catch (error) {
+      console.error('Error in upsertUser:', error);
+      return null;
+    }
+  },
+  
+  async getUser(id: string) {
+    try {
+      return await db.query.users.findFirst({
+        where: eq(schema.users.username, id)
+      });
+    } catch (error) {
+      console.error('Error in getUser:', error);
+      return undefined;
+    }
+  },
+  
+  // Legacy user operations
   async createUser(user: schema.InsertUser) {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(user.password, saltRounds);
