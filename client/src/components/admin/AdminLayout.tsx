@@ -4,6 +4,7 @@ import AdminSidebar from "./AdminSidebar";
 import { Button } from "@/components/ui/button";
 import { useMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -16,12 +17,13 @@ const AdminLayout = ({ children, title = "Dashboard", requireAuth = true }: Admi
   const [location, navigate] = useLocation();
   const isMobile = useMobile();
   const { toast } = useToast();
+  const { user, isLoading, isAuthenticated } = useAuth();
   
   // Check for authentication
   useEffect(() => {
-    if (requireAuth) {
+    if (requireAuth && !isLoading) {
       const token = localStorage.getItem('adminToken');
-      if (!token) {
+      if (!token && !isAuthenticated) {
         toast({
           title: "Authentication Required",
           description: "Please log in to access the admin panel",
@@ -30,35 +32,53 @@ const AdminLayout = ({ children, title = "Dashboard", requireAuth = true }: Admi
         navigate('/admin/login');
       }
     }
-  }, [requireAuth, navigate, toast]);
+  }, [requireAuth, navigate, toast, isLoading, isAuthenticated]);
 
   // Set document title
   useEffect(() => {
     document.title = `${title} - Pan Eventz Admin`;
   }, [title]);
 
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    toast({
+      title: "Logged Out",
+      description: "You have been logged out successfully",
+    });
+    navigate('/admin/login');
+  };
+
   return (
-    <div className="min-h-screen bg-neutral-50">
-      {/* Admin Sidebar */}
-      <AdminSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+    <div className="min-h-screen bg-neutral-50 flex flex-col sm:flex-row">
+      {/* Admin Sidebar - fixed position on mobile when open */}
+      <div className={`${isMobile ? 'fixed inset-0 z-50 bg-black/50' : ''} ${isMobile && !sidebarOpen ? 'hidden' : ''}`}
+           onClick={isMobile ? () => setSidebarOpen(false) : undefined}>
+        <div onClick={e => e.stopPropagation()}>
+          <AdminSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+        </div>
+      </div>
       
       {/* Main Content */}
-      <div className={`admin-content transition-all duration-300 ${isMobile && sidebarOpen ? 'opacity-25' : 'opacity-100'}`}>
+      <div className={`flex-1 transition-all duration-300 ${isMobile && sidebarOpen ? 'opacity-25' : 'opacity-100'}`}>
         {/* Top Bar */}
-        <div className="bg-white h-16 flex items-center justify-between px-4 border-b">
-          {isMobile && (
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </Button>
-          )}
-          
-          <h1 className={`text-xl font-bold ${isMobile ? 'ml-4' : ''}`}>{title}</h1>
+        <div className="bg-white h-16 flex items-center justify-between px-4 border-b sticky top-0 z-10 shadow-sm">
+          <div className="flex items-center">
+            {isMobile && (
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="mr-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </Button>
+            )}
+            
+            <h1 className="text-xl font-bold truncate max-w-[200px] sm:max-w-none">{title}</h1>
+          </div>
           
           <div className="flex items-center gap-2">
             <Button 
@@ -74,15 +94,22 @@ const AdminLayout = ({ children, title = "Dashboard", requireAuth = true }: Admi
             </Button>
             
             <div className="relative flex items-center">
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-                A
-              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full"
+                onClick={handleLogout}
+              >
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold">
+                  {user?.email ? user.email.charAt(0).toUpperCase() : 'A'}
+                </div>
+              </Button>
             </div>
           </div>
         </div>
         
         {/* Content Area */}
-        <div className="p-6">
+        <div className="p-3 sm:p-6 overflow-x-hidden">
           {children}
         </div>
       </div>
