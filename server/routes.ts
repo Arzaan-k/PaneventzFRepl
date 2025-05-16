@@ -262,6 +262,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Get current user
+  app.get(`${apiPrefix}/auth/user`, authenticateToken, async (req, res) => {
+    try {
+      const user = req.user as any;
+      if (!user || !user.userId) {
+        return res.status(401).json({ message: 'User not authenticated' });
+      }
+      
+      const userData = await storage.getUser(user.userId);
+      if (!userData) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      
+      res.json({
+        id: userData.id,
+        username: userData.username,
+        name: userData.name,
+        role: userData.role,
+        email: userData.email
+      });
+    } catch (error) {
+      console.error('Error fetching current user:', error);
+      res.status(500).json({ message: 'Failed to fetch user details' });
+    }
+  });
+  
   // Protected Admin Routes
   // Dashboard data
   app.get(`${apiPrefix}/admin/dashboard`, authenticateToken, async (req, res) => {
