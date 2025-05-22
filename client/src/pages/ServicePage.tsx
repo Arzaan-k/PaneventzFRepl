@@ -242,7 +242,7 @@ const ServicePage = () => {
                 <>
                   {["corporate", "wedding", "sports", "education", "cultural", "logistics"].map((type) => (
                     <TabsContent key={type} value={type} className="animate-in fade-in-50">
-                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 lg:gap-10 items-start">
                         <div className="lg:col-span-2">
                           <div className="flex items-center mb-3">
                             <div className="w-10 h-1 bg-primary rounded-full mr-3"></div>
