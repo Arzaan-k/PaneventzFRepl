@@ -136,53 +136,8 @@ const Blog = () => {
     }
   };
 
-  // Sample blog posts for demonstration
-  const samplePosts = [
-    {
-      id: 1,
-      title: "10 Essential Tips for Planning the Perfect Corporate Event",
-      slug: "perfect-corporate-event-planning-tips",
-      excerpt: "Discover the key strategies that make corporate events memorable and successful for both organizers and attendees.",
-      content: "Planning a corporate event can be challenging, but with the right approach, you can create an unforgettable experience. Here are our top 10 tips...",
-      category: "Corporate Events",
-      author: "Imran Mirza",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800",
-      tags: ["Corporate", "Planning", "Tips"],
-      status: "published",
-      publishDate: new Date().toISOString(),
-      createdAt: new Date().toISOString()
-    },
-    {
-      id: 2,
-      title: "Wedding Trends 2024: What's Hot in Indian Weddings",
-      slug: "indian-wedding-trends-2024",
-      excerpt: "From sustainable celebrations to digital experiences, explore the latest trends shaping Indian weddings in 2024.",
-      content: "The wedding industry is constantly evolving, and 2024 brings exciting new trends that blend tradition with innovation...",
-      category: "Weddings",
-      author: "Priya Sharma",
-      image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
-      tags: ["Weddings", "Trends", "2024"],
-      status: "published",
-      publishDate: new Date(Date.now() - 86400000).toISOString(),
-      createdAt: new Date(Date.now() - 86400000).toISOString()
-    },
-    {
-      id: 3,
-      title: "Creating Memorable Cultural Festivals: A Complete Guide",
-      slug: "cultural-festivals-planning-guide",
-      excerpt: "Learn how to organize cultural festivals that celebrate diversity while ensuring smooth execution and maximum engagement.",
-      content: "Cultural festivals are more than just events—they're celebrations of heritage, tradition, and community...",
-      category: "Cultural Events",
-      author: "Imran Mirza",
-      image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
-      tags: ["Cultural", "Festivals", "Planning"],
-      status: "draft",
-      publishDate: null,
-      createdAt: new Date(Date.now() - 172800000).toISOString()
-    }
-  ];
-
-  const displayPosts = (blogPosts as any[]).length > 0 ? blogPosts : samplePosts;
+  // Use real blog posts from the database
+  const displayPosts = posts || [];
   const publishedCount = displayPosts.filter((post: any) => post.status === 'published').length;
   const draftCount = displayPosts.filter((post: any) => post.status === 'draft').length;
 
