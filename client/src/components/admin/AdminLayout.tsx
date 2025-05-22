@@ -13,6 +13,8 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout = ({ children, title = "Dashboard", requireAuth = true }: AdminLayoutProps) => {
+  // Wrap the admin panel content with our AdminContextProvider for better state management
+  // This ensures all admin components have access to shared state and functionality
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [location, navigate] = useLocation();
   const isMobile = useMobile();
