@@ -26,7 +26,7 @@ export const AdminContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
       toast({
         title: "Unsaved changes",
         description: "You have unsaved changes. Please save your content before exiting edit mode.",
-        variant: "warning"
+        variant: "destructive"
       });
     }
   };
@@ -49,13 +49,15 @@ export const AdminContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
       await apiRequest({
         url,
         method,
-        data
+        data,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
       
       toast({
         title: "Success",
-        description: `${contentType.charAt(0).toUpperCase() + contentType.slice(1)} content saved successfully!`,
-        variant: "success"
+        description: `${contentType.charAt(0).toUpperCase() + contentType.slice(1)} content saved successfully!`
       });
       
       resetContentChanged();
