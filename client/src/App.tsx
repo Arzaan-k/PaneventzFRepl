@@ -34,6 +34,10 @@ function Router() {
       <Route path="/admin/events" component={EventManager} />
       <Route path="/admin/content" component={ContentManager} />
       <Route path="/admin/gallery" component={GalleryManager} />
+      <Route path="/admin/services" component={ContentManager} />
+      <Route path="/admin/blog" component={ContentManager} />
+      <Route path="/admin/settings" component={ContentManager} />
+      <Route path="/admin/statistics" component={EventManager} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />

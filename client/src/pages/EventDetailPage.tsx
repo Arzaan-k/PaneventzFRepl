@@ -366,6 +366,19 @@ const EventDetailPage = () => {
                         <CarouselNext />
                       </Carousel>
                       
+                      <div className="mt-8 text-center">
+                        <Button 
+                          variant="outline" 
+                          className="border-primary text-primary hover:bg-primary hover:text-white"
+                          onClick={() => setLocation(`/gallery?event=${encodeURIComponent(displayEvent.title)}`)}
+                        >
+                          View Full Gallery
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </Button>
+                      </div>
+                      
                       {/* Gallery grid for mobile */}
                       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {displayGalleryItems.slice(0, 6).map((item, index) => (
