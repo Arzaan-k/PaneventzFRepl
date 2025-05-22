@@ -124,6 +124,7 @@ const ServicePage = () => {
   }, [serviceType, displayServiceDetail]);
 
   const isLoading = loadingAll || loadingDetail;
+  const isMobile = useMobile();
 
   return (
     <>
@@ -132,37 +133,39 @@ const ServicePage = () => {
       <main>
         {/* Modern Service Banner with 3D effect and decorative elements */}
         <section 
-          className="relative min-h-[70vh] flex items-center bg-center bg-cover overflow-hidden"
+          className="relative min-h-[50vh] sm:min-h-[60vh] md:min-h-[70vh] flex items-center bg-center bg-cover overflow-hidden"
           style={{ 
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${displayServiceDetail?.banner}')`
           }}
         >
-          {/* Decorative elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-20 left-0 w-full h-full">
-              <div className="absolute top-20 left-20 w-96 h-96 bg-primary/10 rounded-full filter blur-[120px]"></div>
-              <div className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full filter blur-[100px]"></div>
+          {/* Decorative elements - conditionally rendered based on device size */}
+          {!isMobile && (
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-0 w-full h-full">
+                <div className="absolute top-20 left-20 w-96 h-96 bg-primary/10 rounded-full filter blur-[120px]"></div>
+                <div className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full filter blur-[100px]"></div>
+              </div>
+              
+              {/* Floating particles effect */}
+              <div className="absolute inset-0 opacity-30">
+                <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-white rounded-full"></div>
+                <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-white rounded-full"></div>
+                <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-white rounded-full"></div>
+                <div className="absolute top-2/3 right-1/4 w-2 h-2 bg-white rounded-full"></div>
+                <div className="absolute bottom-1/3 right-2/3 w-4 h-4 bg-white rounded-full"></div>
+              </div>
             </div>
-            
-            {/* Floating particles effect */}
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-white rounded-full"></div>
-              <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-white rounded-full"></div>
-              <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-white rounded-full"></div>
-              <div className="absolute top-2/3 right-1/4 w-2 h-2 bg-white rounded-full"></div>
-              <div className="absolute bottom-1/3 right-2/3 w-4 h-4 bg-white rounded-full"></div>
-            </div>
-          </div>
+          )}
           
-          <div className="container mx-auto px-4 text-center text-white relative z-10 py-20">
+          <div className="container mx-auto px-4 text-center text-white relative z-10 py-10 md:py-20">
             {/* Decorative accent line */}
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-12 h-1 bg-primary rounded-full"></div>
+            <div className="flex items-center justify-center mb-4 md:mb-6">
+              <div className="w-8 md:w-12 h-1 bg-primary rounded-full"></div>
               <div className="w-2 h-2 bg-primary rounded-full mx-2"></div>
-              <div className="w-12 h-1 bg-primary rounded-full"></div>
+              <div className="w-8 md:w-12 h-1 bg-primary rounded-full"></div>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-montserrat mb-6 tracking-tighter">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat mb-4 md:mb-6 tracking-tighter">
               {serviceType === "all" ? (
                 <>Our <span className="relative inline-block">
                   <span className="relative z-10">Services</span>
@@ -180,34 +183,38 @@ const ServicePage = () => {
             </h1>
             
             {serviceType !== "all" && (
-              <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto text-white/90 leading-relaxed">
                 {displayServiceDetail?.description?.split('.')[0]}.
               </p>
             )}
             
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {/* Scroll indicator - smaller on mobile */}
+            <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 md:h-10 md:w-10 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </div>
           </div>
         </section>
 
-        {/* Service Tabs with modern design */}
-        <section className="py-20 bg-gradient-to-b from-white to-neutral-50 relative overflow-hidden">
-          {/* Decorative elements */}
-          <div className="absolute -right-40 bottom-0 w-80 h-80 bg-primary/5 rounded-full"></div>
-          <div className="absolute -left-40 top-0 w-96 h-96 bg-accent/5 rounded-full"></div>
+        {/* Service Tabs with modern design - improved for mobile */}
+        <section className="py-10 md:py-20 bg-gradient-to-b from-white to-neutral-50 relative overflow-hidden">
+          {/* Decorative elements - only show on larger screens */}
+          {!isMobile && (
+            <>
+              <div className="absolute -right-40 bottom-0 w-80 h-80 bg-primary/5 rounded-full"></div>
+              <div className="absolute -left-40 top-0 w-96 h-96 bg-accent/5 rounded-full"></div>
+            </>
+          )}
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center justify-center mb-3">
-                <span className="h-[2px] w-8 bg-primary"></span>
-                <span className="mx-3 text-primary text-sm font-semibold uppercase tracking-wider">Explore Our Services</span>
-                <span className="h-[2px] w-8 bg-primary"></span>
+            <div className="text-center mb-6 md:mb-10">
+              <div className="inline-flex items-center justify-center mb-2 md:mb-3">
+                <span className="h-[2px] w-6 md:w-8 bg-primary"></span>
+                <span className="mx-2 md:mx-3 text-primary text-xs md:text-sm font-semibold uppercase tracking-wider">Explore Our Services</span>
+                <span className="h-[2px] w-6 md:w-8 bg-primary"></span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-montserrat mb-4">
                 Tailored Solutions for Every <span className="text-primary">Occasion</span>
               </h2>
             </div>
@@ -218,13 +225,13 @@ const ServicePage = () => {
               onValueChange={setActiveTab}
               className="w-full"
             >
-              <div className="flex justify-center mb-8 md:mb-12 overflow-x-auto scrollbar-hide pb-4">
+              <div className="flex justify-center mb-6 md:mb-12 overflow-x-auto pb-4 scrollbar-hide">
                 <TabsList className="bg-white p-1 md:p-2 rounded-full shadow-lg flex-nowrap whitespace-nowrap">
                   {["corporate", "wedding", "sports", "education", "cultural", "logistics"].map((type) => (
                     <TabsTrigger 
                       key={type}
                       value={type} 
-                      className="px-3 py-2 md:px-6 md:py-3 text-sm md:text-base rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-300 capitalize font-medium"
+                      className="px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 text-xs sm:text-sm md:text-base rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-300 capitalize font-medium"
                     >
                       {type}
                     </TabsTrigger>
@@ -243,7 +250,7 @@ const ServicePage = () => {
                 <>
                   {["corporate", "wedding", "sports", "education", "cultural", "logistics"].map((type) => (
                     <TabsContent key={type} value={type} className="animate-in fade-in-50">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 lg:gap-10 items-start">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-8 lg:gap-10 items-start">
                         <div className="lg:col-span-2">
                           <div className="flex items-center mb-3">
                             <div className="w-10 h-1 bg-primary rounded-full mr-3"></div>
@@ -255,15 +262,15 @@ const ServicePage = () => {
                             {displayServiceDetail?.description}
                           </p>
                           
-                          {/* Features with modern cards */}
-                          <div className="mb-14">
-                            <div className="flex items-center mb-6">
-                              <h3 className="text-2xl font-bold font-montserrat">
+                          {/* Features with modern cards - mobile responsive */}
+                          <div className="mb-8 md:mb-14">
+                            <div className="flex items-center mb-4 md:mb-6">
+                              <h3 className="text-xl md:text-2xl font-bold font-montserrat">
                                 Key Features
                               </h3>
                               <div className="h-px bg-neutral-200 flex-grow ml-4"></div>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                               {displayServiceDetail && displayServiceDetail.features && displayServiceDetail.features.length > 0 ? (
                                 displayServiceDetail.features.map((feature: { id: number; title: string; description: string }) => (
                                   <div 
