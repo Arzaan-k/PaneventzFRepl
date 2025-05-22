@@ -564,11 +564,12 @@ const GalleryPage = () => {
                       onClick={() => {
                         // If event name exists, navigate to event detail page, otherwise filter gallery
                         if (selectedImage && selectedImage.event) {
-                          // Create slug from event name
-                          const eventSlug = selectedImage.event.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
-                          window.open(`/event/${eventSlug}`, '_blank');
+                          // Create slug from event name - this corresponds to the actual title of the event
+                          const eventSlug = selectedImage.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
+                          // Use setLocation instead of window.open to stay in the same tab
+                          setLocation(`/event/${eventSlug}`);
                         } else {
-                          window.open(`/gallery?filter=${selectedImage.category}`, '_blank');
+                          setLocation(`/gallery?filter=${selectedImage.category}`);
                         }
                       }}
                     >

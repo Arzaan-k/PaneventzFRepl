@@ -61,8 +61,8 @@ const AdminLayout = ({ children, title = "Dashboard", requireAuth = true }: Admi
         </div>
       </div>
       
-      {/* Main Content */}
-      <div className={`flex-1 transition-all duration-300 ${isMobile && sidebarOpen ? 'opacity-25' : 'opacity-100'}`}>
+      {/* Main Content - with left margin for desktop sidebar */}
+      <div className={`flex-1 transition-all duration-300 ${!isMobile ? 'ml-64' : ''} ${isMobile && sidebarOpen ? 'opacity-25' : 'opacity-100'}`}>
         {/* Top Bar */}
         <div className="bg-white h-16 flex items-center justify-between px-4 border-b sticky top-0 z-10 shadow-sm">
           <div className="flex items-center">
