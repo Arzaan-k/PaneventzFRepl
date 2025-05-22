@@ -364,11 +364,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Blog
+  // Blog - NOW ACTUALLY WORKING!
   app.get(`${apiPrefix}/blog`, async (req, res) => {
     try {
-      const category = req.query.category as string;
-      const posts = await storage.getBlogPosts(category);
+      const posts = fileStorage.getBlogPosts();
       res.json(posts);
     } catch (error) {
       console.error('Error fetching blog posts:', error);
@@ -600,8 +599,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post(`${apiPrefix}/blog`, authenticateToken, async (req, res) => {
     try {
-      const postData = req.body;
-      const newPost = await storage.createBlogPost(postData);
+      const newPost = fileStorage.createBlogPost(req.body);
       res.status(201).json(newPost);
     } catch (error) {
       console.error('Error creating blog post:', error);
@@ -612,8 +610,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put(`${apiPrefix}/blog/:id`, authenticateToken, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const postData = req.body;
-      const updatedPost = await storage.updateBlogPost(id, postData);
+      const updatedPost = fileStorage.updateBlogPost(id, req.body);
       res.json(updatedPost);
     } catch (error) {
       console.error('Error updating blog post:', error);
@@ -624,7 +621,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete(`${apiPrefix}/blog/:id`, authenticateToken, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      await storage.deleteBlogPost(id);
+      fileStorage.deleteBlogPost(id);
       res.json({ message: 'Blog post deleted successfully' });
     } catch (error) {
       console.error('Error deleting blog post:', error);

@@ -137,7 +137,7 @@ const Blog = () => {
   };
 
   // Use real blog posts from the database
-  const displayPosts = posts || [];
+  const displayPosts = blogPosts || [];
   const publishedCount = displayPosts.filter((post: any) => post.status === 'published').length;
   const draftCount = displayPosts.filter((post: any) => post.status === 'draft').length;
 
