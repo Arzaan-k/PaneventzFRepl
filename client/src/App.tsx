@@ -22,6 +22,7 @@ import Inquiries from "@/pages/admin/Inquiries";
 import Testimonials from "@/pages/admin/Testimonials";
 import Settings from "@/pages/admin/Settings";
 import Blog from "@/pages/admin/Blog";
+import EnhancedGalleryManager from "@/pages/admin/EnhancedGalleryManager";
 
 function Router() {
   return (
@@ -42,7 +43,7 @@ function Router() {
       <Route path="/admin/content" component={ContentManager} />
       <Route path="/admin/services" component={Services} />
       <Route path="/admin/events" component={EventManager} />
-      <Route path="/admin/gallery" component={GalleryManager} />
+      <Route path="/admin/gallery" component={EnhancedGalleryManager} />
       <Route path="/admin/blog" component={Blog} />
       <Route path="/admin/team" component={Team} />
       <Route path="/admin/inquiries" component={Inquiries} />
