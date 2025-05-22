@@ -392,17 +392,17 @@ const ContentManager = () => {
                 </div>
               ) : (
                 <>
-                  {heroContent.slides.map((slide, index) => (
+                  {(heroContent.slides || []).map((slide, index) => (
                     <div key={index} className="border rounded-lg p-4 space-y-4">
                       <div className="flex justify-between">
                         <h3 className="text-lg font-semibold">Slide {index + 1}</h3>
-                        {heroContent.slides.length > 1 && (
+                        {(heroContent.slides || []).length > 1 && (
                           <Button 
                             variant="outline" 
                             size="sm"
                             className="text-red-500 hover:text-red-700"
                             onClick={() => {
-                              const updatedSlides = heroContent.slides.filter((_, i) => i !== index);
+                              const updatedSlides = (heroContent.slides || []).filter((_, i) => i !== index);
                               setHeroContent({ ...heroContent, slides: updatedSlides });
                             }}
                           >
