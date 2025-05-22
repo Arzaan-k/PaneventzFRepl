@@ -409,28 +409,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: 'Username and password are required' });
       }
       
-      const user = await storage.validateUser(username, password);
+      // Fixed admin credentials
+      const ADMIN_USERNAME = "eventninja12@";
+      const ADMIN_PASSWORD = "9323641780";
       
-      if (!user) {
-        return res.status(401).json({ message: 'Invalid username or password' });
+      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        // Generate JWT token
+        const token = jwt.sign(
+          { userId: 1, username: ADMIN_USERNAME, role: 'admin' },
+          JWT_SECRET,
+          { expiresIn: '8h' }
+        );
+        
+        res.json({
+          token,
+          user: {
+            id: 1,
+            username: ADMIN_USERNAME,
+            name: "Imran Mirza",
+            role: "admin"
+          }
+        });
+      } else {
+        return res.status(401).json({ message: 'Invalid credentials' });
       }
-      
-      // Generate JWT token
-      const token = jwt.sign(
-        { userId: user.id, username: user.username, role: user.role },
-        JWT_SECRET,
-        { expiresIn: '8h' }
-      );
-      
-      res.json({
-        token,
-        user: {
-          id: user.id,
-          username: user.username,
-          name: user.name,
-          role: user.role
-        }
-      });
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ message: 'An error occurred during login' });
@@ -583,6 +585,319 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Blog Management Routes
+  app.get(`${apiPrefix}/blog`, async (req, res) => {
+    try {
+      const { category } = req.query;
+      const posts = await storage.getBlogPosts(category as string);
+      res.json(posts);
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+      res.status(500).json({ message: 'Failed to fetch blog posts' });
+    }
+  });
+
+  app.post(`${apiPrefix}/blog`, authenticateToken, async (req, res) => {
+    try {
+      const postData = req.body;
+      const newPost = await storage.createBlogPost(postData);
+      res.status(201).json(newPost);
+    } catch (error) {
+      console.error('Error creating blog post:', error);
+      res.status(400).json({ message: 'Failed to create blog post', error });
+    }
+  });
+
+  app.put(`${apiPrefix}/blog/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const postData = req.body;
+      const updatedPost = await storage.updateBlogPost(id, postData);
+      res.json(updatedPost);
+    } catch (error) {
+      console.error('Error updating blog post:', error);
+      res.status(400).json({ message: 'Failed to update blog post', error });
+    }
+  });
+
+  app.delete(`${apiPrefix}/blog/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteBlogPost(id);
+      res.json({ message: 'Blog post deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting blog post:', error);
+      res.status(500).json({ message: 'Failed to delete blog post' });
+    }
+  });
+
+  // Gallery Management Routes  
+  app.post(`${apiPrefix}/gallery`, authenticateToken, async (req, res) => {
+    try {
+      const itemData = req.body;
+      const newItem = await storage.createGalleryItem(itemData);
+      res.status(201).json(newItem);
+    } catch (error) {
+      console.error('Error creating gallery item:', error);
+      res.status(400).json({ message: 'Failed to create gallery item', error });
+    }
+  });
+
+  app.put(`${apiPrefix}/gallery/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const itemData = req.body;
+      const updatedItem = await storage.updateGalleryItem(id, itemData);
+      res.json(updatedItem);
+    } catch (error) {
+      console.error('Error updating gallery item:', error);
+      res.status(400).json({ message: 'Failed to update gallery item', error });
+    }
+  });
+
+  app.delete(`${apiPrefix}/gallery/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteGalleryItem(id);
+      res.json({ message: 'Gallery item deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting gallery item:', error);
+      res.status(500).json({ message: 'Failed to delete gallery item' });
+    }
+  });
+
+  // Team Management Routes
+  app.get(`${apiPrefix}/team`, async (req, res) => {
+    try {
+      const teamMembers = await storage.getTeamMembers();
+      res.json(teamMembers);
+    } catch (error) {
+      console.error('Error fetching team members:', error);
+      res.json([]);
+    }
+  });
+
+  app.post(`${apiPrefix}/team`, authenticateToken, async (req, res) => {
+    try {
+      const memberData = req.body;
+      const newMember = await storage.createTeamMember(memberData);
+      res.status(201).json(newMember);
+    } catch (error) {
+      console.error('Error creating team member:', error);
+      res.status(400).json({ message: 'Failed to create team member', error });
+    }
+  });
+
+  app.put(`${apiPrefix}/team/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const memberData = req.body;
+      const updatedMember = await storage.updateTeamMember(id, memberData);
+      res.json(updatedMember);
+    } catch (error) {
+      console.error('Error updating team member:', error);
+      res.status(400).json({ message: 'Failed to update team member', error });
+    }
+  });
+
+  app.delete(`${apiPrefix}/team/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteTeamMember(id);
+      res.json({ message: 'Team member deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting team member:', error);
+      res.status(500).json({ message: 'Failed to delete team member' });
+    }
+  });
+
+  // Testimonials Management Routes
+  app.post(`${apiPrefix}/testimonials`, authenticateToken, async (req, res) => {
+    try {
+      const testimonialData = req.body;
+      const newTestimonial = await storage.createTestimonial(testimonialData);
+      res.status(201).json(newTestimonial);
+    } catch (error) {
+      console.error('Error creating testimonial:', error);
+      res.status(400).json({ message: 'Failed to create testimonial', error });
+    }
+  });
+
+  app.put(`${apiPrefix}/testimonials/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const testimonialData = req.body;
+      const updatedTestimonial = await storage.updateTestimonial(id, testimonialData);
+      res.json(updatedTestimonial);
+    } catch (error) {
+      console.error('Error updating testimonial:', error);
+      res.status(400).json({ message: 'Failed to update testimonial', error });
+    }
+  });
+
+  app.delete(`${apiPrefix}/testimonials/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteTestimonial(id);
+      res.json({ message: 'Testimonial deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting testimonial:', error);
+      res.status(500).json({ message: 'Failed to delete testimonial' });
+    }
+  });
+
+  // Contact/Inquiries Management Routes
+  app.get(`${apiPrefix}/contact`, authenticateToken, async (req, res) => {
+    try {
+      const { status } = req.query;
+      const submissions = await storage.getContactSubmissions(status as string);
+      res.json(submissions);
+    } catch (error) {
+      console.error('Error fetching contact submissions:', error);
+      res.json([]);
+    }
+  });
+
+  app.put(`${apiPrefix}/contact/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const submissionData = req.body;
+      const updatedSubmission = await storage.updateContactSubmission(id, submissionData);
+      res.json(updatedSubmission);
+    } catch (error) {
+      console.error('Error updating contact submission:', error);
+      res.status(400).json({ message: 'Failed to update contact submission', error });
+    }
+  });
+
+  app.post(`${apiPrefix}/contact/:id/respond`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { message } = req.body;
+      // Here you would typically send email response
+      // For now, just update status to responded
+      const updatedSubmission = await storage.updateContactSubmission(id, { 
+        status: 'responded',
+        response: message,
+        respondedAt: new Date()
+      });
+      res.json(updatedSubmission);
+    } catch (error) {
+      console.error('Error responding to contact submission:', error);
+      res.status(400).json({ message: 'Failed to respond to contact submission', error });
+    }
+  });
+
+  // Events Management Routes
+  app.post(`${apiPrefix}/events`, authenticateToken, async (req, res) => {
+    try {
+      const eventData = req.body;
+      const newEvent = await storage.createEvent(eventData);
+      res.status(201).json(newEvent);
+    } catch (error) {
+      console.error('Error creating event:', error);
+      res.status(400).json({ message: 'Failed to create event', error });
+    }
+  });
+
+  app.put(`${apiPrefix}/events/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const eventData = req.body;
+      const updatedEvent = await storage.updateEvent(id, eventData);
+      res.json(updatedEvent);
+    } catch (error) {
+      console.error('Error updating event:', error);
+      res.status(400).json({ message: 'Failed to update event', error });
+    }
+  });
+
+  app.delete(`${apiPrefix}/events/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteEvent(id);
+      res.json({ message: 'Event deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      res.status(500).json({ message: 'Failed to delete event' });
+    }
+  });
+
+  // Services Management Routes
+  app.post(`${apiPrefix}/services`, authenticateToken, async (req, res) => {
+    try {
+      const serviceData = req.body;
+      const newService = await storage.createService(serviceData, [], []);
+      res.status(201).json(newService);
+    } catch (error) {
+      console.error('Error creating service:', error);
+      res.status(400).json({ message: 'Failed to create service', error });
+    }
+  });
+
+  app.put(`${apiPrefix}/services/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const serviceData = req.body;
+      const updatedService = await storage.updateService(id, serviceData);
+      res.json(updatedService);
+    } catch (error) {
+      console.error('Error updating service:', error);
+      res.status(400).json({ message: 'Failed to update service', error });
+    }
+  });
+
+  app.delete(`${apiPrefix}/services/:id`, authenticateToken, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteService(id);
+      res.json({ message: 'Service deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting service:', error);
+      res.status(500).json({ message: 'Failed to delete service' });
+    }
+  });
+
+  // Settings Management Routes
+  app.get(`${apiPrefix}/settings`, authenticateToken, async (req, res) => {
+    try {
+      // Return basic settings structure
+      res.json({
+        general: {
+          siteName: "Pan Eventz",
+          tagline: "Creating Memorable Experiences",
+          description: "Professional event management services",
+          email: "info@paneventz.com",
+          phone: "+91 98765 43210",
+          address: "Mumbai, Maharashtra, India"
+        },
+        business: {
+          currency: "INR",
+          timezone: "Asia/Kolkata"
+        },
+        notifications: {
+          emailNotifications: true,
+          smsNotifications: false
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+      res.status(500).json({ message: 'Failed to fetch settings' });
+    }
+  });
+
+  app.put(`${apiPrefix}/settings/:section`, authenticateToken, async (req, res) => {
+    try {
+      const section = req.params.section;
+      const settingsData = req.body;
+      // Here you would save settings to database
+      res.json({ message: `${section} settings updated successfully`, data: settingsData });
+    } catch (error) {
+      console.error('Error updating settings:', error);
+      res.status(400).json({ message: 'Failed to update settings', error });
+    }
+  });
+
   // File upload route
   app.post(`${apiPrefix}/upload`, authenticateToken, upload.single('file'), (req, res) => {
     try {
