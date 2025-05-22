@@ -15,6 +15,12 @@ import AdminLogin from "@/pages/admin/AdminLogin";
 import EventManager from "@/pages/admin/EventManager";
 import ContentManager from "@/pages/admin/ContentManager";
 import GalleryManager from "@/pages/admin/GalleryManager";
+import Statistics from "@/pages/admin/Statistics";
+import Services from "@/pages/admin/Services";
+import Team from "@/pages/admin/Team";
+import Inquiries from "@/pages/admin/Inquiries";
+import Testimonials from "@/pages/admin/Testimonials";
+import Settings from "@/pages/admin/Settings";
 
 function Router() {
   return (
@@ -31,13 +37,16 @@ function Router() {
       {/* Admin Routes */}
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin" component={EventManager} />
-      <Route path="/admin/events" component={EventManager} />
+      <Route path="/admin/statistics" component={Statistics} />
       <Route path="/admin/content" component={ContentManager} />
+      <Route path="/admin/services" component={Services} />
+      <Route path="/admin/events" component={EventManager} />
       <Route path="/admin/gallery" component={GalleryManager} />
-      <Route path="/admin/services" component={ContentManager} />
       <Route path="/admin/blog" component={ContentManager} />
-      <Route path="/admin/settings" component={ContentManager} />
-      <Route path="/admin/statistics" component={EventManager} />
+      <Route path="/admin/team" component={Team} />
+      <Route path="/admin/inquiries" component={Inquiries} />
+      <Route path="/admin/testimonials" component={Testimonials} />
+      <Route path="/admin/settings" component={Settings} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />
