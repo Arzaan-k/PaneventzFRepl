@@ -26,6 +26,9 @@ interface GalleryItem {
   event?: string;
   date?: string;
   imageUrl: string;
+  videoUrl?: string;
+  mediaType: 'image' | 'video';
+  cdnUrls?: string[];
 }
 
 const GalleryManager = () => {
