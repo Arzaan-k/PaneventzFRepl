@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { fileStorage } from "./fileStorage";
 import * as schema from "@shared/schema";
 import jwt from "jsonwebtoken";
 import upload from "./fileUpload";
