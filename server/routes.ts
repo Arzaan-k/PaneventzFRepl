@@ -170,10 +170,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get(`${apiPrefix}/testimonials`, async (req, res) => {
     try {
       const testimonials = await storage.getTestimonials();
-      res.json(testimonials);
+      // Return empty array instead of error to maintain frontend stability
+      res.json(testimonials || []);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
-      res.status(500).json({ message: 'Failed to fetch testimonials' });
+      // Return empty array instead of error to ensure frontend can always render something
+      res.json([]);
     }
   });
   
