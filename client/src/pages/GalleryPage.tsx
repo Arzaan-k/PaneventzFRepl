@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ const GalleryPage = () => {
   const [eventFilter, setEventFilter] = useState("");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [, setLocation] = useLocation();
 
   const { data: galleryItems = [], isLoading } = useQuery({
     queryKey: ['/api/gallery'],
