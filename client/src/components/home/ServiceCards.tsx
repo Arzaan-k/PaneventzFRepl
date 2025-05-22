@@ -105,50 +105,50 @@ const ServiceCards = () => {
   const displayServices = services && services.length > 0 ? services : fallbackServices;
 
   return (
-    <section id="services" className="py-24 bg-gradient-to-b from-white to-neutral-50">
+    <section id="services" className="py-12 md:py-24 bg-gradient-to-b from-white to-neutral-50">
       <div className="container mx-auto px-4">
         {/* Modern section header with accent line */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-20">
           <div className="inline-block mb-3">
             <span className="inline-block h-1 w-10 bg-primary rounded-full mr-2"></span>
             <span className="inline-block h-1 w-20 bg-primary rounded-full"></span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold font-montserrat mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold font-montserrat mb-4 md:mb-6">
             Our Premium <span className="relative">
               <span className="relative z-10">Services</span>
               <span className="absolute -bottom-2 left-0 w-full h-3 bg-primary/20 -z-10 rounded-lg"></span>
             </span>
           </h2>
-          <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-neutral-600 max-w-2xl mx-auto">
             From conceptualization to execution, we offer end-to-end event management solutions 
             tailored to transform your vision into unforgettable experiences.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
           {isLoading ? (
-            // Enhanced loading skeleton
-            Array(6).fill(0).map((_, index) => (
-              <div key={index} className="h-[480px] bg-white rounded-xl shadow-lg overflow-hidden animate-pulse relative group">
-                <div className="h-64 bg-neutral-200"></div>
+            // Enhanced loading skeleton with improved mobile appearance
+            Array(3).fill(0).map((_, index) => (
+              <div key={index} className="h-auto md:h-[480px] bg-white rounded-xl shadow-lg overflow-hidden animate-pulse relative group">
+                <div className="h-48 md:h-64 bg-neutral-200"></div>
                 <div className="absolute top-4 left-4 w-12 h-12 rounded-lg bg-neutral-100"></div>
-                <div className="p-6">
-                  <div className="h-7 bg-neutral-200 rounded-full w-3/4 mb-4"></div>
-                  <div className="h-4 bg-neutral-100 rounded-full w-full mb-2"></div>
-                  <div className="h-4 bg-neutral-100 rounded-full w-full mb-2"></div>
-                  <div className="h-4 bg-neutral-100 rounded-full w-4/5 mb-6"></div>
-                  <div className="space-y-3 mb-6">
-                    <div className="h-4 bg-neutral-100 rounded-full w-full flex">
-                      <div className="w-4 h-4 rounded-full bg-primary/20 mr-2"></div>
+                <div className="p-4 md:p-6">
+                  <div className="h-6 md:h-7 bg-neutral-200 rounded-full w-3/4 mb-3 md:mb-4"></div>
+                  <div className="h-3 md:h-4 bg-neutral-100 rounded-full w-full mb-2"></div>
+                  <div className="h-3 md:h-4 bg-neutral-100 rounded-full w-full mb-2"></div>
+                  <div className="h-3 md:h-4 bg-neutral-100 rounded-full w-4/5 mb-4 md:mb-6"></div>
+                  <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+                    <div className="h-3 md:h-4 bg-neutral-100 rounded-full w-full flex">
+                      <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary/20 mr-2"></div>
                     </div>
-                    <div className="h-4 bg-neutral-100 rounded-full w-full flex">
-                      <div className="w-4 h-4 rounded-full bg-primary/20 mr-2"></div>
+                    <div className="h-3 md:h-4 bg-neutral-100 rounded-full w-full flex">
+                      <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary/20 mr-2"></div>
                     </div>
-                    <div className="h-4 bg-neutral-100 rounded-full w-full flex">
-                      <div className="w-4 h-4 rounded-full bg-primary/20 mr-2"></div>
+                    <div className="h-3 md:h-4 bg-neutral-100 rounded-full w-full flex">
+                      <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-primary/20 mr-2"></div>
                     </div>
                   </div>
-                  <div className="h-10 bg-neutral-100 rounded-full w-1/3"></div>
+                  <div className="h-8 md:h-10 bg-neutral-100 rounded-full w-1/3"></div>
                 </div>
               </div>
             ))

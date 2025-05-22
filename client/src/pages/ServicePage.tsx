@@ -217,13 +217,13 @@ const ServicePage = () => {
               onValueChange={setActiveTab}
               className="w-full"
             >
-              <div className="flex justify-center mb-12 overflow-x-auto scrollbar-hide pb-4">
-                <TabsList className="bg-white p-2 rounded-full shadow-lg">
+              <div className="flex justify-center mb-8 md:mb-12 overflow-x-auto scrollbar-hide pb-4">
+                <TabsList className="bg-white p-1 md:p-2 rounded-full shadow-lg flex-nowrap whitespace-nowrap">
                   {["corporate", "wedding", "sports", "education", "cultural", "logistics"].map((type) => (
                     <TabsTrigger 
                       key={type}
                       value={type} 
-                      className="px-6 py-3 rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-300 capitalize font-medium"
+                      className="px-3 py-2 md:px-6 md:py-3 text-sm md:text-base rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-300 capitalize font-medium"
                     >
                       {type}
                     </TabsTrigger>
@@ -263,27 +263,73 @@ const ServicePage = () => {
                               <div className="h-px bg-neutral-200 flex-grow ml-4"></div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                              {displayServiceDetail && displayServiceDetail.features && displayServiceDetail.features.map((feature: { id: number; title: string; description: string }) => (
-                                <div 
-                                  key={feature.id} 
-                                  className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
-                                >
-                                  {/* Decorative background */}
-                                  <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -mr-20 -mt-20 transition-transform duration-500 group-hover:scale-150"></div>
-                                  
-                                  <div className="relative z-10">
-                                    <h4 className="text-xl font-bold mb-3 flex items-center">
-                                      <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary mr-3 flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                        </svg>
-                                      </span>
-                                      {feature.title}
-                                    </h4>
-                                    <p className="text-neutral-700 leading-relaxed">{feature.description}</p>
+                              {displayServiceDetail && displayServiceDetail.features && displayServiceDetail.features.length > 0 ? (
+                                displayServiceDetail.features.map((feature: { id: number; title: string; description: string }) => (
+                                  <div 
+                                    key={feature.id} 
+                                    className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
+                                  >
+                                    {/* Decorative background */}
+                                    <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -mr-20 -mt-20 transition-transform duration-500 group-hover:scale-150"></div>
+                                    
+                                    <div className="relative z-10">
+                                      <h4 className="text-xl font-bold mb-3 flex items-center">
+                                        <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary mr-3 flex items-center justify-center">
+                                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                          </svg>
+                                        </span>
+                                        {feature.title}
+                                      </h4>
+                                      <p className="text-neutral-700 leading-relaxed">{feature.description}</p>
+                                    </div>
                                   </div>
-                                </div>
-                              ))}
+                                ))
+                              ) : (
+                                // Default features when none are available
+                                [
+                                  {
+                                    id: 1,
+                                    title: "Professional Event Planning",
+                                    description: "Our experienced team provides comprehensive event planning, from concept development to flawless execution."
+                                  },
+                                  {
+                                    id: 2,
+                                    title: "Premium Production Equipment",
+                                    description: "We use top-quality audio, visual, and lighting equipment to create immersive and memorable experiences."
+                                  },
+                                  {
+                                    id: 3,
+                                    title: "Creative Design Solutions",
+                                    description: "Our designers craft unique event aesthetics that align with your brand and create stunning visual impact."
+                                  },
+                                  {
+                                    id: 4,
+                                    title: "On-site Management",
+                                    description: "Our dedicated team handles all aspects of event coordination on the day, ensuring everything runs smoothly."
+                                  }
+                                ].map(feature => (
+                                  <div 
+                                    key={feature.id} 
+                                    className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
+                                  >
+                                    {/* Decorative background */}
+                                    <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -mr-20 -mt-20 transition-transform duration-500 group-hover:scale-150"></div>
+                                    
+                                    <div className="relative z-10">
+                                      <h4 className="text-xl font-bold mb-3 flex items-center">
+                                        <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary mr-3 flex items-center justify-center">
+                                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                          </svg>
+                                        </span>
+                                        {feature.title}
+                                      </h4>
+                                      <p className="text-neutral-700 leading-relaxed">{feature.description}</p>
+                                    </div>
+                                  </div>
+                                ))
+                              )}
                             </div>
                           </div>
                           

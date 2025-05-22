@@ -119,6 +119,30 @@
     @apply text-white text-xl py-3 border-b border-neutral-700 w-full font-medium transition-all hover:text-primary;
   }
   
+  /* Improved mobile typography */
+  @media (max-width: 640px) {
+    h1 {
+      @apply text-3xl leading-tight;
+    }
+    h2 {
+      @apply text-2xl leading-tight;
+    }
+    h3 {
+      @apply text-xl leading-tight;
+    }
+    p {
+      @apply text-base leading-relaxed;
+    }
+    .container {
+      @apply px-4 py-3;
+    }
+  }
+  
+  /* Better touch targets for mobile */
+  .mobile-touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
   /* Responsive grid layouts */
   .responsive-grid {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
