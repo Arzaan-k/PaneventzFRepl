@@ -598,35 +598,368 @@ export const storage = {
       .returning();
   },
 
+  // Blog Management Functions
+  async getBlogPosts(category?: string) {
+    try {
+      let query = db.select().from(schema.blogPosts);
+      if (category) {
+        query = query.where(eq(schema.blogPosts.category, category));
+      }
+      const posts = await query.orderBy(desc(schema.blogPosts.createdAt));
+      return posts;
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+      return [];
+    }
+  },
+
+  async getBlogPostBySlug(slug: string) {
+    try {
+      const [post] = await db.select().from(schema.blogPosts).where(eq(schema.blogPosts.slug, slug));
+      return post;
+    } catch (error) {
+      console.error('Error fetching blog post:', error);
+      return null;
+    }
+  },
+
+  async createBlogPost(postData: any) {
+    try {
+      const [newPost] = await db.insert(schema.blogPosts).values({
+        ...postData,
+        publishDate: postData.status === 'published' ? new Date() : null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).returning();
+      return newPost;
+    } catch (error) {
+      console.error('Error creating blog post:', error);
+      throw error;
+    }
+  },
+
+  async updateBlogPost(id: number, postData: any) {
+    try {
+      const [updatedPost] = await db.update(schema.blogPosts)
+        .set({
+          ...postData,
+          updatedAt: new Date()
+        })
+        .where(eq(schema.blogPosts.id, id))
+        .returning();
+      return updatedPost;
+    } catch (error) {
+      console.error('Error updating blog post:', error);
+      throw error;
+    }
+  },
+
+  async deleteBlogPost(id: number) {
+    try {
+      await db.delete(schema.blogPosts).where(eq(schema.blogPosts.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting blog post:', error);
+      throw error;
+    }
+  },
+
+  // Team Management Functions
+  async getTeamMembers() {
+    try {
+      const members = await db.select().from(schema.aboutTeam).orderBy(asc(schema.aboutTeam.order));
+      return members;
+    } catch (error) {
+      console.error('Error fetching team members:', error);
+      return [];
+    }
+  },
+
+  async createTeamMember(memberData: any) {
+    try {
+      const [newMember] = await db.insert(schema.aboutTeam).values({
+        ...memberData,
+        order: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).returning();
+      return newMember;
+    } catch (error) {
+      console.error('Error creating team member:', error);
+      throw error;
+    }
+  },
+
+  async updateTeamMember(id: number, memberData: any) {
+    try {
+      const [updatedMember] = await db.update(schema.aboutTeam)
+        .set({
+          ...memberData,
+          updatedAt: new Date()
+        })
+        .where(eq(schema.aboutTeam.id, id))
+        .returning();
+      return updatedMember;
+    } catch (error) {
+      console.error('Error updating team member:', error);
+      throw error;
+    }
+  },
+
+  async deleteTeamMember(id: number) {
+    try {
+      await db.delete(schema.aboutTeam).where(eq(schema.aboutTeam.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting team member:', error);
+      throw error;
+    }
+  },
+
+  // Enhanced Gallery Functions with Event Support
+  async createGalleryItem(itemData: any) {
+    try {
+      const [newItem] = await db.insert(schema.galleryItems).values({
+        title: itemData.title,
+        category: itemData.category,
+        description: itemData.description || '',
+        event: itemData.event || '',
+        date: itemData.date || null,
+        imageUrl: itemData.mediaUrl || itemData.imageUrl,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).returning();
+      return newItem;
+    } catch (error) {
+      console.error('Error creating gallery item:', error);
+      throw error;
+    }
+  },
+
+  async updateGalleryItem(id: number, itemData: any) {
+    try {
+      const [updatedItem] = await db.update(schema.galleryItems)
+        .set({
+          title: itemData.title,
+          category: itemData.category,
+          description: itemData.description,
+          event: itemData.event,
+          date: itemData.date,
+          imageUrl: itemData.mediaUrl || itemData.imageUrl,
+          updatedAt: new Date()
+        })
+        .where(eq(schema.galleryItems.id, id))
+        .returning();
+      return updatedItem;
+    } catch (error) {
+      console.error('Error updating gallery item:', error);
+      throw error;
+    }
+  },
+
+  async deleteGalleryItem(id: number) {
+    try {
+      await db.delete(schema.galleryItems).where(eq(schema.galleryItems.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting gallery item:', error);
+      throw error;
+    }
+  },
+
+  // Contact/Inquiries Management
+  async getContactSubmissions(status?: string) {
+    try {
+      let query = db.select().from(schema.contactSubmissions);
+      if (status && status !== 'all') {
+        query = query.where(eq(schema.contactSubmissions.status, status));
+      }
+      const submissions = await query.orderBy(desc(schema.contactSubmissions.createdAt));
+      return submissions;
+    } catch (error) {
+      console.error('Error fetching contact submissions:', error);
+      return [];
+    }
+  },
+
+  async getContactSubmission(id: number) {
+    try {
+      const [submission] = await db.select().from(schema.contactSubmissions).where(eq(schema.contactSubmissions.id, id));
+      return submission;
+    } catch (error) {
+      console.error('Error fetching contact submission:', error);
+      return null;
+    }
+  },
+
+  async updateContactSubmission(id: number, submissionData: any) {
+    try {
+      const [updatedSubmission] = await db.update(schema.contactSubmissions)
+        .set({
+          ...submissionData,
+          updatedAt: new Date()
+        })
+        .where(eq(schema.contactSubmissions.id, id))
+        .returning();
+      return updatedSubmission;
+    } catch (error) {
+      console.error('Error updating contact submission:', error);
+      throw error;
+    }
+  },
+
+  async deleteContactSubmission(id: number) {
+    try {
+      await db.delete(schema.contactSubmissions).where(eq(schema.contactSubmissions.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting contact submission:', error);
+      throw error;
+    }
+  },
+
+  // Enhanced Testimonials Management
+  async createTestimonial(testimonialData: any) {
+    try {
+      const [newTestimonial] = await db.insert(schema.testimonials).values({
+        content: testimonialData.content,
+        author: testimonialData.author,
+        position: testimonialData.position,
+        company: testimonialData.company,
+        rating: testimonialData.rating || 5,
+        avatar: testimonialData.avatar || null,
+        event: testimonialData.event || null,
+        featured: testimonialData.featured || false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).returning();
+      return newTestimonial;
+    } catch (error) {
+      console.error('Error creating testimonial:', error);
+      throw error;
+    }
+  },
+
+  async updateTestimonial(id: number, testimonialData: any) {
+    try {
+      const [updatedTestimonial] = await db.update(schema.testimonials)
+        .set({
+          ...testimonialData,
+          updatedAt: new Date()
+        })
+        .where(eq(schema.testimonials.id, id))
+        .returning();
+      return updatedTestimonial;
+    } catch (error) {
+      console.error('Error updating testimonial:', error);
+      throw error;
+    }
+  },
+
+  async deleteTestimonial(id: number) {
+    try {
+      await db.delete(schema.testimonials).where(eq(schema.testimonials.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting testimonial:', error);
+      throw error;
+    }
+  },
+
+  // Enhanced Events Management
+  async createEvent(eventData: any) {
+    try {
+      const [newEvent] = await db.insert(schema.events).values({
+        title: eventData.title,
+        slug: eventData.slug || eventData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        description: eventData.description || '',
+        eventDate: new Date(eventData.date || eventData.eventDate),
+        location: eventData.location || '',
+        category: eventData.category || 'general',
+        status: eventData.status || 'upcoming',
+        bannerImage: eventData.bannerImage || '',
+        clientName: eventData.clientName || '',
+        attendees: eventData.attendees || 0,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).returning();
+      return newEvent;
+    } catch (error) {
+      console.error('Error creating event:', error);
+      throw error;
+    }
+  },
+
+  async updateEvent(id: number, eventData: any) {
+    try {
+      const [updatedEvent] = await db.update(schema.events)
+        .set({
+          title: eventData.title,
+          description: eventData.description,
+          eventDate: eventData.eventDate ? new Date(eventData.eventDate) : undefined,
+          location: eventData.location,
+          category: eventData.category,
+          status: eventData.status,
+          bannerImage: eventData.bannerImage,
+          clientName: eventData.clientName,
+          attendees: eventData.attendees,
+          updatedAt: new Date()
+        })
+        .where(eq(schema.events.id, id))
+        .returning();
+      return updatedEvent;
+    } catch (error) {
+      console.error('Error updating event:', error);
+      throw error;
+    }
+  },
+
+  async deleteEvent(id: number) {
+    try {
+      await db.delete(schema.events).where(eq(schema.events.id, id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      throw error;
+    }
+  },
+
   // Admin dashboard data
   async getDashboardData() {
-    const events = await db.query.events.findMany();
-    const upcomingEvents = events.filter(event => new Date(event.eventDate) > new Date());
-    
-    const submissions = await db.query.contactSubmissions.findMany();
-    const newSubmissions = submissions.filter(submission => 
-      submission.createdAt && new Date(submission.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-    );
-    
-    const recentEvents = await db.query.events.findMany({
-      orderBy: [desc(schema.events.eventDate)],
-      limit: 5
-    });
-    
-    const recentSubmissions = await db.query.contactSubmissions.findMany({
-      orderBy: [desc(schema.contactSubmissions.createdAt)],
-      limit: 5
-    });
-    
-    return {
-      stats: {
-        totalEvents: events.length,
-        upcomingEvents: upcomingEvents.length,
-        totalInquiries: submissions.length,
-        newInquiries: newSubmissions.length
-      },
-      recentEvents,
-      recentInquiries: recentSubmissions
-    };
+    try {
+      const events = await db.select().from(schema.events);
+      const upcomingEvents = events.filter(event => new Date(event.eventDate) > new Date());
+      
+      const submissions = await db.select().from(schema.contactSubmissions);
+      const newSubmissions = submissions.filter(submission => 
+        submission.createdAt && new Date(submission.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+      );
+      
+      const recentEvents = await db.select().from(schema.events).orderBy(desc(schema.events.eventDate)).limit(5);
+      const recentSubmissions = await db.select().from(schema.contactSubmissions).orderBy(desc(schema.contactSubmissions.createdAt)).limit(5);
+      
+      return {
+        stats: {
+          totalEvents: events.length,
+          upcomingEvents: upcomingEvents.length,
+          totalInquiries: submissions.length,
+          newInquiries: newSubmissions.length
+        },
+        recentEvents,
+        recentInquiries: recentSubmissions
+      };
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+      return {
+        stats: {
+          totalEvents: 0,
+          upcomingEvents: 0,
+          totalInquiries: 0,
+          newInquiries: 0
+        },
+        recentEvents: [],
+        recentInquiries: []
+      };
+    }
   }
 };
