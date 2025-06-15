@@ -125,7 +125,7 @@ const ServiceCards = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {isLoading ? (
             // Enhanced loading skeleton with improved mobile appearance
             Array(3).fill(0).map((_, index) => (
@@ -163,46 +163,48 @@ const ServiceCards = () => {
                   animationDelay: `${index * 0.1}s`
                 }}
               >
-                {/* Service image with overlay */}
-                <div className="h-64 overflow-hidden relative">
+                {/* Service image with overlay - Mobile optimized */}
+                <div className="h-48 sm:h-56 lg:h-64 overflow-hidden relative">
                   <img 
                     src={service.imageUrl} 
                     alt={service.title} 
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-primary px-4 py-1 rounded-full text-sm font-medium shadow-lg z-10">
+                  {/* Category badge - Mobile responsive */}
+                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 backdrop-blur-sm text-primary px-2 py-1 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-medium shadow-lg z-10">
                     {service.slug.charAt(0).toUpperCase() + service.slug.slice(1)}
                   </div>
                 </div>
                 
-                <div className="p-8 relative">
-                  {/* Decorative accent line */}
-                  <div className="absolute -top-5 left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+                <div className="p-4 sm:p-6 lg:p-8 relative">
+                  {/* Decorative accent line - Mobile responsive */}
+                  <div className="absolute -top-3 left-4 right-4 sm:-top-5 sm:left-6 sm:right-6 lg:left-8 lg:right-8 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
                   
-                  {/* Service title */}
-                  <h3 className="text-2xl font-bold text-neutral-800 mb-4 font-montserrat group-hover:text-primary transition-colors duration-300">
+                  {/* Service title - Responsive typography */}
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-800 mb-3 sm:mb-4 font-montserrat group-hover:text-primary transition-colors duration-300">
                     {service.title}
                   </h3>
                   
-                  {/* Service description */}
-                  <p className="text-neutral-600 mb-6 line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
+                  {/* Service description - Mobile optimized */}
+                  <p className="text-sm sm:text-base text-neutral-600 mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
                     {service.description}
                   </p>
                   
-                  {/* Service features with modern checkmarks */}
-                  <ul className="mb-8 space-y-3">
+                  {/* Service features with modern checkmarks - Mobile responsive */}
+                  <ul className="mb-6 sm:mb-8 space-y-2 sm:space-y-3">
                     {service.features && service.features.length > 0 ? (
                       service.features.map((feature: ServiceFeature, featureIndex: number) => (
                         <li key={`service-${service.id}-feature-${feature.id || featureIndex}`} className="flex items-center">
-                          <span className="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-3 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                          <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2 sm:mr-3 group-hover:bg-primary group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5 sm:h-3 sm:w-3" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           </span>
-                          <span className="text-neutral-700">{feature.text}</span>
+                          <span className="text-xs sm:text-sm text-neutral-700">{feature.text}</span>
                         </li>
                       ))
                     ) : (
@@ -213,24 +215,24 @@ const ServiceCards = () => {
                         {id: 3, text: "Vendor Management"}
                       ].map((defaultFeature) => (
                         <li key={`default-feature-${defaultFeature.id}-${service.id}`} className="flex items-center">
-                          <span className="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-3 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                          <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2 sm:mr-3 group-hover:bg-primary group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5 sm:h-3 sm:w-3" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           </span>
-                          <span className="text-neutral-700">{defaultFeature.text}</span>
+                          <span className="text-xs sm:text-sm text-neutral-700">{defaultFeature.text}</span>
                         </li>
                       ))
                     )}
                   </ul>
                   
-                  {/* Modern learn more button */}
+                  {/* Modern learn more button - Mobile optimized touch target */}
                   <Link 
                     href={`/services/${service.slug}`}
-                    className="inline-flex items-center justify-center text-white bg-primary hover:bg-primary/90 px-6 py-3 rounded-full font-medium text-sm transition-all group-hover:shadow-lg hover:translate-y-[-2px]"
+                    className="inline-flex items-center justify-center text-white bg-primary hover:bg-primary/90 px-4 py-2.5 sm:px-6 sm:py-3 rounded-full font-medium text-xs sm:text-sm transition-all group-hover:shadow-lg hover:translate-y-[-2px] min-h-[44px] mobile-touch-target"
                   >
                     Explore Service
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 ml-1.5 sm:ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </Link>

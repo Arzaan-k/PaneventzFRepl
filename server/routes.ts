@@ -447,22 +447,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Stats
+  // Stats - Using Rich Content Data
   app.get(`${apiPrefix}/stats`, async (req, res) => {
     try {
-      const stats = await storage.getStats();
-      // Always return a response even if the database query fails
-      // The storage.getStats() now has fallback data
-      res.json(stats || []);
+      const stats = [
+        {
+          id: 1,
+          title: "Events Completed",
+          value: "500",
+          icon: "event",
+          suffix: "+",
+          prefix: "",
+          order: 1,
+          description: "Successfully executed events across various categories"
+        },
+        {
+          id: 2,
+          title: "Happy Clients",
+          value: "300",
+          icon: "sentiment_satisfied",
+          suffix: "+",
+          prefix: "",
+          order: 2,
+          description: "Satisfied customers who trust our event management expertise"
+        },
+        {
+          id: 3,
+          title: "Years Experience",
+          value: "12",
+          icon: "schedule",
+          suffix: "+",
+          prefix: "",
+          order: 3,
+          description: "Years of professional event management and planning experience"
+        },
+        {
+          id: 4,
+          title: "Team Members",
+          value: "25",
+          icon: "people",
+          suffix: "+",
+          prefix: "",
+          order: 4,
+          description: "Dedicated professionals working to create unforgettable experiences"
+        }
+      ];
+      res.json(stats);
     } catch (error) {
-      console.error('Error in stats endpoint:', error);
-      // Return default stats in case of endpoint failure
-      res.json([
-        { id: 1, title: "Events Completed", value: "500", icon: "event", suffix: "+", prefix: "", order: 1 },
-        { id: 2, title: "Happy Clients", value: "250", icon: "sentiment_satisfied", suffix: "+", prefix: "", order: 2 },
-        { id: 3, title: "Team Members", value: "45", icon: "people", suffix: "+", prefix: "", order: 3 },
-        { id: 4, title: "Success Rate", value: "99", icon: "thumb_up", suffix: "%", prefix: "", order: 4 }
-      ]);
+      console.error('Error fetching stats:', error);
+      res.json([]);
     }
   });
   
