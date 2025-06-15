@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CloudinaryUpload } from "@/components/ui/cloudinary-upload";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { formatDate } from "@/lib/utils";
@@ -38,15 +39,21 @@ const Blog = () => {
   });
 
   const createPostMutation = useMutation({
-    mutationFn: (data: any) => 
-      fetch('/api/blog', {
+    mutationFn: async (data: any) => {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch('/api/blog', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           ...data,
           tags: data.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean)
         })
-      }).then(res => res.json()),
+      });
+      return response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
       setIsDialogOpen(false);
@@ -59,15 +66,21 @@ const Blog = () => {
   });
 
   const updatePostMutation = useMutation({
-    mutationFn: ({ id, data }: any) => 
-      fetch(`/api/blog/${id}`, {
+    mutationFn: async ({ id, data }: any) => {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`/api/blog/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           ...data,
           tags: data.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean)
         })
-      }).then(res => res.json()),
+      });
+      return response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
       setIsDialogOpen(false);
@@ -81,8 +94,16 @@ const Blog = () => {
   });
 
   const deletePostMutation = useMutation({
-    mutationFn: (id: any) => 
-      fetch(`/api/blog/${id}`, { method: 'DELETE' }).then(res => res.json()),
+    mutationFn: async (id: any) => {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`/api/blog/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      return response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
       toast({
@@ -300,9 +321,14 @@ const Blog = () => {
                     name="image"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Featured Image URL</FormLabel>
+                        <FormLabel>Featured Image</FormLabel>
                         <FormControl>
-                          <Input placeholder="https://example.com/image.jpg" {...field} />
+                          <CloudinaryUpload
+                            onUpload={field.onChange}
+                            currentImage={field.value}
+                            label="Upload Featured Image"
+                            accept="image/*"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

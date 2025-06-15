@@ -88,6 +88,8 @@ class FileStorage {
     const newItem = {
       id: this.getNextId('galleryItems'),
       ...data,
+      // If imageUrl is a Cloudinary URL, keep it as is, otherwise use placeholder
+      imageUrl: data.imageUrl || `https://res.cloudinary.com/dhxetyrkb/image/upload/v1/placeholder_${Date.now()}`,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

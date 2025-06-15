@@ -83,7 +83,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get(`${apiPrefix}/gallery`, async (req, res) => {
     try {
       const category = req.query.category as string;
-      const gallery = await storage.getGalleryItems(category);
+      const gallery = fileStorage.getGalleryItems();
       res.json(gallery);
     } catch (error) {
       console.error('Error fetching gallery:', error);
@@ -183,7 +183,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // About
   app.get(`${apiPrefix}/about`, async (req, res) => {
     try {
-      const about = await storage.getAbout();
+      const about = {
+        mission: "To create unforgettable events that exceed expectations",
+        vision: "To be the leading event management company in India",
+        history: "Founded in 2020, Pan Eventz has successfully organized over 500+ events",
+        values: [
+          { id: 1, title: "Excellence", description: "We strive for perfection in every detail" },
+          { id: 2, title: "Innovation", description: "Creative solutions for unique experiences" },
+          { id: 3, title: "Reliability", description: "Dependable service you can trust" }
+        ],
+        team: fileStorage.getTeamMembers()
+      };
       res.json(about);
     } catch (error) {
       console.error('Error fetching about:', error);
@@ -588,8 +598,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Blog Management Routes
   app.get(`${apiPrefix}/blog`, async (req, res) => {
     try {
-      const { category } = req.query;
-      const posts = await storage.getBlogPosts(category as string);
+      const posts = fileStorage.getBlogPosts();
       res.json(posts);
     } catch (error) {
       console.error('Error fetching blog posts:', error);
@@ -629,11 +638,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Gallery Management Routes  
+  // Gallery Management Routes - Using File Storage & Cloudinary
   app.post(`${apiPrefix}/gallery`, authenticateToken, async (req, res) => {
     try {
-      const itemData = req.body;
-      const newItem = await storage.createGalleryItem(itemData);
+      const newItem = fileStorage.createGalleryItem(req.body);
       res.status(201).json(newItem);
     } catch (error) {
       console.error('Error creating gallery item:', error);
@@ -644,8 +652,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put(`${apiPrefix}/gallery/:id`, authenticateToken, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const itemData = req.body;
-      const updatedItem = await storage.updateGalleryItem(id, itemData);
+      const updatedItem = fileStorage.updateGalleryItem(id, req.body);
       res.json(updatedItem);
     } catch (error) {
       console.error('Error updating gallery item:', error);
@@ -656,7 +663,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete(`${apiPrefix}/gallery/:id`, authenticateToken, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      await storage.deleteGalleryItem(id);
+      fileStorage.deleteGalleryItem(id);
       res.json({ message: 'Gallery item deleted successfully' });
     } catch (error) {
       console.error('Error deleting gallery item:', error);

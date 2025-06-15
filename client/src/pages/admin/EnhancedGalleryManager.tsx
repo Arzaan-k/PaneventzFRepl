@@ -11,9 +11,11 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { CloudinaryUpload } from "@/components/ui/cloudinary-upload";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { formatDate } from "@/lib/utils";
+import { apiRequest } from "@/lib/queryClient";
 
 interface MediaItem {
   id: number;
@@ -67,16 +69,22 @@ const EnhancedGalleryManager = () => {
   });
 
   const createMediaMutation = useMutation({
-    mutationFn: (data: any) => 
-      fetch('/api/gallery', {
+    mutationFn: async (data: any) => {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch('/api/gallery', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           ...data,
           cdnUrls: cdnUrls.filter(url => url.trim() !== ''),
           tags: data.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean)
         })
-      }).then(res => res.json()),
+      });
+      return response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/gallery'] });
       setIsDialogOpen(false);
@@ -88,25 +96,32 @@ const EnhancedGalleryManager = () => {
       });
     },
     onError: (error) => {
+      console.error('Gallery creation error:', error);
       toast({
         title: "Upload Error",
-        description: "Failed to add media item. Please check your URLs and try again.",
+        description: "Failed to add media item. Please check your authentication and try again.",
         variant: "destructive"
       });
     }
   });
 
   const updateMediaMutation = useMutation({
-    mutationFn: ({ id, data }: any) => 
-      fetch(`/api/gallery/${id}`, {
+    mutationFn: async ({ id, data }: any) => {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`/api/gallery/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           ...data,
           cdnUrls: cdnUrls.filter(url => url.trim() !== ''),
           tags: data.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean)
         })
-      }).then(res => res.json()),
+      });
+      return response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/gallery'] });
       setIsDialogOpen(false);
@@ -121,8 +136,16 @@ const EnhancedGalleryManager = () => {
   });
 
   const deleteMediaMutation = useMutation({
-    mutationFn: (id: any) => 
-      fetch(`/api/gallery/${id}`, { method: 'DELETE' }).then(res => res.json()),
+    mutationFn: async (id: any) => {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`/api/gallery/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      return response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/gallery'] });
       toast({
@@ -402,9 +425,14 @@ const EnhancedGalleryManager = () => {
                         name="mediaUrl"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Primary Media URL</FormLabel>
+                            <FormLabel>Primary Media Upload</FormLabel>
                             <FormControl>
-                              <Input placeholder="https://example.com/media.jpg" {...field} />
+                              <CloudinaryUpload
+                                onUpload={field.onChange}
+                                currentImage={field.value}
+                                label="Upload Image/Video"
+                                accept="image/*,video/*"
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -417,9 +445,14 @@ const EnhancedGalleryManager = () => {
                           name="thumbnailUrl"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Video Thumbnail URL</FormLabel>
+                              <FormLabel>Video Thumbnail Upload</FormLabel>
                               <FormControl>
-                                <Input placeholder="https://example.com/thumbnail.jpg" {...field} />
+                                <CloudinaryUpload
+                                  onUpload={field.onChange}
+                                  currentImage={field.value}
+                                  label="Upload Thumbnail"
+                                  accept="image/*"
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
