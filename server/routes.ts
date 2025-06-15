@@ -44,14 +44,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/uploads', express.static(uploadsDir));
   
   // Public routes
-  // Slides
+  // Slides - Using Rich Content Data
   app.get(`${apiPrefix}/slides`, async (req, res) => {
     try {
-      const slides = await storage.getSlides();
+      const slides = [
+        {
+          id: 1,
+          title: "Creating Unforgettable Experiences",
+          subtitle: "Professional Event Management Services",
+          description: "Pan Eventz specializes in delivering exceptional events that exceed expectations through innovative planning and flawless execution.",
+          image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=1080&q=80",
+          ctaText: "Plan Your Event",
+          ctaLink: "/contact",
+          order: 1,
+          active: true
+        },
+        {
+          id: 2,
+          title: "Luxury Wedding Celebrations",
+          subtitle: "Making Your Dream Wedding Come True",
+          description: "From intimate ceremonies to grand celebrations, we craft personalized wedding experiences that reflect your unique love story.",
+          image: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=1080&q=80",
+          ctaText: "Explore Wedding Services",
+          ctaLink: "/services",
+          order: 2,
+          active: true
+        },
+        {
+          id: 3,
+          title: "Corporate Excellence",
+          subtitle: "Elevating Business Events",
+          description: "Professional corporate event management including conferences, product launches, and business celebrations that drive results.",
+          image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=1080&q=80",
+          ctaText: "Corporate Solutions",
+          ctaLink: "/services",
+          order: 3,
+          active: true
+        }
+      ];
       res.json(slides);
     } catch (error) {
       console.error('Error fetching slides:', error);
-      res.status(500).json({ message: 'Failed to fetch slides' });
+      res.json([]);
     }
   });
   
@@ -218,14 +252,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Technologies
+  // Technologies - Using Rich Content Data
   app.get(`${apiPrefix}/technologies`, async (req, res) => {
     try {
-      const technologies = await storage.getTechnologies();
+      const technologies = [
+        {
+          id: 1,
+          name: "Event Management Software",
+          description: "Advanced event planning and coordination platforms",
+          category: "Planning",
+          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
+        },
+        {
+          id: 2,
+          name: "Live Streaming Technology",
+          description: "High-quality video streaming for virtual and hybrid events",
+          category: "Broadcasting",
+          image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
+        },
+        {
+          id: 3,
+          name: "Audio-Visual Equipment",
+          description: "Professional sound systems and visual displays",
+          category: "Equipment",
+          image: "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=300&q=80"
+        }
+      ];
       res.json(technologies);
     } catch (error) {
       console.error('Error fetching technologies:', error);
-      res.status(500).json({ message: 'Failed to fetch technologies' });
+      res.json([]);
     }
   });
   
@@ -253,7 +309,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           { id: 2, title: "Innovation", description: "Creative solutions for unique experiences" },
           { id: 3, title: "Reliability", description: "Dependable service you can trust" }
         ],
-        team: fileStorage.getTeamMembers()
+        team: "Skilled professionals with diverse expertise and years of experience in event management"
       };
       res.json(about);
     } catch (error) {
@@ -735,7 +791,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Team Management Routes
   app.get(`${apiPrefix}/team`, async (req, res) => {
     try {
-      const teamMembers = await storage.getTeamMembers();
+      const teamMembers = fileStorage.getTeamMembers();
       res.json(teamMembers);
     } catch (error) {
       console.error('Error fetching team members:', error);
@@ -854,11 +910,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Events Management Routes
+  // Events - Using File Storage
+  app.get(`${apiPrefix}/events`, async (req, res) => {
+    try {
+      const events = fileStorage.getEvents();
+      res.json(events);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      res.json([]);
+    }
+  });
+
+  // Events Management Routes - Using File Storage
   app.post(`${apiPrefix}/events`, authenticateToken, async (req, res) => {
     try {
-      const eventData = req.body;
-      const newEvent = await storage.createEvent(eventData);
+      const newEvent = fileStorage.createEvent(req.body);
       res.status(201).json(newEvent);
     } catch (error) {
       console.error('Error creating event:', error);
@@ -869,8 +935,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put(`${apiPrefix}/events/:id`, authenticateToken, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const eventData = req.body;
-      const updatedEvent = await storage.updateEvent(id, eventData);
+      const updatedEvent = fileStorage.updateEvent(id, req.body);
       res.json(updatedEvent);
     } catch (error) {
       console.error('Error updating event:', error);
@@ -881,7 +946,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete(`${apiPrefix}/events/:id`, authenticateToken, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      await storage.deleteEvent(id);
+      fileStorage.deleteEvent(id);
       res.json({ message: 'Event deleted successfully' });
     } catch (error) {
       console.error('Error deleting event:', error);
