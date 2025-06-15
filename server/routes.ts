@@ -164,7 +164,126 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get(`${apiPrefix}/services/:slug`, async (req, res) => {
     try {
-      const service = await storage.getServiceBySlug(req.params.slug);
+      const slug = req.params.slug;
+      const serviceMap = {
+        'corporate': {
+          id: 1,
+          title: "Corporate Event Management",
+          slug: "corporate",
+          description: "Professional corporate event planning and execution services for conferences, product launches, and business celebrations.",
+          fullDescription: "Our corporate event management services encompass every aspect of business event planning, from initial concept development to post-event analysis. We specialize in creating impactful experiences that align with your brand objectives and deliver measurable results.",
+          image: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1735122000/corporate-events_sample.jpg",
+          features: [
+            { text: "Conference and seminar planning" },
+            { text: "Product launch events" },
+            { text: "Corporate celebrations and awards" },
+            { text: "Team building activities" },
+            { text: "Executive retreats" }
+          ],
+          processSteps: [
+            { title: "Consultation", description: "Understanding your business objectives and event requirements", order: 1 },
+            { title: "Strategic Planning", description: "Developing a comprehensive event strategy and timeline", order: 2 },
+            { title: "Execution", description: "Flawless implementation with real-time management", order: 3 },
+            { title: "Follow-up", description: "Post-event analysis and feedback collection", order: 4 }
+          ],
+          pricing: "Starting from ₹2,50,000",
+          duration: "Planning: 4-8 weeks"
+        },
+        'wedding': {
+          id: 2,
+          title: "Wedding Planning",
+          slug: "wedding",
+          description: "Complete wedding planning services from intimate ceremonies to grand celebrations.",
+          fullDescription: "Transform your dream wedding into reality with our comprehensive wedding planning services. We handle every detail from venue selection to vendor coordination, ensuring your special day is absolutely perfect.",
+          image: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1735122000/wedding-planning_sample.jpg",
+          features: [
+            { text: "Venue selection and booking" },
+            { text: "Vendor coordination" },
+            { text: "Decor and theme design" },
+            { text: "Catering management" },
+            { text: "Photography and videography" }
+          ],
+          processSteps: [
+            { title: "Initial Consultation", description: "Understanding your vision and preferences", order: 1 },
+            { title: "Venue & Vendor Selection", description: "Curating the perfect team for your wedding", order: 2 },
+            { title: "Design & Planning", description: "Creating detailed timelines and designs", order: 3 },
+            { title: "Wedding Day Coordination", description: "Ensuring everything runs smoothly on your big day", order: 4 }
+          ],
+          pricing: "Starting from ₹5,00,000",
+          duration: "Planning: 6-12 months"
+        },
+        'sports': {
+          id: 3,
+          title: "Sports Events",
+          slug: "sports",
+          description: "Dynamic sports event management for tournaments, competitions, and sporting celebrations.",
+          fullDescription: "Bring excitement and professionalism to your sporting events with our specialized sports event management services. From local tournaments to major competitions, we ensure seamless organization and unforgettable experiences.",
+          image: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1735122000/sports-events_sample.jpg",
+          features: [
+            { text: "Tournament organization" },
+            { text: "Venue management" },
+            { text: "Participant coordination" },
+            { text: "Live streaming setup" },
+            { text: "Awards and recognition ceremonies" }
+          ],
+          processSteps: [
+            { title: "Event Planning", description: "Developing tournament format and logistics", order: 1 },
+            { title: "Registration Management", description: "Handling participant registration and communication", order: 2 },
+            { title: "Event Execution", description: "Managing the event day operations", order: 3 },
+            { title: "Results & Awards", description: "Coordinating results and award ceremonies", order: 4 }
+          ],
+          pricing: "Starting from ₹1,50,000",
+          duration: "Planning: 2-6 weeks"
+        },
+        'education': {
+          id: 4,
+          title: "Educational Events",
+          slug: "education",
+          description: "Engaging educational event planning for schools, colleges, and training institutions.",
+          fullDescription: "Create impactful learning experiences with our educational event management services. We specialize in academic conferences, graduation ceremonies, workshops, and institutional celebrations.",
+          image: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1735122000/educational-events_sample.jpg",
+          features: [
+            { text: "Academic conferences" },
+            { text: "Graduation ceremonies" },
+            { text: "Educational workshops" },
+            { text: "Science fairs and competitions" },
+            { text: "Cultural programs" }
+          ],
+          processSteps: [
+            { title: "Needs Assessment", description: "Understanding educational objectives", order: 1 },
+            { title: "Program Development", description: "Creating engaging educational content", order: 2 },
+            { title: "Logistics Coordination", description: "Managing venue, technology, and materials", order: 3 },
+            { title: "Event Facilitation", description: "Ensuring smooth educational delivery", order: 4 }
+          ],
+          pricing: "Starting from ₹75,000",
+          duration: "Planning: 3-8 weeks"
+        },
+        'cultural': {
+          id: 5,
+          title: "Cultural Events",
+          slug: "cultural",
+          description: "Celebrating traditions and culture through expertly planned cultural events and festivals.",
+          fullDescription: "Honor traditions and celebrate culture with our specialized cultural event management services. We bring authenticity and grandeur to festivals, cultural programs, and community celebrations.",
+          image: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1735122000/cultural-events_sample.jpg",
+          features: [
+            { text: "Festival planning" },
+            { text: "Cultural program coordination" },
+            { text: "Traditional decoration" },
+            { text: "Artist and performer management" },
+            { text: "Community engagement" }
+          ],
+          processSteps: [
+            { title: "Cultural Consultation", description: "Understanding traditions and requirements", order: 1 },
+            { title: "Artist Coordination", description: "Booking performers and cultural artists", order: 2 },
+            { title: "Venue Preparation", description: "Creating authentic cultural ambiance", order: 3 },
+            { title: "Event Management", description: "Ensuring cultural authenticity and smooth flow", order: 4 }
+          ],
+          pricing: "Starting from ₹2,00,000",
+          duration: "Planning: 4-10 weeks"
+        }
+      };
+      
+      const service = serviceMap[slug as keyof typeof serviceMap];
       if (!service) {
         return res.status(404).json({ message: 'Service not found' });
       }
