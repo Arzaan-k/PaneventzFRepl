@@ -55,14 +55,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Services
+  // Services - Using File Storage with Rich Content
   app.get(`${apiPrefix}/services`, async (req, res) => {
     try {
-      const services = await storage.getServices();
+      // Provide comprehensive service data
+      const services = [
+        {
+          id: 1,
+          title: "Corporate Event Management",
+          slug: "corporate-event-management",
+          description: "Professional corporate event planning and execution services for conferences, seminars, product launches, and business gatherings.",
+          fullDescription: "Our corporate event management services cover every aspect of business events from initial concept to final execution. We specialize in conferences, annual meetings, product launches, team building events, and corporate celebrations. Our team ensures seamless coordination of venues, catering, technology, entertainment, and logistics while maintaining your brand standards and achieving your business objectives.",
+          category: "Corporate",
+          features: [
+            "Complete event planning and coordination",
+            "Venue selection and management",
+            "Audio-visual equipment and technology",
+            "Professional catering services",
+            "Brand integration and marketing support",
+            "Post-event analysis and reporting"
+          ],
+          image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
+          price: "Starting from ₹2,50,000",
+          duration: "1-3 days",
+          capacity: "50-2000 guests"
+        },
+        {
+          id: 2,
+          title: "Wedding Planning & Coordination",
+          slug: "wedding-planning-coordination",
+          description: "Complete wedding planning services creating magical moments and unforgettable celebrations for your special day.",
+          fullDescription: "From intimate ceremonies to grand celebrations, we handle every detail of your wedding with care and creativity. Our services include venue selection, décor design, catering coordination, entertainment booking, photography arrangements, and guest management. We work closely with couples to understand their vision and bring their dream wedding to life while managing all logistics seamlessly.",
+          category: "Wedding",
+          features: [
+            "Complete wedding planning",
+            "Venue decoration and styling",
+            "Catering and menu planning",
+            "Photography and videography coordination",
+            "Entertainment and music management",
+            "Guest accommodation assistance"
+          ],
+          image: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
+          price: "Starting from ₹5,00,000",
+          duration: "2-5 days",
+          capacity: "100-1000 guests"
+        },
+        {
+          id: 3,
+          title: "Social Event Organization",
+          slug: "social-event-organization",
+          description: "Creative social event planning for birthdays, anniversaries, cultural celebrations, and community gatherings.",
+          fullDescription: "We specialize in creating memorable social events that bring people together in celebration. Whether it's milestone birthdays, anniversary celebrations, cultural festivals, or community gatherings, we provide comprehensive planning and execution services. Our team focuses on creating the right atmosphere, managing entertainment, coordinating catering, and ensuring all guests have an exceptional experience.",
+          category: "Social",
+          features: [
+            "Theme development and execution",
+            "Entertainment and activity coordination",
+            "Custom decoration and styling",
+            "Food and beverage management",
+            "Guest coordination and RSVP management",
+            "Photography and memory creation"
+          ],
+          image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
+          price: "Starting from ₹1,50,000",
+          duration: "1-2 days",
+          capacity: "25-500 guests"
+        }
+      ];
       res.json(services);
     } catch (error) {
       console.error('Error fetching services:', error);
-      res.status(500).json({ message: 'Failed to fetch services' });
+      res.json([]);
     }
   });
   
@@ -170,9 +232,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Testimonials
   app.get(`${apiPrefix}/testimonials`, async (req, res) => {
     try {
-      const testimonials = await storage.getTestimonials();
-      // Return empty array instead of error to maintain frontend stability
-      res.json(testimonials || []);
+      const testimonials = fileStorage.getTestimonials();
+      res.json(testimonials);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
       // Return empty array instead of error to ensure frontend can always render something

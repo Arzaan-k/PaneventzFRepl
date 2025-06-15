@@ -1,0 +1,116 @@
+[
+  {
+    "id": 1,
+    "title": "Corporate Annual Conference 2023",
+    "category": "corporate",
+    "description": "A prestigious annual conference for leading technology companies featuring keynote speakers, networking sessions, and product launches.",
+    "event": "TechCon Mumbai 2023",
+    "date": "2023-03-15",
+    "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    "mediaType": "image",
+    "tags": [
+      "corporate",
+      "conference",
+      "technology",
+      "networking"
+    ],
+    "isEventSpecific": true,
+    "createdAt": "2025-06-15T08:17:11.899Z",
+    "updatedAt": "2025-06-15T08:17:11.899Z"
+  },
+  {
+    "id": 2,
+    "title": "Luxury Wedding at Grand Hyatt",
+    "category": "wedding",
+    "description": "An elegant wedding celebration combining traditional and modern elements with breathtaking décor and world-class hospitality.",
+    "event": "Kumar-Sharma Wedding",
+    "date": "2023-02-20",
+    "imageUrl": "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    "mediaType": "image",
+    "tags": [
+      "wedding",
+      "luxury",
+      "traditional",
+      "celebration"
+    ],
+    "isEventSpecific": true,
+    "createdAt": "2025-06-15T08:17:11.899Z",
+    "updatedAt": "2025-06-15T08:17:11.899Z"
+  },
+  {
+    "id": 3,
+    "title": "University Sports Championship",
+    "category": "sports",
+    "description": "Inter-college sports championship featuring multiple sporting events, athlete ceremonies, and award presentations.",
+    "event": "University Games 2023",
+    "date": "2023-01-10",
+    "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    "mediaType": "image",
+    "tags": [
+      "sports",
+      "championship",
+      "university",
+      "athletics"
+    ],
+    "isEventSpecific": true,
+    "createdAt": "2025-06-15T08:17:11.899Z",
+    "updatedAt": "2025-06-15T08:17:11.899Z"
+  },
+  {
+    "id": 4,
+    "title": "Cultural Festival Celebration",
+    "category": "cultural",
+    "description": "A vibrant cultural festival showcasing diverse traditions, performances, and culinary experiences from various communities.",
+    "event": "Heritage Cultural Festival",
+    "date": "2023-04-05",
+    "imageUrl": "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    "mediaType": "image",
+    "tags": [
+      "cultural",
+      "festival",
+      "tradition",
+      "community"
+    ],
+    "isEventSpecific": true,
+    "createdAt": "2025-06-15T08:17:11.899Z",
+    "updatedAt": "2025-06-15T08:17:11.899Z"
+  },
+  {
+    "id": 5,
+    "title": "Product Launch Gala",
+    "category": "corporate",
+    "description": "An exclusive product launch event featuring live demonstrations, celebrity endorsements, and media presentations.",
+    "event": "Innovation Launch 2023",
+    "date": "2023-05-12",
+    "imageUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    "mediaType": "image",
+    "tags": [
+      "product",
+      "launch",
+      "corporate",
+      "innovation"
+    ],
+    "isEventSpecific": true,
+    "createdAt": "2025-06-15T08:17:11.899Z",
+    "updatedAt": "2025-06-15T08:17:11.899Z"
+  },
+  {
+    "id": 6,
+    "title": "Charity Fundraising Dinner",
+    "category": "social",
+    "description": "An elegant charity dinner raising funds for education initiatives, featuring guest speakers and live entertainment.",
+    "event": "Education for All Charity Gala",
+    "date": "2023-06-18",
+    "imageUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    "mediaType": "image",
+    "tags": [
+      "charity",
+      "fundraising",
+      "social",
+      "education"
+    ],
+    "isEventSpecific": true,
+    "createdAt": "2025-06-15T08:17:11.899Z",
+    "updatedAt": "2025-06-15T08:17:11.899Z"
+  }
+]
