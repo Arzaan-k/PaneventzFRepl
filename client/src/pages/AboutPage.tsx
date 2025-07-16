@@ -67,8 +67,12 @@ const AboutPage = () => {
     ]
   };
 
-  // Use actual about content or fallback
-  const content = (aboutContent && !error) ? aboutContent : fallbackAbout;
+  // Use actual about content or fallback - ensure team is always an array
+  const content = (aboutContent && !error) ? {
+    ...aboutContent,
+    team: Array.isArray(aboutContent.team) ? aboutContent.team : fallbackAbout.team,
+    values: Array.isArray(aboutContent.values) ? aboutContent.values : fallbackAbout.values
+  } : fallbackAbout;
 
   // Set page title
   useEffect(() => {
@@ -299,7 +303,7 @@ const AboutPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-                {content && content.values && content.values.map((value: { id: number; title: string; description: string }) => (
+                {(Array.isArray(content.values) ? content.values : fallbackAbout.values).map((value: { id: number; title: string; description: string }) => (
                   <div key={value.id} 
                     className="group bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:-translate-y-2 text-center relative overflow-hidden">
                     {/* Background decoration */}
@@ -387,7 +391,7 @@ const AboutPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-8 gap-y-12 max-w-md mx-auto">
-                {(content.team || fallbackAbout.team).map((member: TeamMember) => (
+                {(Array.isArray(content.team) ? content.team : fallbackAbout.team).map((member: TeamMember) => (
                   <div key={member.id} className="group relative overflow-hidden rounded-2xl shadow-lg transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
                     {/* Image container with overlay effect */}
                     <div className="relative overflow-hidden h-80">
