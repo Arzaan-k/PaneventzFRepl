@@ -262,7 +262,7 @@ const AboutPage = () => {
                 
                 {/* Timeline content */}
                 <div className="space-y-12 relative">
-                  {content.history.split('. ').map((sentence: string, index: number) => (
+                  {content.history?.split('. ').map((sentence: string, index: number) => (
                     <div key={index} className={`relative md:flex ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
                       {/* Timeline dot */}
                       <div className="absolute left-1/2 top-0 w-5 h-5 bg-primary rounded-full transform -translate-x-1/2 hidden md:block"></div>

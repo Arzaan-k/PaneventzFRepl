@@ -124,7 +124,7 @@ const AboutSection = () => {
                     </div>
                     <div>
                       <h3 className="font-bold text-neutral-800 mb-1 text-base md:text-lg">Quality Commitment</h3>
-                      <p className="text-neutral-600 text-sm md:text-base">{content.quality}</p>
+                      <p className="text-neutral-600 text-sm md:text-base">{content?.quality || "We never compromise on quality and service excellence"}</p>
                     </div>
                   </div>
                 </div>

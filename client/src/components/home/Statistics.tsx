@@ -69,12 +69,12 @@ const Statistics = () => {
               <div key={stat.id}>
                 <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
                   {hasAnimated ? (
-                    <CountUp end={stat.value} suffix={stat.suffix} />
+                    <CountUp end={stat.value || parseInt(stat.title) || 0} suffix={stat.suffix || "+"} />
                   ) : (
-                    <>0{stat.suffix}</>
+                    <>0{stat.suffix || "+"}</>
                   )}
                 </div>
-                <p className="text-lg text-neutral-300">{stat.label}</p>
+                <p className="text-lg text-neutral-300">{stat.label || stat.title}</p>
               </div>
             ))
           )}

@@ -316,7 +316,7 @@ const ServicePage = () => {
                                     title: "On-site Management",
                                     description: "Our dedicated team handles all aspects of event coordination on the day, ensuring everything runs smoothly."
                                   }
-                                ].map(feature => (
+                                ].map((feature) => (
                                   <div 
                                     key={feature.id} 
                                     className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
@@ -422,10 +422,7 @@ const ServicePage = () => {
                               <h4 className="font-bold text-primary mb-2">💡 Creative Solutions</h4>
                               <p className="text-sm text-neutral-600">Innovative approaches for memorable events</p>
                             </div>
-                            <div className="p-4 bg-accent/5 rounded-xl">
-                              <h4 className="font-bold text-accent mb-2">🎯 Budget-Friendly</h4>
-                              <p className="text-sm text-neutral-600">Cost-effective solutions without compromising quality</p>
-                            </div>
+
                           </div>
                         </div>
                       </div>

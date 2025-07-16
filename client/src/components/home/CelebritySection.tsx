@@ -16,23 +16,53 @@ const CelebritySection = () => {
   const [celebrityImages, setCelebrityImages] = useState<CloudinaryImage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch images from "Imran (CEO) with Celebs" folder
+  // Use the 4 specific celebrity images provided by user
   useEffect(() => {
-    const fetchCelebrityImages = async () => {
-      try {
-        const response = await fetch(`/api/cloudinary/${encodeURIComponent("Imran (CEO) with Celebs")}`);
-        if (response.ok) {
-          const images = await response.json();
-          setCelebrityImages(images.slice(0, 4)); // Show first 4 images
-        }
-      } catch (error) {
-        console.error('Error fetching celebrity images:', error);
-      } finally {
-        setIsLoading(false);
+    const specificImages = [
+      {
+        asset_id: "1",
+        public_id: "11_imp_cover_page_umrvw4",
+        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972657/11_imp_cover_page_umrvw4.jpg",
+        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972657/11_imp_cover_page_umrvw4.jpg",
+        width: 1920,
+        height: 1080,
+        format: "jpg",
+        created_at: new Date().toISOString()
+      },
+      {
+        asset_id: "2", 
+        public_id: "DSC_0634_l5nc6v",
+        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972673/DSC_0634_l5nc6v.jpg",
+        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972673/DSC_0634_l5nc6v.jpg",
+        width: 3216,
+        height: 2136,
+        format: "jpg",
+        created_at: new Date().toISOString()
+      },
+      {
+        asset_id: "3",
+        public_id: "16_pi03mq", 
+        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972656/16_pi03mq.jpg",
+        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972656/16_pi03mq.jpg",
+        width: 1920,
+        height: 1080,
+        format: "jpg",
+        created_at: new Date().toISOString()
+      },
+      {
+        asset_id: "4",
+        public_id: "DSC_0632_lvbvde",
+        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972672/DSC_0632_lvbvde.jpg", 
+        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972672/DSC_0632_lvbvde.jpg",
+        width: 3216,
+        height: 2136,
+        format: "jpg",
+        created_at: new Date().toISOString()
       }
-    };
-
-    fetchCelebrityImages();
+    ];
+    
+    setCelebrityImages(specificImages);
+    setIsLoading(false);
   }, []);
 
   return (
