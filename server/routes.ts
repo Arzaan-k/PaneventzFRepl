@@ -1215,7 +1215,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const credentials = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
       
       const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/resources/image?type=upload&prefix=${encodeURIComponent(folderName)}/&max_results=500`,
+        `https://api.cloudinary.com/v1_1/${cloudName}/resources/by_asset_folder?asset_folder=${encodeURIComponent(folderName)}&max_results=500`,
         {
           headers: {
             'Authorization': `Basic ${credentials}`,

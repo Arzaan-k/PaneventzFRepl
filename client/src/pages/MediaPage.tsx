@@ -36,9 +36,22 @@ const MediaPage = () => {
 
   // Cloudinary folder names as provided
   const folderNames = [
-    "events",
-    "images with celeb",
-    "slide banner"
+    "Topspin Spinnathon",
+    "College event",
+    "Imran (CEO) with Celebs",
+    "LEAP Event 1",
+    "LEAP Event 2",
+    "Mix",
+    "Reliance 40 years anniversary",
+    "Reliance Jio Launch",
+    "Richa Housing event",
+    "Rotary event",
+    "Topspin event 1",
+    "Topspin event 2",
+    "Topspin event 3",
+    "Topspin event 4",
+    "Topspin event 5",
+    "Topspin event 6"
   ];
 
   // Fetch images from Cloudinary folder via server proxy

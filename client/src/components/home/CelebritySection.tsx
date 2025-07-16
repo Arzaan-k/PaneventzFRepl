@@ -1,33 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+interface CloudinaryImage {
+  asset_id: string;
+  public_id: string;
+  secure_url: string;
+  url: string;
+  width: number;
+  height: number;
+  format: string;
+  created_at: string;
+  folder?: string;
+}
 
 const CelebritySection = () => {
-  // Placeholder images - user will provide actual celebrity photos
-  const [celebrityImages] = useState([
-    {
-      id: 1,
-      name: "Celebrity Event 1",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600&q=80",
-      event: "Corporate Launch"
-    },
-    {
-      id: 2,
-      name: "Celebrity Event 2", 
-      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600&q=80",
-      event: "Award Ceremony"
-    },
-    {
-      id: 3,
-      name: "Celebrity Event 3",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600&q=80", 
-      event: "Fashion Show"
-    },
-    {
-      id: 4,
-      name: "Celebrity Event 4",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=600&q=80",
-      event: "Music Concert"
-    }
-  ]);
+  const [celebrityImages, setCelebrityImages] = useState<CloudinaryImage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch images from "Imran (CEO) with Celebs" folder
+  useEffect(() => {
+    const fetchCelebrityImages = async () => {
+      try {
+        const response = await fetch(`/api/cloudinary/${encodeURIComponent("Imran (CEO) with Celebs")}`);
+        if (response.ok) {
+          const images = await response.json();
+          setCelebrityImages(images.slice(0, 4)); // Show first 4 images
+        }
+      } catch (error) {
+        console.error('Error fetching celebrity images:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCelebrityImages();
+  }, []);
 
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-neutral-50 to-white relative overflow-hidden">
@@ -54,40 +60,52 @@ const CelebritySection = () => {
         </div>
 
         {/* Celebrity Images Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-          {celebrityImages.map((celebrity) => (
-            <div 
-              key={celebrity.id}
-              className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
-            >
-              {/* Image container with aspect ratio */}
-              <div className="aspect-square relative">
-                <img
-                  src={celebrity.image}
-                  alt={celebrity.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                {/* Content overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="font-bold text-sm md:text-base mb-1">{celebrity.name}</h3>
-                  <p className="text-xs md:text-sm text-white/90">{celebrity.event}</p>
+        {isLoading ? (
+          <div className="flex justify-center items-center py-16">
+            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+            {celebrityImages.length > 0 ? (
+              celebrityImages.map((image, index) => (
+                <div 
+                  key={image.asset_id}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                >
+                  {/* Image container with aspect ratio */}
+                  <div className="aspect-square relative">
+                    <img
+                      src={image.secure_url}
+                      alt={`Celebrity event ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Content overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <h3 className="font-bold text-sm md:text-base mb-1">Celebrity Event {index + 1}</h3>
+                      <p className="text-xs md:text-sm text-white/90">Imran with Celebrities</p>
+                    </div>
+
+                    {/* Decorative border */}
+                    <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/50 rounded-2xl transition-colors duration-300"></div>
+                  </div>
+
+                  {/* Floating badge */}
+                  <div className="absolute top-3 right-3 bg-primary/90 text-white text-xs font-medium px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    ⭐ Featured
+                  </div>
                 </div>
-
-                {/* Decorative border */}
-                <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/50 rounded-2xl transition-colors duration-300"></div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-8">
+                <p className="text-neutral-500">No celebrity images available at the moment.</p>
               </div>
-
-              {/* Floating badge */}
-              <div className="absolute top-3 right-3 bg-primary/90 text-white text-xs font-medium px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                ⭐ Featured
-              </div>
-            </div>
-          ))}
-        </div>
+            )}
+          </div>
+        )}
 
         {/* Bottom text */}
         <div className="text-center mt-12 md:mt-16">

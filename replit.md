@@ -69,9 +69,10 @@ Preferred communication style: Simple, everyday language.
 5. Images are served via Express static middleware
 
 ### Cloudinary Integration
-- **Media Page**: Fetches images from specific Cloudinary folders
-- **Event Galleries**: Displays organized event photography
-- **API Integration**: Uses Cloudinary Admin API for folder management
+- **Media Page**: Fetches images from actual Cloudinary folders using correct API endpoints
+- **Event Galleries**: Displays organized event photography from 16 different event folders
+- **API Integration**: Uses Cloudinary Admin API with by_asset_folder endpoint for folder management
+- **Celebrity Section**: Dynamic loading of images from "Imran (CEO) with Celebs" folder on homepage
 
 ## External Dependencies
 
@@ -128,3 +129,26 @@ Preferred communication style: Simple, everyday language.
 ```
 
 The architecture prioritizes developer experience with hot reloading, type safety, and modern tooling while maintaining production readiness with optimized builds and reliable data persistence.
+
+## Recent Changes (July 16, 2025)
+
+### Cloudinary Integration Fixes
+- Fixed Cloudinary API endpoint to use `by_asset_folder` instead of `prefix` for accurate image fetching
+- Updated Media page with correct folder names from actual Cloudinary structure:
+  - Topspin Spinnathon, College event, Imran (CEO) with Celebs
+  - LEAP Event 1 & 2, Mix, Reliance events, Richa Housing, Rotary event
+  - Topspin events 1-6
+- Successfully integrated real images from "Imran (CEO) with Celebs" folder into celebrity section
+
+### UI/UX Improvements
+- Removed "Previous Events" section and "View Gallery" button from Services page
+- Replaced with "Why Choose Us?" sidebar featuring key service highlights
+- Made hero slider fully responsive with proper text scaling for mobile devices
+- Added responsive button sizing with proper spacing across all screen sizes
+- Added "Recognised by celebrities" section to homepage with dynamic image loading
+
+### Mobile Responsiveness
+- Hero slider text now scales from text-3xl on mobile to text-7xl on desktop
+- Button padding and text sizes adapt to screen size (px-4 on mobile, px-8 on desktop)
+- Celebrity section grid adapts from 2 columns on mobile to 4 columns on desktop
+- Improved overall mobile user experience across all pages
