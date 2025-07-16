@@ -199,7 +199,7 @@ async function seed() {
           title: "Stunning",
           titleHighlight: "Wedding",
           description: "We bring your dream wedding to life with impeccable planning and magical execution.",
-          backgroundImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=800&q=80",
+          backgroundImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=800&q=80",
           primaryCtaText: "Wedding Services",
           primaryCtaLink: "services/wedding",
           secondaryCtaText: "View Gallery",

@@ -67,9 +67,11 @@ const AboutPage = () => {
     ]
   };
 
-  // Use actual about content or fallback - ensure team is always an array
+  // Use actual about content or fallback - ensure all fields are properly handled
   const content = (aboutContent && !error) ? {
-    ...aboutContent,
+    mission: aboutContent.mission || fallbackAbout.mission,
+    vision: aboutContent.vision || fallbackAbout.vision,
+    history: aboutContent.history || fallbackAbout.history,
     team: Array.isArray(aboutContent.team) ? aboutContent.team : fallbackAbout.team,
     values: Array.isArray(aboutContent.values) ? aboutContent.values : fallbackAbout.values
   } : fallbackAbout;
@@ -177,7 +179,7 @@ const AboutPage = () => {
                         </svg>
                       </div>
                       <h2 className="text-2xl font-bold font-montserrat mb-4 text-neutral-800">Our <span className="text-primary">Mission</span></h2>
-                      <p className="text-neutral-700 text-lg leading-relaxed mb-6">{content.mission}</p>
+                      <p className="text-neutral-700 text-lg leading-relaxed mb-6">{content.mission || fallbackAbout.mission}</p>
                       <div className="w-10 h-2 bg-primary rounded-full"></div>
                     </div>
                   </div>
@@ -195,7 +197,7 @@ const AboutPage = () => {
                         </svg>
                       </div>
                       <h2 className="text-2xl font-bold font-montserrat mb-4 text-neutral-800">Our <span className="text-primary">Vision</span></h2>
-                      <p className="text-neutral-700 text-lg leading-relaxed mb-6">{content.vision}</p>
+                      <p className="text-neutral-700 text-lg leading-relaxed mb-6">{content.vision || fallbackAbout.vision}</p>
                       <div className="w-10 h-2 bg-primary rounded-full"></div>
                     </div>
                   </div>
