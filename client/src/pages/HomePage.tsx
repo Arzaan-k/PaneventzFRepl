@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSlider from "@/components/home/HeroSlider";
 import ServiceCards from "@/components/home/ServiceCards";
+import PremiumServices from "@/components/home/PremiumServices";
 import FeaturedTechnologies from "@/components/home/FeaturedTechnologies";
 
 import Testimonials from "@/components/home/Testimonials";
@@ -44,11 +45,11 @@ const HomePage = () => {
       
       <main>
         <HeroSlider />
-        <ServiceCards />
+        <PremiumServices />
         <FeaturedTechnologies />
         <CelebritySection />
-        <Testimonials />
         <AboutSection />
+        <Testimonials />
         <Statistics />
         <ContactSection />
         <CallToAction />

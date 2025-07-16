@@ -8,13 +8,8 @@ interface Technology {
 }
 
 const FeaturedTechnologies = () => {
-  const { data: technologies = [], isLoading } = useQuery({
-    queryKey: ['/api/technologies'],
-    queryFn: () => fetch('/api/technologies').then(res => res.json()),
-  });
-
-  // Fallback technologies if API fails or is loading
-  const fallbackTechnologies: Technology[] = [
+  // Hardcoded technologies - no API needed
+  const technologies: Technology[] = [
     {
       id: 1,
       icon: "fa-volume-up",
@@ -53,8 +48,8 @@ const FeaturedTechnologies = () => {
     }
   ];
 
-  // Use actual technologies or fallback
-  const displayTechnologies = technologies.length > 0 ? technologies : fallbackTechnologies;
+  // Use hardcoded technologies
+  const displayTechnologies = technologies;
 
   return (
     <section className="py-16 bg-neutral-900 text-white">
@@ -69,7 +64,7 @@ const FeaturedTechnologies = () => {
         </div>
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-center">
-          {isLoading ? (
+          {false ? (
             // Loading skeleton
             Array(6).fill(0).map((_, index) => (
               <div key={index} className="flex flex-col items-center animate-pulse">

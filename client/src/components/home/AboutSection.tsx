@@ -67,15 +67,8 @@ const AboutSection = () => {
               </div>
             ) : (
               <>
-                <p className="text-base md:text-lg text-neutral-600 mb-4 md:mb-6">
-                  {content?.description || "Pan Eventz is a premier event management company dedicated to creating extraordinary experiences."}
-                </p>
-                <p className="text-base md:text-lg text-neutral-600 mb-6 md:mb-8">
-                  {content?.description 
-                    ? (content.description.includes('. ') 
-                        ? content.description.split('. ').slice(1).join('. ') 
-                        : '')
-                    : "With over a decade of industry experience, we specialize in conceptualizing, planning, and executing events of all scales - from intimate gatherings to grand celebrations."}
+                <p className="text-base md:text-lg text-neutral-600 mb-6 md:mb-8 leading-relaxed">
+                  {content?.description || "Pan Eventz is a premier event management company dedicated to creating extraordinary experiences through innovation, creativity, and flawless execution. With over a decade of industry experience, we specialize in conceptualizing, planning, and executing events of all scales - from intimate gatherings to grand celebrations. Our expert team handles everything from initial concept development to final execution, ensuring every detail is perfect."}
                 </p>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">

@@ -26,13 +26,8 @@ const BlogPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
 
-  const { data: blogPosts = [], isLoading } = useQuery({
-    queryKey: ['/api/blog'],
-    queryFn: () => fetch('/api/blog').then(res => res.json()),
-  });
-
-  // Fallback blog posts if API fails or is loading
-  const fallbackBlogPosts: BlogPost[] = [
+  // Hardcoded blog posts - no API needed
+  const blogPosts: BlogPost[] = [
     {
       id: 1,
       title: "Top 10 Wedding Trends for 2024",
@@ -63,16 +58,16 @@ const BlogPage = () => {
     },
     {
       id: 3,
-      title: "The Evolution of Event Technology",
-      slug: "event-technology-evolution",
-      excerpt: "An in-depth look at how technology has transformed the event industry and what innovations to expect in the coming years.",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nisl nunc eu nisl. Nulla euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nisl nunc eu nisl.",
-      author: "Imran Mirza",
-      authorTitle: "Founder & CEO",
-      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
-      publishDate: "2023-10-10",
-      category: "Technology",
-      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
+      title: "The Power of Live Events in Digital Marketing",
+      slug: "live-events-digital-marketing",
+      excerpt: "Explore how live events can enhance your digital marketing strategy and create authentic connections with your audience.",
+      content: "In an increasingly digital world, live events offer something that virtual experiences often can't match: authentic human connection. Smart marketers are leveraging live events as powerful tools in their digital marketing arsenal.",
+      author: "Rajiv Mehta",
+      authorTitle: "Technical Director",
+      authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+      publishDate: "2023-12-22",
+      category: "Marketing",
+      image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
       tags: ["technology", "innovation", "events", "digital"]
     },
     {
@@ -119,8 +114,8 @@ const BlogPage = () => {
     }
   ];
 
-  // Use actual blog posts or fallback
-  const displayBlogPosts = blogPosts.length > 0 ? blogPosts : fallbackBlogPosts;
+  // Use hardcoded blog posts
+  const displayBlogPosts = blogPosts;
 
   // Filter and search blog posts
   const filteredPosts = displayBlogPosts.filter((post) => {
@@ -194,7 +189,7 @@ const BlogPage = () => {
                 </div>
 
                 {/* Blog Posts */}
-                {isLoading ? (
+                {false ? (
                   // Loading skeleton
                   <div className="space-y-8">
                     {[1, 2, 3].map((i) => (
