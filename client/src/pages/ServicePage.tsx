@@ -109,10 +109,18 @@ const ServicePage = () => {
   const displayServiceDetail = serviceDetail ? {
     ...serviceDetail,
     features: (serviceDetail.features && serviceDetail.features.length > 0) 
-      ? serviceDetail.features 
+      ? serviceDetail.features.map((feature: any, index: number) => ({
+          id: index + 1,
+          title: feature.text || feature.title || `Feature ${index + 1}`,
+          description: feature.description || "Professional event management service"
+        }))
       : fallbackServiceDetail.features,
-    process: (serviceDetail.process && serviceDetail.process.length > 0) 
-      ? serviceDetail.process 
+    process: (serviceDetail.processSteps && serviceDetail.processSteps.length > 0) 
+      ? serviceDetail.processSteps.map((step: any) => ({
+          id: step.order || step.id,
+          title: step.title,
+          description: step.description
+        }))
       : fallbackServiceDetail.process
   } : fallbackServiceDetail;
 
