@@ -40,7 +40,7 @@ const ServicePage = () => {
   const fallbackServiceDetail: ServiceDetail = {
     id: 1,
     slug: activeTab,
-    title: activeTab === "corporate" ? "Corporate Event Management" : 
+    title: activeTab === "corporate" ? "Corporate Events" : 
            activeTab === "wedding" ? "Wedding Events" : 
            activeTab === "sports" ? "Sports Events" :
            activeTab === "education" ? "School & College Events" :
@@ -279,7 +279,7 @@ const ServicePage = () => {
                               <div className="h-px bg-neutral-200 flex-grow ml-4"></div>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                              {displayServiceDetail.features.map((feature: { id: number; title: string; description: string }) => (
+                              {(displayServiceDetail?.features || fallbackServiceDetail.features).map((feature: { id: number; title: string; description: string }) => (
                                 <div 
                                   key={feature.id} 
                                   className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
@@ -299,7 +299,7 @@ const ServicePage = () => {
                                     <p className="text-neutral-700 leading-relaxed">{feature.description}</p>
                                   </div>
                                 </div>
-                              ))}
+                              ))
                             </div>
                           </div>
                           
@@ -317,7 +317,7 @@ const ServicePage = () => {
                               <div className="absolute left-6 top-0 bottom-0 w-1 bg-neutral-200 hidden md:block"></div>
                               
                               <div className="space-y-10">
-                                {displayServiceDetail.process.map((step: { id: number; title: string; description: string }, index: number) => (
+                                {(displayServiceDetail?.process || fallbackServiceDetail.process).map((step: { id: number; title: string; description: string }, index: number) => (
                                   <div key={step.id} className="relative flex">
                                     {/* Timeline dot */}
                                     <div className="relative z-10 mr-6">
@@ -380,10 +380,11 @@ const ServicePage = () => {
                               <h4 className="font-bold text-accent mb-2">⚡ Quick Response</h4>
                               <p className="text-sm text-neutral-600">24/7 support and rapid project turnaround</p>
                             </div>
-                            <div className="p-4 bg-orange-50 rounded-xl">
-                              <h4 className="font-bold text-orange-600 mb-2">💡 Creative Solutions</h4>
+                            <div className="p-4 bg-primary/5 rounded-xl">
+                              <h4 className="font-bold text-primary mb-2">💡 Creative Solutions</h4>
                               <p className="text-sm text-neutral-600">Innovative approaches for memorable events</p>
                             </div>
+
                           </div>
                         </div>
                       </div>
