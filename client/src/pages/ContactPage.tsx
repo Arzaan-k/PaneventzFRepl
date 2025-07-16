@@ -66,7 +66,7 @@ const ContactPage = () => {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Visit Us</h3>
-                <p className="text-center text-white/80">123 Event Plaza, Sector 63, Noida, UP, India</p>
+                <p className="text-center text-white/80">Mumbai, Maharashtra, India</p>
               </div>
               
               <div className="flex flex-col items-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 transform transition-transform hover:scale-105">
@@ -76,7 +76,7 @@ const ContactPage = () => {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Call Us</h3>
-                <p className="text-center text-white/80">+91 98765 43210</p>
+                <p className="text-center text-white/80">+91 98213 37523</p>
               </div>
               
               <div className="flex flex-col items-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 transform transition-transform hover:scale-105">
@@ -87,7 +87,7 @@ const ContactPage = () => {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Email Us</h3>
-                <p className="text-center text-white/80">info@paneventz.com</p>
+                <p className="text-center text-white/80">pan.eventz7@gmail.com</p>
               </div>
             </div>
             

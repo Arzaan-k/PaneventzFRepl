@@ -246,7 +246,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-neutral-800 mb-1">Our Office</h4>
-                  <p className="text-neutral-600">123 Event Plaza, Sector 63, Noida, Uttar Pradesh, India</p>
+                  <p className="text-neutral-600">Mumbai, Maharashtra, India</p>
                 </div>
               </div>
               
@@ -258,8 +258,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-neutral-800 mb-1">Phone Number</h4>
-                  <p className="text-neutral-600">+91 98765 43210</p>
-                  <p className="text-neutral-600">+91 91234 56789</p>
+                  <p className="text-neutral-600">+91 98213 37523</p>
                 </div>
               </div>
               
@@ -272,8 +271,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-neutral-800 mb-1">Email Address</h4>
-                  <p className="text-neutral-600">info@paneventz.com</p>
-                  <p className="text-neutral-600">bookings@paneventz.com</p>
+                  <p className="text-neutral-600">pan.eventz7@gmail.com</p>
                 </div>
               </div>
               

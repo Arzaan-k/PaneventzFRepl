@@ -112,16 +112,16 @@ const Footer = () => {
               <li className="flex items-start">
                 <i className="fas fa-map-marker-alt text-primary mt-1.5 mr-3"></i>
                 <span className="text-neutral-400">
-                  123 Event Plaza, Sector 63, Noida, Uttar Pradesh, India
+                  Mumbai, Maharashtra, India
                 </span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-phone-alt text-primary mt-1.5 mr-3"></i>
-                <span className="text-neutral-400">+91 98765 43210</span>
+                <span className="text-neutral-400">+91 98213 37523</span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-envelope text-primary mt-1.5 mr-3"></i>
-                <span className="text-neutral-400">info@paneventz.com</span>
+                <span className="text-neutral-400">pan.eventz7@gmail.com</span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-clock text-primary mt-1.5 mr-3"></i>

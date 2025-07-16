@@ -25,8 +25,8 @@ const Settings = () => {
       siteName: "Pan Eventz",
       tagline: "Creating Memorable Experiences",
       description: "Professional event management services in Mumbai",
-      email: "info@paneventz.com",
-      phone: "+91 98765 43210",
+      email: "pan.eventz7@gmail.com",
+      phone: "+91 98213 37523",
       address: "Mumbai, Maharashtra, India",
       socialMedia: {
         facebook: "",
