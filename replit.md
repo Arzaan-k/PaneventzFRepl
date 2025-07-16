@@ -163,6 +163,14 @@ The architecture prioritizes developer experience with hot reloading, type safet
 - Standardized all blog posts to show Imran Mirza as the sole author
 - Enhanced About page banner text to include experience details
 - Added comprehensive biography for Imran Mirza with career journey details
+- Fixed "Our Journey" section to show "Since 2017" instead of "Since 2013"
+- Ensured "Meet Our Founder" section displays properly with fallback data
+
+### Homepage Structure Updates
+- Moved CelebritySection above PremiumServices section as requested
+- Enhanced HeroSlider with proper background images and minimum height settings
+- Improved slider background image display with bg-no-repeat for better visual quality
+- Set appropriate minimum heights (70vh on mobile, 80vh on desktop) for optimal background image visibility
 
 ### Technical Improvements
 - Fixed BlogPage isLoading undefined error by hardcoding content

@@ -131,7 +131,7 @@ const HeroSlider = () => {
 
   if (isLoading) {
     return (
-      <section className="hero-slider pt-20 md:pt-16 relative overflow-hidden flex items-center justify-center">
+      <section className="hero-slider pt-20 md:pt-16 relative overflow-hidden min-h-[70vh] md:min-h-[80vh] flex items-center justify-center">
         <div className="animate-pulse text-xl text-center">
           Loading dynamic content...
         </div>
@@ -140,12 +140,12 @@ const HeroSlider = () => {
   }
 
   return (
-    <section id="home" className="hero-slider pt-20 md:pt-16 relative overflow-hidden">
-      <div className="relative h-full">
+    <section id="home" className="hero-slider pt-20 md:pt-16 relative overflow-hidden min-h-[70vh] md:min-h-[80vh]">
+      <div className="relative h-full min-h-[70vh] md:min-h-[80vh]">
         {displaySlides.map((slide: Slide, index: number) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 w-full h-full bg-center bg-cover transition-all duration-1000 ${
+            className={`absolute inset-0 w-full h-full bg-center bg-cover bg-no-repeat transition-all duration-1000 ${
               index === currentSlide ? "opacity-100 z-10 scale-100" : "opacity-0 z-0 scale-110"
             }`}
             style={{ backgroundImage: `url('${slide.backgroundImage}')` }}
@@ -159,7 +159,7 @@ const HeroSlider = () => {
               <div className="absolute bottom-20 right-30 w-80 h-80 rounded-full bg-accent/10 blur-3xl"></div>
             </div>
             
-            <div className="container mx-auto px-4 h-full flex items-center">
+            <div className="container mx-auto px-4 h-full min-h-[70vh] md:min-h-[80vh] flex items-center">
               <div className="text-white max-w-3xl z-10 relative">
                 {/* Animated slide content */}
                 <div className={`transform transition-all duration-1000 delay-300 ${

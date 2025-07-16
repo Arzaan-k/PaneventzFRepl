@@ -387,7 +387,7 @@ const AboutPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-8 gap-y-12 max-w-md mx-auto">
-                {content.team.map((member: TeamMember) => (
+                {(content.team || fallbackAbout.team).map((member: TeamMember) => (
                   <div key={member.id} className="group relative overflow-hidden rounded-2xl shadow-lg transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
                     {/* Image container with overlay effect */}
                     <div className="relative overflow-hidden h-80">

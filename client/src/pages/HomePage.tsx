@@ -45,9 +45,9 @@ const HomePage = () => {
       
       <main>
         <HeroSlider />
+        <CelebritySection />
         <PremiumServices />
         <FeaturedTechnologies />
-        <CelebritySection />
         <AboutSection />
         <Testimonials />
         <Statistics />
