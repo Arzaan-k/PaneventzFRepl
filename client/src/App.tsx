@@ -9,6 +9,7 @@ import MediaPage from "@/pages/MediaPage";
 import EventDetailPage from "@/pages/EventDetailPage";
 import AboutPage from "@/pages/AboutPage";
 import BlogPage from "@/pages/BlogPage";
+import BlogDetailPage from "@/pages/BlogDetailPage";
 import ContactPage from "@/pages/ContactPage";
 // Admin Pages
 import AdminLogin from "@/pages/admin/AdminLogin";
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/event/:slug" component={EventDetailPage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/blog" component={BlogPage} />
+      <Route path="/blog/:slug" component={BlogDetailPage} />
       <Route path="/contact" component={ContactPage} />
       
       {/* Admin Routes */}

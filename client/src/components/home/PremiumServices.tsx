@@ -7,6 +7,7 @@ interface Service {
   description: string;
   icon: string;
   link: string;
+  image: string;
 }
 
 const PremiumServices = () => {
@@ -17,28 +18,32 @@ const PremiumServices = () => {
       title: "Corporate Events",
       description: "Professional corporate event management from conferences to product launches.",
       icon: "fa-building",
-      link: "/services/corporate"
+      link: "/services/corporate",
+      image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
     },
     {
       id: 2,
       title: "Wedding Planning",
       description: "Complete wedding planning services for your perfect day.",
       icon: "fa-heart",
-      link: "/services/wedding"
+      link: "/services/wedding",
+      image: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
     },
     {
       id: 3,
       title: "Cultural Events",
       description: "Authentic cultural celebrations and traditional ceremonies.",
       icon: "fa-theater-masks",
-      link: "/services/cultural"
+      link: "/services/cultural",
+      image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
     },
     {
       id: 4,
       title: "Social Gatherings",
       description: "Memorable social events and private celebrations.",
       icon: "fa-users",
-      link: "/services/social"
+      link: "/services/social",
+      image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
     }
   ];
 
@@ -58,15 +63,24 @@ const PremiumServices = () => {
           {services.map((service) => (
             <div 
               key={service.id} 
-              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group relative overflow-hidden"
+              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group relative overflow-hidden"
             >
-              {/* Decorative background */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform duration-500 group-hover:scale-150"></div>
-              
-              <div className="relative z-10 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl transition-all duration-300 group-hover:bg-primary group-hover:text-white group-hover:scale-110">
-                  <i className={`fas ${service.icon}`}></i>
+              {/* Service Image */}
+              <div className="relative h-48 overflow-hidden rounded-t-2xl">
+                <img 
+                  src={service.image} 
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-4 left-4">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm text-white flex items-center justify-center text-xl">
+                    <i className={`fas ${service.icon}`}></i>
+                  </div>
                 </div>
+              </div>
+              
+              <div className="p-6 text-center">
                 
                 <h3 className="text-xl font-bold font-montserrat mb-3 text-neutral-800">
                   {service.title}

@@ -42,7 +42,7 @@ const HeroSlider = () => {
       title: "Creating",
       titleHighlight: "Memorable",
       description: "Pan Eventz - Your trusted partner for extraordinary corporate events, weddings, and celebrations.",
-      backgroundImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=800&q=80",
+      backgroundImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
       primaryCta: {
         text: "Our Services",
         link: "services"
@@ -57,7 +57,7 @@ const HeroSlider = () => {
       title: "Stunning",
       titleHighlight: "Wedding",
       description: "We bring your dream wedding to life with impeccable planning and magical execution.",
-      backgroundImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=800&q=80",
+      backgroundImage: "https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
       primaryCta: {
         text: "Wedding Services",
         link: "services/wedding"
@@ -72,7 +72,7 @@ const HeroSlider = () => {
       title: "Spectacular",
       titleHighlight: "Cultural",
       description: "From TED Talks to music festivals, we create immersive cultural experiences that inspire.",
-      backgroundImage: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&h=800&q=80",
+      backgroundImage: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
       primaryCta: {
         text: "Cultural Events",
         link: "services/cultural"
