@@ -401,41 +401,31 @@ const ServicePage = () => {
                           </div>
                         </div>
                         
-                        {/* Sidebar Gallery with modern hover effects */}
+                        {/* Sidebar with Service Highlights */}
                         <div className="bg-white p-6 rounded-2xl shadow-lg">
                           <h3 className="text-xl font-bold font-montserrat mb-6 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary mr-2" viewBox="0 0 20 20" fill="currentColor">
-                              <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                              <path fillRule="evenodd" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" clipRule="evenodd" />
                             </svg>
-                            Previous Events
+                            Why Choose Us?
                           </h3>
                           <div className="space-y-6">
-                            {displayServiceDetail && displayServiceDetail.gallery && displayServiceDetail.gallery.map((item: { id: number; imageUrl: string; alt: string }) => (
-                              <div key={item.id} className="overflow-hidden rounded-xl shadow-md group relative">
-                                <img 
-                                  src={item.imageUrl}
-                                  alt={item.alt}
-                                  className="w-full h-52 object-cover transform transition-transform duration-500 group-hover:scale-110"
-                                />
-                                {/* Image overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                                  <div className="p-4 text-white">
-                                    <p className="font-medium">{item.alt}</p>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-8 text-center">
-                            <Link href="/gallery">
-                              <Button variant="outline" className="border-primary border-2 text-primary hover:bg-primary hover:text-white font-medium transition-colors">
-                                View Gallery
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                                </svg>
-                              </Button>
-                            </Link>
+                            <div className="p-4 bg-primary/5 rounded-xl">
+                              <h4 className="font-bold text-primary mb-2">🏆 Expert Team</h4>
+                              <p className="text-sm text-neutral-600">Professional event managers with years of experience</p>
+                            </div>
+                            <div className="p-4 bg-accent/5 rounded-xl">
+                              <h4 className="font-bold text-accent mb-2">⚡ Quick Response</h4>
+                              <p className="text-sm text-neutral-600">24/7 support and rapid project turnaround</p>
+                            </div>
+                            <div className="p-4 bg-primary/5 rounded-xl">
+                              <h4 className="font-bold text-primary mb-2">💡 Creative Solutions</h4>
+                              <p className="text-sm text-neutral-600">Innovative approaches for memorable events</p>
+                            </div>
+                            <div className="p-4 bg-accent/5 rounded-xl">
+                              <h4 className="font-bold text-accent mb-2">🎯 Budget-Friendly</h4>
+                              <p className="text-sm text-neutral-600">Cost-effective solutions without compromising quality</p>
+                            </div>
                           </div>
                         </div>
                       </div>

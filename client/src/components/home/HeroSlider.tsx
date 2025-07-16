@@ -170,28 +170,28 @@ const HeroSlider = () => {
                     Premium Event Services
                   </div>
                   
-                  {/* Main heading with gradient text */}
-                  <h1 className="text-5xl md:text-7xl font-bold font-montserrat leading-tight mb-6">
+                  {/* Main heading with gradient text - responsive */}
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-montserrat leading-tight mb-4 md:mb-6">
                     {slide.title}{" "}
                     <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                       {slide.titleHighlight}
                     </span>{" "}
                     <span className="relative">
                       Experiences
-                      <span className="absolute bottom-2 left-0 w-full h-1 bg-primary rounded-full"></span>
+                      <span className="absolute bottom-1 md:bottom-2 left-0 w-full h-0.5 md:h-1 bg-primary rounded-full"></span>
                     </span>
                   </h1>
                   
-                  <p className="text-xl md:text-2xl mb-8 font-sans text-white/90 max-w-2xl">
+                  <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 font-sans text-white/90 max-w-2xl leading-relaxed">
                     {slide.description}
                   </p>
                   
-                  <div className="flex flex-wrap gap-6">
+                  <div className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6">
                     {slide.primaryCta && slide.primaryCta.link ? (
                       slide.primaryCta.link.startsWith("http") ? (
                         <a 
                           href={slide.primaryCta.link}
-                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl"
+                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl text-sm md:text-base"
                         >
                           {slide.primaryCta.text || "Learn More"}
                           <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
@@ -199,7 +199,7 @@ const HeroSlider = () => {
                       ) : (
                         <Button
                           onClick={() => scrollToSection(slide.primaryCta?.link || 'services')}
-                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl"
+                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl text-sm md:text-base"
                         >
                           {slide.primaryCta?.text || "Learn More"}
                           <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
@@ -208,7 +208,7 @@ const HeroSlider = () => {
                     ) : (
                       <Button
                         onClick={() => scrollToSection('services')}
-                        className="group bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl"
+                        className="group bg-primary hover:bg-primary/90 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl text-sm md:text-base"
                       >
                         Our Services
                         <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
@@ -219,7 +219,7 @@ const HeroSlider = () => {
                       slide.secondaryCta.link.startsWith("http") ? (
                         <a 
                           href={slide.secondaryCta.link}
-                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition-all flex items-center"
+                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all flex items-center text-sm md:text-base"
                         >
                           {slide.secondaryCta.text || "Contact Us"}
                           <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
@@ -228,7 +228,7 @@ const HeroSlider = () => {
                         <Button
                           variant="outline"
                           onClick={() => scrollToSection(slide.secondaryCta?.link || 'contact')}
-                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition-all flex items-center"
+                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all flex items-center text-sm md:text-base"
                         >
                           {slide.secondaryCta?.text || "Contact Us"}
                           <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
