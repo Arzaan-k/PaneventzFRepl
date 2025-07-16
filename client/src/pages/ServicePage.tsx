@@ -105,8 +105,16 @@ const ServicePage = () => {
     ]
   };
 
-  // Use service detail or fallback
-  const displayServiceDetail = serviceDetail || fallbackServiceDetail;
+  // Use service detail or fallback - ensure features are always available
+  const displayServiceDetail = serviceDetail ? {
+    ...serviceDetail,
+    features: (serviceDetail.features && serviceDetail.features.length > 0) 
+      ? serviceDetail.features 
+      : fallbackServiceDetail.features,
+    process: (serviceDetail.process && serviceDetail.process.length > 0) 
+      ? serviceDetail.process 
+      : fallbackServiceDetail.process
+  } : fallbackServiceDetail;
 
   // Update active tab when route param changes
   useEffect(() => {
