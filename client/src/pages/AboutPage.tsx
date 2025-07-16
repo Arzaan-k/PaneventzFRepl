@@ -32,7 +32,7 @@ const AboutPage = () => {
   const fallbackAbout: AboutContent = {
     mission: "To create memorable events that exceed client expectations through innovation, creativity, and flawless execution.",
     vision: "To be recognized as the most trusted event management partner nationally, known for delivering exceptional experiences that create lasting impressions.",
-    history: "Founded in 2013, Pan Eventz began as a small team passionate about creating exceptional events. Over the years, we've grown into a full-service event management company with a reputation for excellence. Our journey has been defined by a commitment to innovation, quality, and client satisfaction. From humble beginnings coordinating local corporate meetings to now managing large-scale national events, weddings, and cultural festivals, we've maintained our core values while expanding our capabilities and reach. Today, Pan Eventz stands as a leader in the industry, with a team of experienced professionals dedicated to bringing creative visions to life through meticulous planning and flawless execution.",
+    history: "Founded in 2013 by Imran Mirza, Pan Eventz began with a vision to create exceptional events that leave lasting impressions. Under Imran's leadership, the company has grown from coordinating local corporate meetings to managing large-scale national events, weddings, and cultural festivals. Imran's commitment to innovation, quality, and client satisfaction has established Pan Eventz as a leader in the industry, maintaining core values while expanding capabilities and reach across India.",
     values: [
       {
         id: 1,
@@ -60,29 +60,8 @@ const AboutPage = () => {
         id: 1,
         name: "Imran Mirza",
         position: "Founder & CEO",
-        bio: "With over 15 years of experience in event management, Imran leads the company with vision and strategic direction. His passion for creating exceptional experiences drives the company's commitment to excellence.",
+        bio: "With over 15 years of experience in event management, Imran Mirza leads Pan Eventz with passion, expertise, and an unwavering commitment to creating extraordinary experiences. His vision and leadership have established Pan Eventz as a premier event management company, trusted by clients across India for delivering exceptional events that exceed expectations.",
         image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80"
-      },
-      {
-        id: 2,
-        name: "Priya Sharma",
-        position: "Creative Director",
-        bio: "Priya brings artistic vision and creative expertise to every event. Her background in design and production enables her to transform concepts into immersive, memorable experiences.",
-        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80"
-      },
-      {
-        id: 3,
-        name: "Rajiv Mehta",
-        position: "Technical Director",
-        bio: "Rajiv oversees all technical aspects of events, from sound and lighting to stage design and special effects. His technical knowledge ensures flawless event execution.",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80"
-      },
-      {
-        id: 4,
-        name: "Ananya Patel",
-        position: "Client Relations Manager",
-        bio: "Ananya excels at understanding client needs and ensuring their vision is realized. Her attention to detail and communication skills make her an invaluable liaison between clients and the production team.",
-        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80"
       }
     ]
   };
@@ -386,10 +365,10 @@ const AboutPage = () => {
                 <span className="h-[2px] w-8 bg-primary"></span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-4">
-                Meet Our <span className="text-primary">Team</span>
+                Meet Our <span className="text-primary">Founder</span>
               </h2>
               <p className="text-neutral-600 max-w-2xl mx-auto">
-                The talented professionals behind our successful events
+                The visionary leader behind Pan Eventz's success
               </p>
             </div>
             
@@ -406,8 +385,8 @@ const AboutPage = () => {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                {content && content.team && content.team.map((member: TeamMember) => (
+              <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-8 gap-y-12 max-w-md mx-auto">
+                {content && content.team && Array.isArray(content.team) && content.team.map((member: TeamMember) => (
                   <div key={member.id} className="group relative overflow-hidden rounded-2xl shadow-lg transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
                     {/* Image container with overlay effect */}
                     <div className="relative overflow-hidden h-80">
