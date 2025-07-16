@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import HomePage from "@/pages/HomePage";
 import ServicePage from "@/pages/ServicePage";
-import GalleryPage from "@/pages/GalleryPage";
+import MediaPage from "@/pages/MediaPage";
 import EventDetailPage from "@/pages/EventDetailPage";
 import AboutPage from "@/pages/AboutPage";
 import BlogPage from "@/pages/BlogPage";
@@ -30,7 +30,7 @@ function Router() {
       {/* Public Routes */}
       <Route path="/" component={HomePage} />
       <Route path="/services/:serviceType?" component={ServicePage} />
-      <Route path="/gallery" component={GalleryPage} />
+      <Route path="/media" component={MediaPage} />
       <Route path="/event/:slug" component={EventDetailPage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/blog" component={BlogPage} />

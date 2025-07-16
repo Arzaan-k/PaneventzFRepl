@@ -66,7 +66,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               {[
                 { label: "Home", path: "/" },
                 { label: "Services", path: "/services" },
-                { label: "Gallery", path: "/gallery" },
+                { label: "Media", path: "/media" },
                 { label: "About", path: "/about" },
                 { label: "Blog", path: "/blog" },
                 { label: "Contact", path: "/contact" }
@@ -78,7 +78,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                   transition={{ delay: 0.1 * ([
                     { label: "Home", path: "/" },
                     { label: "Services", path: "/services" },
-                    { label: "Gallery", path: "/gallery" },
+                    { label: "Media", path: "/media" },
                     { label: "About", path: "/about" },
                     { label: "Blog", path: "/blog" },
                     { label: "Contact", path: "/contact" }

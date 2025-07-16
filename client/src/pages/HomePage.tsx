@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import HeroSlider from "@/components/home/HeroSlider";
 import ServiceCards from "@/components/home/ServiceCards";
 import FeaturedTechnologies from "@/components/home/FeaturedTechnologies";
-import Gallery from "@/components/home/Gallery";
+
 import Testimonials from "@/components/home/Testimonials";
 import AboutSection from "@/components/home/AboutSection";
 import Statistics from "@/components/home/Statistics";
@@ -45,7 +45,7 @@ const HomePage = () => {
         <HeroSlider />
         <ServiceCards />
         <FeaturedTechnologies />
-        <Gallery />
+
         <Testimonials />
         <AboutSection />
         <Statistics />

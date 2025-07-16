@@ -1202,6 +1202,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: 'Failed to upload file' });
     }
   });
+
+  // Cloudinary proxy endpoint to avoid CORS issues
+  app.get(`${apiPrefix}/cloudinary/:folder`, async (req, res) => {
+    try {
+      const folderName = req.params.folder;
+      const cloudName = 'dhxetyrkb';
+      const apiKey = '878769551721862';
+      const apiSecret = '0v3eRiejau1m-tdnK7xgoR1Cetc';
+      
+      // Create Basic Auth header
+      const credentials = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
+      
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/resources/image?prefix=${encodeURIComponent(folderName)}/&max_results=500`,
+        {
+          headers: {
+            'Authorization': `Basic ${credentials}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch images from ${folderName}`);
+      }
+
+      const data = await response.json();
+      res.json(data.resources || []);
+    } catch (error) {
+      console.error(`Error fetching Cloudinary images for folder ${req.params.folder}:`, error);
+      res.status(500).json({ message: 'Failed to fetch images from Cloudinary', error: error.message });
+    }
+  });
   
   // Admin slider management
   app.get(`${apiPrefix}/admin/slides`, authenticateToken, async (req, res) => {

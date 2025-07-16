@@ -79,11 +79,11 @@ const Header = () => {
               </div>
             </div>
             
-            <Link href="/gallery" className={cn(
+            <Link href="/media" className={cn(
               "text-neutral-800 hover:text-primary font-medium transition-colors",
-              isActive("/gallery") && "text-primary"
+              isActive("/media") && "text-primary"
             )}>
-              Gallery
+              Media
             </Link>
             
             <Link href="/about" className={cn(
