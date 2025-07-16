@@ -29,11 +29,7 @@ const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Fetch slider data
-  const { data: slides = [], isLoading } = useQuery({
-    queryKey: ['/api/slides'],
-    queryFn: () => fetch('/api/slides').then(res => res.json()),
-  });
+  // Using hardcoded slides instead of API to ensure reliability
 
   // Fallback slides if API fails or is loading
   const fallbackSlides: Slide[] = [
@@ -84,8 +80,8 @@ const HeroSlider = () => {
     }
   ];
 
-  // Use actual slides or fallback
-  const displaySlides = slides.length > 0 ? slides : fallbackSlides;
+  // Always use hardcoded fallback slides for reliability
+  const displaySlides = fallbackSlides;
 
   const nextSlide = useCallback(() => {
     if (isAnimating) return;
@@ -129,15 +125,7 @@ const HeroSlider = () => {
     return () => clearInterval(interval);
   }, [nextSlide]);
 
-  if (isLoading) {
-    return (
-      <section className="hero-slider pt-20 md:pt-16 relative overflow-hidden min-h-[70vh] md:min-h-[80vh] flex items-center justify-center">
-        <div className="animate-pulse text-xl text-center">
-          Loading dynamic content...
-        </div>
-      </section>
-    );
-  }
+  // Remove loading state since we're using hardcoded images
 
   return (
     <section id="home" className="hero-slider pt-20 md:pt-16 relative overflow-hidden min-h-[70vh] md:min-h-[80vh]">
