@@ -32,7 +32,7 @@ const AboutPage = () => {
   const fallbackAbout: AboutContent = {
     mission: "To create memorable events that exceed client expectations through innovation, creativity, and flawless execution.",
     vision: "To be recognized as the most trusted event management partner nationally, known for delivering exceptional experiences that create lasting impressions.",
-    history: "Founded over 20 years ago by Imran Mirza, Pan Eventz began with a vision to create exceptional events that leave lasting impressions. With Imran's 30+ years of experience in the event management industry, the company has grown from coordinating local corporate meetings to managing large-scale national events, weddings, and cultural festivals. Under his visionary leadership, Pan Eventz has established itself as a premier event management company across India.",
+    history: "Founded in 2017 by Imran Mirza, Pan Eventz emerged from his 30+ years of experience in the event management industry. What started as a vision to create exceptional events that leave lasting impressions has rapidly evolved into one of India's most trusted event management companies. From coordinating intimate corporate meetings to orchestrating grand weddings, cultural festivals, and large-scale national events, Pan Eventz has consistently delivered excellence. Under Imran's visionary leadership and deep industry expertise, the company has built a reputation for innovation, creativity, and flawless execution, establishing strong partnerships with clients across diverse sectors throughout India.",
     values: [
       {
         id: 1,
@@ -60,7 +60,7 @@ const AboutPage = () => {
         id: 1,
         name: "Imran Mirza",
         position: "Founder & CEO",
-        bio: "With over 30 years of experience in event management, Imran Mirza leads Pan Eventz with passion, expertise, and an unwavering commitment to creating extraordinary experiences. His vision and leadership have established Pan Eventz as a premier event management company over the past 20+ years, trusted by clients across India for delivering exceptional events that exceed expectations.",
+        bio: "With over 30 years of experience in event management, Imran Mirza is the visionary founder and CEO of Pan Eventz. His journey began in the late 1980s, working with some of India's leading event companies before establishing his own venture in 2017. Imran's expertise spans corporate conferences, luxury weddings, cultural celebrations, and large-scale public events. His commitment to innovation, attention to detail, and client-focused approach has made Pan Eventz the go-to choice for discerning clients seeking extraordinary experiences. Under his leadership, the company has successfully executed over 500 events, building lasting relationships with corporate giants, celebrity clients, and families across India.",
         image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80"
       }
     ]
@@ -110,7 +110,7 @@ const AboutPage = () => {
             </h1>
             
             <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed mb-10 text-white/90">
-              With 20+ years in business and founded by Imran Mirza who brings 30+ years of experience, we are a premier event management company dedicated to creating extraordinary experiences through innovation, creativity, and flawless execution.
+              Founded in 2017 by Imran Mirza who brings 30+ years of industry experience, we are a premier event management company dedicated to creating extraordinary experiences through innovation, creativity, and flawless execution.
             </p>
             
             {/* Scroll indicator */}
