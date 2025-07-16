@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { scrollToSection } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
+
 
 interface CTA {
   text: string;
@@ -29,10 +29,8 @@ const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Using hardcoded slides instead of API to ensure reliability
-
-  // Fallback slides if API fails or is loading
-  const fallbackSlides: Slide[] = [
+  // Hardcoded slides for reliable display
+  const slides: Slide[] = [
     {
       id: 1,
       title: "Creating",
@@ -80,8 +78,8 @@ const HeroSlider = () => {
     }
   ];
 
-  // Always use hardcoded fallback slides for reliability
-  const displaySlides = fallbackSlides;
+  // Use hardcoded slides for reliability
+  const displaySlides = slides;
 
   const nextSlide = useCallback(() => {
     if (isAnimating) return;
