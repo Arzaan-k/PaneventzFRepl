@@ -23,9 +23,10 @@ interface AboutContent {
 }
 
 const AboutPage = () => {
-  const { data: aboutContent, isLoading } = useQuery({
+  const { data: aboutContent, isLoading, error } = useQuery({
     queryKey: ['/api/about'],
     queryFn: () => fetch('/api/about/full').then(res => res.json()),
+    retry: false,
   });
 
   // Fallback about content
@@ -67,7 +68,7 @@ const AboutPage = () => {
   };
 
   // Use actual about content or fallback
-  const content = aboutContent || fallbackAbout;
+  const content = (aboutContent && !error) ? aboutContent : fallbackAbout;
 
   // Set page title
   useEffect(() => {
@@ -211,7 +212,7 @@ const AboutPage = () => {
             <div className="max-w-4xl mx-auto mb-16 text-center">
               <div className="inline-flex items-center mb-3">
                 <span className="h-[2px] w-5 bg-primary"></span>
-                <span className="mx-2 text-primary text-sm font-semibold uppercase tracking-wider">Since 2013</span>
+                <span className="mx-2 text-primary text-sm font-semibold uppercase tracking-wider">Since 2017</span>
                 <span className="h-[2px] w-5 bg-primary"></span>
               </div>
               
@@ -220,7 +221,7 @@ const AboutPage = () => {
               </h2>
               
               <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-                A decade of creating exceptional events, building relationships, and exceeding expectations
+                Founded in 2017, Pan Eventz has successfully organized over 500+ events
               </p>
             </div>
             
@@ -386,7 +387,7 @@ const AboutPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-x-8 gap-y-12 max-w-md mx-auto">
-                {content && content.team && Array.isArray(content.team) && content.team.map((member: TeamMember) => (
+                {content.team.map((member: TeamMember) => (
                   <div key={member.id} className="group relative overflow-hidden rounded-2xl shadow-lg transform transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
                     {/* Image container with overlay effect */}
                     <div className="relative overflow-hidden h-80">
