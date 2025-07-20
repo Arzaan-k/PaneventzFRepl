@@ -134,7 +134,7 @@ The architecture prioritizes developer experience with hot reloading, type safet
 
 ### Contact Information Update
 - Updated all contact information throughout the website:
-  - Email: pan.eventz7@gmail.com (replaced all previous email addresses)
+  - Email: info@paneventz.com (replaced all previous email addresses)
   - Phone: +91 98213 37523 (replaced all previous phone numbers)
   - Address: Mumbai, Maharashtra, India (simplified from previous detailed addresses)
 - Contact information updated in:

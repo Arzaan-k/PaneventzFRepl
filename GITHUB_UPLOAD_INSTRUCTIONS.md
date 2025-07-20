@@ -47,7 +47,7 @@ Features:
 - Premium services with modern card designs
 - Celebrity section with dynamic content
 - About page featuring Imran Mirza (30+ years experience)
-- Contact information: pan.eventz7@gmail.com, +91 98213 37523
+- Contact information: info@paneventz.com, +91 98213 37523
 - Admin panel at /admin (username: eventninja12@, password: 9323641780)
 - Full mobile responsiveness and modern animations
 

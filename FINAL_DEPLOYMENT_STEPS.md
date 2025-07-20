@@ -83,7 +83,7 @@ Default credentials for admin panel:
 ## 📞 Contact Information
 
 The website is configured with your contact details:
-- **Email**: pan.eventz7@gmail.com
+- **Email**: info@paneventz.com
 - **Phone**: +91 98213 37523
 - **Address**: Mumbai, Maharashtra, India
 

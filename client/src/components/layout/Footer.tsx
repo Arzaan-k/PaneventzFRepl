@@ -121,7 +121,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <i className="fas fa-envelope text-primary mt-1.5 mr-3"></i>
-                <span className="text-neutral-400">pan.eventz7@gmail.com</span>
+                <span className="text-neutral-400">info@paneventz.com</span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-clock text-primary mt-1.5 mr-3"></i>

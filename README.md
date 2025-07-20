@@ -124,6 +124,6 @@ MIT License - see LICENSE file for details.
 ## Contact
 
 For support or inquiries:
-- Email: pan.eventz7@gmail.com
+- Email: info@paneventz.com
 - Phone: +91 98213 37523
 - Address: Mumbai, Maharashtra, India

@@ -103,7 +103,7 @@ After successful deployment:
    - Password: `9323641780`
 
 3. **Update contact information**: Use the admin panel to update:
-   - Email: pan.eventz7@gmail.com
+   - Email: info@paneventz.com
    - Phone: +91 98213 37523
    - Address: Mumbai, Maharashtra, India
 
