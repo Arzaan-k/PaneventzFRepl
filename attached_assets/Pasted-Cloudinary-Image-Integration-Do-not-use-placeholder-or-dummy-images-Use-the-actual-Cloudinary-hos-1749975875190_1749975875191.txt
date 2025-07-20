@@ -1,0 +1,47 @@
+Cloudinary Image Integration:
+
+Do not use placeholder or dummy images. Use the actual Cloudinary-hosted images that I have already uploaded.
+
+Ensure Cloudinary URLs are correctly integrated into image components using the src attribute.
+
+Validate that the images are being fetched dynamically via a proper mapping loop (if data-driven).
+
+Optimize image rendering using loading="lazy" and responsive sizing with srcset or Cloudinary transformation URLs.
+
+Responsive Layout & Mobile Optimization:
+
+The current layout is not responsive. Make sure the website is fully mobile-first and fluid across screen sizes.
+
+Use flexbox or CSS Grid for component alignment and section layout.
+
+Implement media queries for breakpoints at 320px, 480px, 768px, 1024px, and 1280px for a seamless experience across devices.
+
+Prioritize vertical stacking of content on smaller viewports (mobile), avoiding horizontal scroll.
+
+Fix all content overflow and broken layout issues on smaller screens.
+
+UI/UX Improvements:
+
+Current font sizes are too large. Replace them with scalable, relative units like rem or em. Ensure they adapt based on device size.
+
+Use a clean, modern font stack (e.g., "Inter", "Roboto", sans-serif") with consistent heading and paragraph hierarchy.
+
+Maintain appropriate spacing, padding, and margins using a design system or utility-first CSS (like Tailwind or Bootstrap if available).
+
+Ensure all buttons, images, and cards have consistent styling (border radius, shadows, hover states).
+
+Other Considerations:
+
+Ensure proper use of semantic HTML (<header>, <section>, <main>, <footer>, etc.)
+
+Set the viewport meta tag correctly in <head>:
+
+html
+Copy
+Edit
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+Test the website using Chrome DevTools Mobile View, Lighthouse, or tools like Responsively App.
+
+Fix all console errors and network failures related to image or asset loading.
+
+📌 Goal: A clean, fully responsive, mobile-first, and production-ready website UI with Cloudinary image integration, refined typography, and robust layout structure.

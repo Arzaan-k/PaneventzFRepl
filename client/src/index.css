@@ -1,0 +1,274 @@
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    
+    --primary: 0 87% 67%; /* FF5757 */
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 216 12% 24%; /* 3D3D3D */
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --accent: 40 100% 60%; /* FFD166 */
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 0 87% 67%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 216 12% 84%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    --accent: 40 100% 60%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat font-bold;
+  }
+}
+
+@layer components {
+  .hero-slider {
+    @apply h-[80vh] max-h-[800px] sm:h-[70vh] max-sm:h-[60vh];
+  }
+  
+  .service-card {
+    @apply transition-all duration-300 hover:translate-y-[-10px] hover:shadow-xl;
+  }
+  
+  .slide-in {
+    animation: slideIn 0.5s ease-out forwards;
+  }
+  
+  /* Responsive containers */
+  .container {
+    @apply px-4 md:px-6 mx-auto;
+  }
+  
+  /* Responsive Typography */
+  .responsive-heading {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+  
+  .responsive-subheading {
+    @apply text-xl md:text-2xl lg:text-3xl font-medium;
+  }
+  
+  /* Mobile optimizations */
+  .mobile-menu {
+    @apply fixed inset-0 bg-neutral-900/95 backdrop-blur-sm z-50 flex flex-col p-6 transition-all duration-300 ease-in-out;
+  }
+  
+  .mobile-menu-item {
+    @apply text-white text-xl py-3 border-b border-neutral-700 w-full font-medium transition-all hover:text-primary;
+  }
+  
+  /* Improved mobile typography */
+  @media (max-width: 640px) {
+    h1 {
+      @apply text-3xl leading-tight;
+    }
+    h2 {
+      @apply text-2xl leading-tight;
+    }
+    h3 {
+      @apply text-xl leading-tight;
+    }
+    p {
+      @apply text-base leading-relaxed;
+    }
+    .container {
+      @apply px-4 py-3;
+    }
+  }
+  
+  /* Better touch targets for mobile - following WCAG guidelines */
+  .mobile-touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+  
+  /* Improved button accessibility for mobile */
+  button, 
+  .btn, 
+  [role="button"],
+  a.button,
+  input[type="button"],
+  input[type="submit"] {
+    @apply touch-manipulation;
+  }
+  
+  /* Responsive spacing utilities */
+  .responsive-padding {
+    @apply p-4 sm:p-6 md:p-8 lg:p-10;
+  }
+  
+  .responsive-margin {
+    @apply m-4 sm:m-6 md:m-8 lg:m-10;
+  }
+  
+  /* Responsive font sizes */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+  
+  .text-responsive-base {
+    @apply text-base sm:text-lg md:text-xl;
+  }
+  
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl md:text-2xl;
+  }
+  
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  /* Responsive grid layouts */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+  
+  .responsive-grid-large {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  }
+  
+  /* Admin CMS styles */
+  .admin-sidebar {
+    @apply bg-neutral-900 text-white w-64 h-screen fixed left-0 top-0 overflow-y-auto shadow-lg transition-all duration-300 ease-in-out;
+  }
+  
+  .admin-content {
+    @apply ml-64 px-8 py-6 min-h-screen bg-neutral-50;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-sidebar {
+      @apply -left-64;
+    }
+    
+    .admin-sidebar.open {
+      @apply left-0;
+    }
+    
+    .admin-content {
+      @apply ml-0;
+    }
+  }
+  
+  .admin-nav-item {
+    @apply flex items-center gap-3 px-4 py-3 text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors;
+  }
+  
+  .admin-nav-item.active {
+    @apply bg-primary/20 text-primary border-l-4 border-primary;
+  }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+/* Custom scrollbar style for team member bios */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

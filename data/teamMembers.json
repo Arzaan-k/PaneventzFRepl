@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Imran Mirza",
+    "position": "Founder & CEO",
+    "bio": "With over 15 years of experience in event management, Imran leads Pan Eventz with vision and strategic direction. His passion for creating exceptional experiences drives the company's commitment to excellence and innovation in the event industry.",
+    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80",
+    "email": "info@paneventz.com",
+    "phone": "+91 98213 37523",
+    "specialties": [
+      "Corporate Events",
+      "Strategic Planning",
+      "Client Relations"
+    ],
+    "experience": "15+ years",
+    "order": 1,
+    "createdAt": "2025-06-15T08:17:11.913Z",
+    "updatedAt": "2025-06-15T08:17:11.913Z"
+  },
+  {
+    "id": 2,
+    "name": "Priya Sharma",
+    "position": "Creative Director",
+    "bio": "Priya brings artistic vision and creative excellence to every project. Her innovative design concepts and attention to detail ensure that each event is visually stunning and memorable for all attendees.",
+    "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80",
+    "email": "priya@paneventz.com",
+    "phone": "+91 9876543210",
+    "specialties": [
+      "Event Design",
+      "Décor Coordination",
+      "Creative Conceptualization"
+    ],
+    "experience": "10+ years",
+    "order": 2,
+    "createdAt": "2025-06-15T08:17:11.913Z",
+    "updatedAt": "2025-06-15T08:17:11.913Z"
+  },
+  {
+    "id": 3,
+    "name": "Rajesh Kumar",
+    "position": "Operations Manager",
+    "bio": "Rajesh ensures flawless execution of all events through meticulous planning and coordination. His expertise in logistics management and vendor relations guarantees smooth operations from start to finish.",
+    "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80",
+    "email": "rajesh@paneventz.com",
+    "phone": "+91 9988776655",
+    "specialties": [
+      "Logistics Management",
+      "Vendor Coordination",
+      "Project Execution"
+    ],
+    "experience": "12+ years",
+    "order": 3,
+    "createdAt": "2025-06-15T08:17:11.913Z",
+    "updatedAt": "2025-06-15T08:17:11.913Z"
+  },
+  {
+    "id": 4,
+    "name": "Ananya Patel",
+    "position": "Client Relations Manager",
+    "bio": "Ananya specializes in building strong client relationships and ensuring complete satisfaction throughout the event journey. Her dedication to customer service sets the standard for excellence in client communication.",
+    "image": "https://images.unsplash.com/photo-1494790108755-2616b612b27c?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80",
+    "email": "ananya@paneventz.com",
+    "phone": "+91 9123456789",
+    "specialties": [
+      "Client Communication",
+      "Relationship Management",
+      "Customer Service"
+    ],
+    "experience": "8+ years",
+    "order": 4,
+    "createdAt": "2025-06-15T08:17:11.913Z",
+    "updatedAt": "2025-06-15T08:17:11.913Z"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Planning the Perfect Corporate Event",
+    "slug": "planning-perfect-corporate-event",
+    "excerpt": "Essential strategies for organizing successful corporate events that leave a lasting impression on attendees and drive business objectives.",
+    "content": "Corporate events are crucial for business growth and relationship building. From product launches to annual conferences, every detail matters. Our comprehensive approach ensures seamless execution from initial planning to post-event analysis. We focus on understanding your business objectives, target audience, and desired outcomes to create memorable experiences that align with your brand values and deliver measurable results.",
+    "author": "Imran Mirza",
+    "authorTitle": "Founder & CEO",
+    "authorImage": "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    "publishDate": "2023-11-28",
+    "category": "Corporate Events",
+    "image": "https://images.unsplash.com/photo-1591115765373-5207764f72e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
+    "tags": [
+      "corporate",
+      "conference",
+      "planning",
+      "business"
+    ],
+    "status": "published"
+  },
+  {
+    "id": 2,
+    "title": "The Evolution of Event Technology",
+    "slug": "event-technology-evolution",
+    "excerpt": "An in-depth look at how technology has transformed the event industry and what innovations to expect in the coming years.",
+    "content": "Technology has revolutionized event management, from virtual reality experiences to AI-powered networking platforms. We leverage cutting-edge solutions including live streaming, interactive apps, digital registration systems, and real-time analytics to enhance attendee engagement and measure event success. Our tech-forward approach ensures your events stay ahead of industry trends while delivering exceptional user experiences.",
+    "author": "Imran Mirza",
+    "authorTitle": "Founder & CEO",
+    "authorImage": "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    "publishDate": "2023-10-10",
+    "category": "Technology",
+    "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
+    "tags": [
+      "technology",
+      "innovation",
+      "events",
+      "digital"
+    ],
+    "status": "published"
+  },
+  {
+    "id": 3,
+    "title": "Creating Memorable Wedding Experiences",
+    "slug": "memorable-wedding-experiences",
+    "excerpt": "Transform your special day into an unforgettable celebration with our expert wedding planning services and attention to detail.",
+    "content": "Every wedding tells a unique love story, and we specialize in bringing those stories to life through personalized planning and flawless execution. From intimate ceremonies to grand celebrations, we handle every aspect including venue selection, catering coordination, décor design, entertainment management, and guest logistics. Our experienced team ensures your wedding day reflects your vision while creating lasting memories for you and your loved ones.",
+    "author": "Priya Sharma",
+    "authorTitle": "Wedding Specialist",
+    "authorImage": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    "publishDate": "2023-09-22",
+    "category": "Weddings",
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
+    "tags": [
+      "wedding",
+      "celebration",
+      "planning",
+      "romance"
+    ],
+    "status": "published"
+  }
+]

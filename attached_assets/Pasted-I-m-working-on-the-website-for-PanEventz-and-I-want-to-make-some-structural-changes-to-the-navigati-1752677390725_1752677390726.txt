@@ -1,0 +1,18 @@
+I’m working on the website for PanEventz, and I want to make some structural changes to the navigation and media section. Currently, there’s a “Gallery” tab in the navbar that, when clicked, opens a section displaying folders of past events. I no longer want this gallery section or the route /gallery. Please remove the “Gallery” tab from the navbar and delete everything associated with it, including the section that appears when the page loads.
+
+Instead, I want to add a new tab called “Media” in the same position where “Gallery” used to be. This new Media tab should open a route /media, where I want to display images directly from Cloudinary. I have already uploaded all the images to Cloudinary, organized neatly into folders. These folders represent various events, and I want the images on the /media page to be fetched dynamically from Cloudinary using their API and grouped based on these folder names.
+
+Here are the Cloudinary credentials to use:
+
+Cloud name: dhxetyrkb
+
+API key: 878769551721862
+
+API secret: 0v3eRiejau1m-tdnK7xgoR1Cetc
+
+The folders on Cloudinary that you need to fetch images from are:
+Topspin event 1, Topspin event 2, Topspin event 3, Topspin event 4, Topspin event 5, Topspin event 7, Topspin event 8, College + aamir khan, Jio event, Leap 1, Leap 2, Leap 3, Mix, Imran (CEO) with Celebs, Reliance 40 years anniversary, Reliance corporate event, Reliance Jio Launch, Richa Housing event, and Rotary event. The display should be organized by folder – each folder’s name should be shown as a heading, followed by a grid of images from that folder. The layout should be clean and responsive, using a CSS Grid or Flexbox format, similar to how Google Drive organizes folders.
+
+All the images must be displayed using their Cloudinary links. You can use the Cloudinary Admin API to fetch the list of images from each folder. For example, use the endpoint https://api.cloudinary.com/v1_1/dhxetyrkb/resources/image?prefix=Topspin event 1/ to fetch images from that folder. The API requires Basic Auth using the API key and secret (encoded in base64). The frontend should dynamically load and display the image URLs returned from Cloudinary. Make sure all this works cleanly under the new /media route.
+
+Also, make sure there are no broken links or leftover code from the old gallery section, and ensure that navigating to /gallery does not open anything anymore. Everything displayed on the new media page must come only from Cloudinary. Let me know if you need me to supply folder URLs or want this built in a particular framework – I’ll provide more info if needed.
