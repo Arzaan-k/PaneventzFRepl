@@ -1,10 +1,11 @@
 [build]
   publish = "dist"
-  command = "npm run build"
+  command = "CI=false npm run build"
 
 [build.environment]
+  NODE_ENV = "production"
   NODE_VERSION = "20"
-  NPM_FLAGS = "--legacy-peer-deps --no-audit"
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
   VITE_CLOUDINARY_CLOUD_NAME = "dhxetyrkb"
   VITE_CLOUDINARY_API_KEY = "878769551721862"
   CLOUDINARY_CLOUD_NAME = "dhxetyrkb"
