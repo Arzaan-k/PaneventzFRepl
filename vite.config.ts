@@ -17,8 +17,8 @@ export default defineConfig({
       : []),
   ],
   build: {
-    outDir: 'dist/client',
-    emptyOutDir: true,
+    outDir: 'dist',
+    emptyOutDir: false,
   },
   resolve: {
     alias: {
