@@ -4,14 +4,15 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    ...(process.env.NODE_ENV === 'development' ? [runtimeErrorOverlay()] : []),
-  ],
+  plugins: [react()],
   root: path.resolve(import.meta.dirname, "client"),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: false,
+    sourcemap: true,
+  },
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
   },
   resolve: {
     alias: {

@@ -1,11 +1,13 @@
 [build]
   publish = "dist"
-  command = "CI=false npm run build"
+  command = "VITE_NODE_ENV=production NODE_ENV=production CI=false npm run build"
 
 [build.environment]
-  NODE_ENV = "production"
   NODE_VERSION = "20"
   NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+  CI = "false"
+  VITE_NODE_ENV = "production"
+  NODE_ENV = "production"
   VITE_CLOUDINARY_CLOUD_NAME = "dhxetyrkb"
   VITE_CLOUDINARY_API_KEY = "878769551721862"
   CLOUDINARY_CLOUD_NAME = "dhxetyrkb"
