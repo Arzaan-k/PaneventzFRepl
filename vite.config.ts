@@ -9,10 +9,29 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: false,
-    sourcemap: true,
+    rollupOptions: {
+      external: [
+        'express',
+        'cors',
+        'dotenv',
+        'pg',
+        'drizzle-orm',
+        '@neondatabase/serverless',
+        'multer',
+        'bcrypt',
+        'jsonwebtoken',
+        'passport',
+        'passport-local',
+        'express-session',
+        'ws'
+      ]
+    }
   },
   define: {
     'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL),
+    'process.env.VITE_CLOUDINARY_CLOUD_NAME': JSON.stringify(process.env.VITE_CLOUDINARY_CLOUD_NAME),
+    'process.env.VITE_CLOUDINARY_API_KEY': JSON.stringify(process.env.VITE_CLOUDINARY_API_KEY)
   },
   resolve: {
     alias: {
