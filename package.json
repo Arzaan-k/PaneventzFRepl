@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "tsx server/index.ts",
-    "prebuild": "npm install --legacy-peer-deps --no-audit",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean && npm install --legacy-peer-deps --no-audit",
     "build": "npm run client:build && npm run server:build",
     "client:build": "vite build",
     "server:build": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
