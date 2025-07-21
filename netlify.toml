@@ -5,7 +5,10 @@
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps --no-audit"
+  VITE_CLOUDINARY_CLOUD_NAME = "dhxetyrkb"
+  VITE_CLOUDINARY_API_KEY = "878769551721862"
   CLOUDINARY_CLOUD_NAME = "dhxetyrkb"
+  CLOUDINARY_API_KEY = "878769551721862"
 
 [[redirects]]
   from = "/api/*"
