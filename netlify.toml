@@ -1,9 +1,7 @@
 [build]
   publish = "dist"
   command = "npm run build"
-
-[build.environment]
-  NODE_VERSION = "20"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./
 
 [[redirects]]
   from = "/api/*"

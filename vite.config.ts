@@ -16,6 +16,10 @@ export default defineConfig({
         ]
       : []),
   ],
+  build: {
+    outDir: 'dist/client',
+    emptyOutDir: true,
+  },
   resolve: {
     alias: {
       "@db": path.resolve(import.meta.dirname, "db"),
