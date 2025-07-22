@@ -99,7 +99,8 @@
     "wouter": "^3.3.5",
     "ws": "^8.18.0",
     "zod": "^3.23.8",
-    "zod-validation-error": "^3.4.0"
+    "zod-validation-error": "^3.4.0",
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.11.6",
@@ -116,7 +117,6 @@
     "@types/ws": "^8.5.13",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.20",
-    "cross-env": "^7.0.3",
     "drizzle-kit": "^0.27.1",
     "esbuild": "^0.24.2",
     "postcss": "^8.4.47",
