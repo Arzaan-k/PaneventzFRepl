@@ -30,28 +30,41 @@ app.get('/api/cloudinary/:folder', async (req, res) => {
     const apiKey = process.env.CLOUDINARY_API_KEY;
     const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
+    // Log environment and request info for debugging (do not log secrets)
+    console.log('Cloudinary Proxy Debug:', {
+      folderName,
+      cloudName,
+      apiKeyPresent: !!apiKey,
+      apiSecretPresent: !!apiSecret,
+      env: process.env.NODE_ENV,
+    });
+
     if (!cloudName || !apiKey || !apiSecret) {
+      console.error('Missing Cloudinary credentials:', { cloudName, apiKeyPresent: !!apiKey, apiSecretPresent: !!apiSecret });
       return res.status(500).json({ message: 'Cloudinary credentials are not set in environment variables.' });
     }
 
     // Create Basic Auth header
     const credentials = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
 
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/resources/by_asset_folder?asset_folder=${encodeURIComponent(folderName)}&max_results=500`,
-      {
-        headers: {
-          'Authorization': `Basic ${credentials}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const apiUrl = `https://api.cloudinary.com/v1_1/${cloudName}/resources/by_asset_folder?asset_folder=${encodeURIComponent(folderName)}&max_results=500`;
+    console.log('Fetching from Cloudinary API:', apiUrl);
+
+    const response = await fetch(apiUrl, {
+      headers: {
+        'Authorization': `Basic ${credentials}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch images from ${folderName}`);
+      const errorText = await response.text();
+      console.error('Cloudinary API error:', response.status, errorText);
+      throw new Error(`Failed to fetch images from ${folderName}: ${response.status} ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('Cloudinary API response:', { count: data.resources?.length, keys: Object.keys(data) });
     res.json(data.resources || []);
   } catch (error) {
     console.error(`Error fetching Cloudinary images for folder ${req.params.folder}:`, error);
