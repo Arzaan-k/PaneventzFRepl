@@ -27,7 +27,9 @@
   publish = "dist"
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs@5.11.6"
+  package = "@netlify/plugin-nextjs"
+  [plugins.inputs]
+    nextVersion = "5.11.6"
 
 [[redirects]]
   from = "/api/*"
