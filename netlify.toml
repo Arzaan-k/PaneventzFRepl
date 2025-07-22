@@ -13,6 +13,7 @@
   VITE_CLOUDINARY_API_KEY = "878769551721862"
   CLOUDINARY_CLOUD_NAME = "dhxetyrkb"
   CLOUDINARY_API_KEY = "878769551721862"
+  CLOUDINARY_API_SECRET = "0v3eRiejau1m-tdnK7xgoR1Cetc"
 
 [functions]
   external_node_modules = ["express", "@neondatabase/serverless"]

@@ -1207,9 +1207,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get(`${apiPrefix}/cloudinary/:folder`, async (req, res) => {
     try {
       const folderName = req.params.folder;
-      const cloudName = 'dhxetyrkb';
-      const apiKey = '878769551721862';
-      const apiSecret = '0v3eRiejau1m-tdnK7xgoR1Cetc';
+      const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+      const apiKey = process.env.CLOUDINARY_API_KEY;
+      const apiSecret = process.env.CLOUDINARY_API_SECRET;
+      
+      if (!cloudName || !apiKey || !apiSecret) {
+        throw new Error('Cloudinary credentials are not properly configured');
+      }
       
       // Create Basic Auth header
       const credentials = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
