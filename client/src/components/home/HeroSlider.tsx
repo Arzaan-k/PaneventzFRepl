@@ -39,11 +39,11 @@ const HeroSlider = () => {
       backgroundImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
       primaryCta: {
         text: "Our Services",
-        link: "services"
+        link: "https://paneventz.com/services"
       },
       secondaryCta: {
         text: "Contact Us",
-        link: "contact"
+        link: "https://paneventz.com/contact"
       }
     },
     {
@@ -54,11 +54,11 @@ const HeroSlider = () => {
       backgroundImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
       primaryCta: {
         text: "Wedding Services",
-        link: "services/wedding"
+        link: "https://paneventz.com/services"
       },
       secondaryCta: {
         text: "View Gallery",
-        link: "gallery"
+        link: "https://paneventz.com/media"
       }
     },
     {
@@ -69,11 +69,11 @@ const HeroSlider = () => {
       backgroundImage: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
       primaryCta: {
         text: "Cultural Events",
-        link: "services/cultural"
+        link: "https://paneventz.com/services"
       },
       secondaryCta: {
         text: "Get a Quote",
-        link: "contact"
+        link: "https://paneventz.com/contact"
       }
     }
   ];
