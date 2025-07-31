@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
+    outDir: path.resolve(import.meta.dirname, "client", "dist"),
     emptyOutDir: false,
     rollupOptions: {
       external: [
