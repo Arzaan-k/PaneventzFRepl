@@ -5,7 +5,7 @@ import HeroSlider from "@/components/home/HeroSlider";
 import ServiceCards from "@/components/home/ServiceCards";
 import PremiumServices from "@/components/home/PremiumServices";
 import FeaturedTechnologies from "@/components/home/FeaturedTechnologies";
-
+import MediaGallery from "@/components/home/MediaGallery";
 import Testimonials from "@/components/home/Testimonials";
 import AboutSection from "@/components/home/AboutSection";
 import Statistics from "@/components/home/Statistics";
@@ -48,6 +48,7 @@ const HomePage = () => {
         <CelebritySection />
         <PremiumServices />
         <FeaturedTechnologies />
+        <MediaGallery />
         <AboutSection />
         <Testimonials />
         <Statistics />

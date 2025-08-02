@@ -1,0 +1,157 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import useEmblaCarousel from 'embla-carousel-react';
+// import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
+import { DotButton, PrevButton, NextButton } from './CarouselButtons';
+
+interface GalleryImage {
+  id: string;
+  url: string;
+  title?: string;
+  description?: string;
+}
+
+const MediaGallery = () => {
+  const hardcodedImageUrls = [
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749973042/DSC_1463_jvapcc.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972939/1_2_mjibcj.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972910/8x12_2_-_Copy_gcl5ik.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972800/f200297312_us0tue.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972616/DSC_0812_faei64.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972620/DSC_0732_k9eoya.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972610/DSC_0142_njsmtv.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972337/7_uwskmk.jpg",
+    "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972276/1_nzcnpk.jpg",
+  ];
+
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    align: 'start',
+    skipSnaps: false,
+    dragFree: false
+  });
+  
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  // Load images on component mount
+  useEffect(() => {
+    const mappedImages: GalleryImage[] = hardcodedImageUrls.map((url, index) => ({
+      id: `img-${index}`,
+      url: url,
+      title: ``,
+      description: ``,
+    }));
+    setImages(mappedImages);
+    setIsLoading(false);
+  }, []);
+
+  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
+  const scrollNext = () => emblaApi && emblaApi.scrollNext();
+  const scrollTo = (index: number) => emblaApi && emblaApi.scrollTo(index);
+
+  const onSelect = () => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+    setPrevBtnEnabled(emblaApi.canScrollPrev());
+    setNextBtnEnabled(emblaApi.canScrollNext());
+  };
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    setScrollSnaps(emblaApi.scrollSnapList());
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi, images]); // Add images to dependency array to update on data load
+
+  return (
+    <section className="py-16 bg-gray-50 overflow-hidden">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Gallery</h2>
+          <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Explore our collection of memorable events and moments we've captured.
+          </p>
+        </div>
+        
+        <div className="relative">
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+            </div>
+          ) : images.length > 0 ? (
+            <>
+              <div className="overflow-hidden" ref={emblaRef}>
+                <div className="flex">
+                  {images.map((image, index) => (
+                    <div key={image.id} className="flex-[0_0_80%] sm:flex-[0_0_40%] md:flex-[0_0_30%] lg:flex-[0_0_25%] px-2">
+                      <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 group h-full">
+                        <img
+                          src={image.url}
+                          alt={image.title || `Event Image ${index + 1}`}
+                          className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                          {image.title && (
+                            <h3 className="text-white text-lg font-bold mb-1">{image.title}</h3>
+                          )}
+                          {image.description && (
+                            <p className="text-white/90 text-sm">{image.description}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />
+              <NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
+              
+              <div className="flex justify-center mt-6">
+                {scrollSnaps.map((_, index) => (
+                  <DotButton
+                    key={index}
+                    selected={index === selectedIndex}
+                    onClick={() => scrollTo(index)}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No featured images available at the moment.</p>
+            </div>
+          )}
+        </div>
+        
+        <div className="text-center mt-12">
+          <a 
+            href="https://paneventz.com/media" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition-colors duration-300"
+          >
+            View More in Gallery
+            <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default MediaGallery;
