@@ -50,4 +50,8 @@ export const NextButton: React.FC<ButtonProps> = ({ enabled, onClick }) => {
       <ChevronRight className="w-6 h-6" />
     </button>
   );
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 11424b50e8a6719c08d00859b343f30c1b7aa720
