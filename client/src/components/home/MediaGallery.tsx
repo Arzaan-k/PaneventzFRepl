@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useEmblaCarousel from 'embla-carousel-react';
-<<<<<<< HEAD
-// import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
-=======
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
->>>>>>> 11424b50e8a6719c08d00859b343f30c1b7aa720
 import { DotButton, PrevButton, NextButton } from './CarouselButtons';
 
 interface GalleryImage {
@@ -36,11 +32,7 @@ const MediaGallery = () => {
     align: 'start',
     skipSnaps: false,
     dragFree: false
-<<<<<<< HEAD
-  });
-=======
   }, [WheelGesturesPlugin()]);
->>>>>>> 11424b50e8a6719c08d00859b343f30c1b7aa720
   
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
