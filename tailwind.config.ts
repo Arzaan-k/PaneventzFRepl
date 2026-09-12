@@ -6,9 +6,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Open Sans', 'sans-serif'],
+        'sans': ['Plus Jakarta Sans', 'Open Sans', 'sans-serif'],
         'montserrat': ['Montserrat', 'sans-serif'],
         'playfair': ['Playfair Display', 'serif'],
+        'cinzel': ['Cinzel', 'serif'],
+        'cormorant': ['Cormorant Garamond', 'serif'],
+        'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -16,6 +19,24 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        obsidian: {
+          DEFAULT: "#030508",
+          card: "#090D16",
+          elevated: "#0E1422",
+          border: "rgba(255, 255, 255, 0.08)",
+        },
+        gold: {
+          light: "#FFF6D6",
+          DEFAULT: "#E8B923",
+          metallic: "#D4AF37",
+          dark: "#AA820A",
+          glow: "rgba(232, 185, 35, 0.25)",
+        },
+        crimson: {
+          DEFAULT: "#E6193C",
+          dark: "#B80F2A",
+          glow: "rgba(230, 25, 60, 0.35)",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

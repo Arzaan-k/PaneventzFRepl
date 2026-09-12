@@ -7,67 +7,67 @@
 
 @layer base {
   :root {
-    /* Luxury Light Theme */
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    /* Ultra-Luxury Obsidian & 24K Champagne Gold Theme (Default) */
+    --background: 222 47% 4%; /* #030508 */
+    --foreground: 210 40% 98%; /* #F8FAFC */
     
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 222 47% 7%; /* #090D16 */
+    --card-foreground: 210 40% 98%;
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
     
-    /* Elegant Royal Crimson & Gold Accent */
-    --primary: 350 80% 50%; /* #E6193C - Premium Crimson */
-    --primary-foreground: 0 0% 100%;
+    /* 24K Champagne Gold & Royal Crimson */
+    --primary: 43 85% 52%; /* #E8B923 - 24K Gold */
+    --primary-foreground: 222 47% 7%;
     
-    --secondary: 222 47% 13%; /* #111827 - Rich Obsidian */
+    --secondary: 222 47% 12%; /* #0E1422 */
     --secondary-foreground: 210 40% 98%;
     
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 222 47% 12%;
+    --muted-foreground: 215 20% 65%;
     
-    --accent: 43 85% 52%; /* #E8B923 - Champagne Gold */
-    --accent-foreground: 222 47% 11%;
+    --accent: 350 84% 56%; /* #E6193C - Royal Crimson */
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
     
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 350 80% 50%;
+    --border: 217 33% 15%;
+    --input: 217 33% 15%;
+    --ring: 43 85% 52%;
     
     --radius: 0.75rem;
   }
  
   .dark {
-    --background: 222 47% 7%; /* #090D16 */
+    --background: 222 47% 4%; /* #030508 */
     --foreground: 210 40% 98%;
     
-    --card: 222 47% 10%;
+    --card: 222 47% 7%;
     --card-foreground: 210 40% 98%;
     
-    --popover: 222 47% 10%;
+    --popover: 222 47% 8%;
     --popover-foreground: 210 40% 98%;
     
-    --primary: 350 84% 56%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 43 85% 52%;
+    --primary-foreground: 222 47% 7%;
     
-    --secondary: 217 33% 18%;
+    --secondary: 222 47% 12%;
     --secondary-foreground: 210 40% 98%;
     
-    --muted: 217 33% 15%;
+    --muted: 222 47% 12%;
     --muted-foreground: 215 20% 65%;
     
-    --accent: 43 85% 55%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 350 84% 56%;
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 43 85% 55%;
+    --border: 217 33% 15%;
+    --input: 217 33% 15%;
+    --ring: 43 85% 52%;
   }
 }
 
@@ -78,16 +78,18 @@
   
   html {
     scroll-behavior: smooth;
+    background-color: #030508;
+    color: #ffffff;
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
+    @apply bg-[#030508] text-white antialiased selection:bg-[#E8B923] selection:text-black;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', system-ui, sans-serif;
-    @apply font-bold tracking-tight text-neutral-900;
+    @apply font-bold tracking-tight text-white;
   }
 
   .font-serif-luxury {
@@ -100,6 +102,10 @@
 
   .font-playfair {
     font-family: 'Playfair Display', serif;
+  }
+
+  .font-cormorant {
+    font-family: 'Cormorant Garamond', Georgia, serif;
   }
 }
 
