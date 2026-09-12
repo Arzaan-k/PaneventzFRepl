@@ -108,5 +108,27 @@
     "status": "new",
     "createdAt": "2026-09-12T23:27:13.387Z",
     "updatedAt": "2026-09-12T23:27:13.387Z"
+  },
+  {
+    "id": 11,
+    "name": "Rohit Singhania",
+    "email": "rohit@singhaniagroup.com",
+    "phone": "+91 98200 12345",
+    "eventType": "corporate",
+    "message": "We are requesting a proposal for our Annual Tech Conclave 2024 with 1,500 VIP delegates.",
+    "status": "new",
+    "createdAt": "2026-09-12T23:30:49.493Z",
+    "updatedAt": "2026-09-12T23:30:49.493Z"
+  },
+  {
+    "id": 12,
+    "name": "O'Connor <script>alert('xss')</script> -- DROP TABLE users;",
+    "email": "security_test@domain.co.in",
+    "phone": "+91 99999 88888",
+    "eventType": "wedding",
+    "message": "Special chars test: !@#$%^&*()_+~`|}{[]:;?><,./",
+    "status": "new",
+    "createdAt": "2026-09-12T23:30:49.505Z",
+    "updatedAt": "2026-09-12T23:30:49.505Z"
   }
 ]

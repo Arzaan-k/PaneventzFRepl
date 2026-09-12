@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer";
 import HeroSlider from "@/components/home/HeroSlider";
 import PremiumServices from "@/components/home/PremiumServices";
 import FeaturedTechnologies from "@/components/home/FeaturedTechnologies";
+import InteractiveStageEstimator from "@/components/home/InteractiveStageEstimator";
 import Testimonials from "@/components/home/Testimonials";
 import AboutSection from "@/components/home/AboutSection";
 import Statistics from "@/components/home/Statistics";
@@ -82,6 +83,7 @@ const HomePage = () => {
         <CelebritySection />
         <PremiumServices />
         <FeaturedTechnologies />
+        <InteractiveStageEstimator />
         <AboutSection />
         <Testimonials />
         <Statistics />
@@ -91,16 +93,16 @@ const HomePage = () => {
       
       <Footer />
       
-      {/* Back to Top Floating Button */}
+      {/* Back to Top Floating Button (Offset above WhatsApp widget) */}
       <button 
         id="back-to-top" 
         onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 bg-[#E8B923] hover:bg-amber-300 text-black w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 z-50 cursor-pointer ${
+        className={`fixed bottom-24 right-6 bg-[#090D16] border border-[#E8B923]/40 text-[#E8B923] hover:bg-[#E8B923] hover:text-black w-11 h-11 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 z-40 cursor-pointer ${
           showBackToTop ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-90 pointer-events-none"
         }`}
         aria-label="Back to top"
       >
-        <ArrowUp className="w-5 h-5 stroke-[2.5]" />
+        <ArrowUp className="w-4 h-4 stroke-[2.5]" />
       </button>
     </div>
   );

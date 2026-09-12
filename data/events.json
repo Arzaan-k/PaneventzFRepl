@@ -68,5 +68,19 @@
     "status": "upcoming",
     "createdAt": "2026-09-12T23:27:13.412Z",
     "updatedAt": "2026-09-12T23:27:13.412Z"
+  },
+  {
+    "id": 6,
+    "title": "QA Automated Test Gala 2024",
+    "slug": "qa-automated-test-gala-2024",
+    "description": "An automated testing case study verification event.",
+    "date": "2024-12-31",
+    "location": "Leela Palace, Bangalore",
+    "category": "corporate",
+    "clientName": "Enterprise Testing Labs",
+    "attendees": 500,
+    "status": "upcoming",
+    "createdAt": "2026-09-12T23:30:49.530Z",
+    "updatedAt": "2026-09-12T23:30:49.530Z"
   }
 ]

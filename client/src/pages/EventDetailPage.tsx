@@ -363,21 +363,39 @@ const EventDetailPage = () => {
               </div>
 
               {/* Quick Contact Card */}
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-[#121826] to-[#0A0E17] border border-[#E8B923]/20 text-center">
-                <h4 className="text-base font-playfair font-bold text-white mb-2">
+              <div className="p-6 rounded-3xl bg-gradient-to-br from-[#121826] to-[#0A0E17] border border-[#E8B923]/20 text-center space-y-4">
+                <h4 className="text-base font-playfair font-bold text-white">
                   Need Bespoke Consultation?
                 </h4>
-                <p className="text-xs text-neutral-400 leading-relaxed font-light mb-5">
+                <p className="text-xs text-neutral-400 leading-relaxed font-light">
                   Discuss technical staging, venue scouting, or celebrity artist booking directly with our leadership team.
                 </p>
-                <div className="text-xs font-mono text-[#E8B923] font-semibold mb-4">
-                  +91 99991 32800 • Direct Desk
+                <div className="space-y-1.5 text-xs font-mono">
+                  <div className="text-[#25D366] font-bold">
+                    <a href="https://wa.me/918082024787" target="_blank" rel="noreferrer" className="hover:underline">
+                      +91 80820 24787 • WhatsApp Desk
+                    </a>
+                  </div>
+                  <div className="text-slate-400 text-[11px]">
+                    +91 98213 37523 / +91 99991 32800
+                  </div>
                 </div>
-                <Link href="/contact">
-                  <Button variant="outline" className="w-full border-white/10 hover:border-[#E8B923]/50 text-neutral-300 hover:text-white bg-white/[0.02] text-xs py-2 rounded-xl">
-                    Schedule Private Consultation
-                  </Button>
-                </Link>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <a 
+                    href="https://wa.me/918082024787?text=Hi%20Pan%20Eventz,%20I%20would%20like%20to%20discuss%20an%20event." 
+                    target="_blank" 
+                    rel="noreferrer"
+                  >
+                    <Button className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-black font-bold text-xs py-2 rounded-xl">
+                      WhatsApp
+                    </Button>
+                  </a>
+                  <Link href="/contact">
+                    <Button variant="outline" className="w-full border-white/10 hover:border-[#E8B923]/50 text-neutral-300 hover:text-white bg-white/[0.02] text-xs py-2 rounded-xl">
+                      Inquire
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

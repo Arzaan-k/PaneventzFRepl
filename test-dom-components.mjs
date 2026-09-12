@@ -160,6 +160,29 @@ async function auditFrontendComponents() {
     }
   }
 
+  // 10. Audit Interactive Features & WhatsApp Integration
+  console.log('\n--- 10. Auditing WhatsApp & Interactive Features ---');
+  const floatingWhatsAppContent = fs.readFileSync(path.join(clientDir, 'components', 'layout', 'FloatingWhatsApp.tsx'), 'utf-8');
+  if (floatingWhatsAppContent.includes('8082024787') && floatingWhatsAppContent.includes('wa.me')) {
+    recordPass('FloatingWhatsApp includes active WhatsApp concierge link to +91 80820 24787');
+  } else {
+    recordIssue('Floating WhatsApp', 'Missing phone number or link');
+  }
+
+  const stageEstimatorContent = fs.readFileSync(path.join(clientDir, 'components', 'home', 'InteractiveStageEstimator.tsx'), 'utf-8');
+  if (stageEstimatorContent.includes('guestCount') && stageEstimatorContent.includes('handleWhatsAppShare')) {
+    recordPass('InteractiveStageEstimator enables live dynamic stage calculation and 1-click WhatsApp spec transmission');
+  } else {
+    recordIssue('InteractiveStageEstimator', 'Missing state or WhatsApp action');
+  }
+
+  const footerContent = fs.readFileSync(path.join(clientDir, 'components', 'layout', 'Footer.tsx'), 'utf-8');
+  if (footerContent.includes('80820 24787') && footerContent.includes('98213 37523')) {
+    recordPass('Footer renders complete contact roster (+91 80820 24787, +91 98213 37523, +91 99991 32800) and WhatsApp icon');
+  } else {
+    recordIssue('Footer contacts', 'Missing contact details');
+  }
+
   console.log('\n======================================================');
   console.log(`TOTAL VERIFIED: ${verifications.length}`);
   console.log(`TOTAL ISSUES: ${issues.length}`);

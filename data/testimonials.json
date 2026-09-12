@@ -142,5 +142,17 @@
     "featured": true,
     "createdAt": "2026-09-12T23:27:13.406Z",
     "updatedAt": "2026-09-12T23:27:13.406Z"
+  },
+  {
+    "id": 12,
+    "name": "Aarav Singhania",
+    "role": "Managing Director, Apex Global",
+    "company": "Apex Global",
+    "content": "Pan Eventz managed our 25th Silver Jubilee Conclave with impeccable artistry and zero audio-visual lag.",
+    "rating": 5,
+    "event": "Apex Silver Jubilee",
+    "featured": true,
+    "createdAt": "2026-09-12T23:30:49.524Z",
+    "updatedAt": "2026-09-12T23:30:49.524Z"
   }
 ]
