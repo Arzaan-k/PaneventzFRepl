@@ -93,21 +93,32 @@
   .font-serif-luxury {
     font-family: 'Cormorant Garamond', Georgia, serif;
   }
+
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+  }
+
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
 }
 
 @layer components {
-  /* Luxury UI Containers & Cards */
-  /* Luxury UI Containers & Cards */
+  /* Ultra-Luxury 24K Gold & Obsidian Glassmorphism */
   .luxury-glass {
     @apply bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl;
   }
   
   .luxury-glass-dark {
-    @apply bg-[#090D16]/90 backdrop-blur-2xl border border-white/10 shadow-2xl;
+    @apply bg-[#080C14]/90 backdrop-blur-2xl border border-white/[0.08] shadow-2xl;
   }
 
   .obsidian-card {
-    @apply bg-[#0B0F19]/80 backdrop-blur-xl border border-white/[0.08] hover:border-[#E8B923]/40 transition-all duration-500 shadow-xl hover:shadow-[#E8B923]/5 hover:-translate-y-1.5;
+    @apply bg-[#080C14]/90 backdrop-blur-2xl border border-white/[0.08] hover:border-[#D4AF37]/50 transition-all duration-500 shadow-2xl hover:shadow-[0_10px_35px_rgba(212,175,55,0.12)] hover:-translate-y-2;
+  }
+
+  .obsidian-panel {
+    @apply bg-gradient-to-b from-[#0B0F19] to-[#04060A] border border-white/[0.08] backdrop-blur-2xl rounded-3xl;
   }
 
   .luxury-card {
@@ -115,11 +126,11 @@
   }
 
   .gold-gradient-text {
-    @apply bg-gradient-to-r from-[#F7E7A9] via-[#E8B923] to-[#C5981B] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#FFF6D6] via-[#D4AF37] to-[#AA820A] bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(212,175,55,0.25)];
   }
 
   .gold-foil-text {
-    @apply bg-gradient-to-r from-[#FFF0C2] via-[#E8B923] to-[#A37B14] bg-clip-text text-transparent drop-shadow-sm;
+    @apply bg-gradient-to-r from-[#FFF6D6] via-[#F3D27E] to-[#D4AF37] bg-clip-text text-transparent drop-shadow-[0_2px_15px_rgba(212,175,55,0.35)];
   }
 
   .crimson-gradient-text {
@@ -127,11 +138,15 @@
   }
 
   .gold-glow-border {
-    @apply border border-[#E8B923]/30 hover:border-[#E8B923]/70 hover:shadow-[0_0_25px_rgba(232,185,35,0.2)] transition-all duration-300;
+    @apply border border-[#D4AF37]/35 hover:border-[#D4AF37]/80 hover:shadow-[0_0_30px_rgba(212,175,55,0.25)] transition-all duration-500;
+  }
+
+  .gold-shimmer-btn {
+    @apply relative overflow-hidden bg-gradient-to-r from-[#E6193C] via-[#C8102E] to-[#B80F2A] text-white font-bold tracking-wide shadow-[0_4px_25px_rgba(230,25,60,0.35)] hover:shadow-[0_8px_35px_rgba(230,25,60,0.5)] transition-all duration-300 hover:scale-[1.02] cursor-pointer;
   }
 
   .luxury-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase;
+    @apply inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 shadow-sm;
   }
 
   /* Responsive Touch targets */

@@ -29,10 +29,10 @@ const Statistics = () => {
   });
 
   const fallbackStats: StatItem[] = [
-    { id: 1, label: "Spectacular Events", value: 500, suffix: "+", subtext: "Across India & UAE", icon: CalendarCheck },
-    { id: 2, label: "Corporate & HNIs", value: 350, suffix: "+", subtext: "Fortune 500 & Celebs", icon: Users },
-    { id: 3, label: "Years Mastery", value: 30, suffix: "+", subtext: "Industry Leadership", icon: Award },
-    { id: 4, label: "Cities Reached", value: 25, suffix: "+", subtext: "Pan-India Coverage", icon: Building2 }
+    { id: 1, label: "Landmark Productions", value: 2500, suffix: "+", subtext: "Across India & UAE", icon: CalendarCheck },
+    { id: 2, label: "Cities Worldwide", value: 100, suffix: "+", subtext: "National & Global Hubs", icon: Building2 },
+    { id: 3, label: "Years Production Mastery", value: 30, suffix: "+", subtext: "Industry Vanguard", icon: Award },
+    { id: 4, label: "Enterprise Client Loyalty", value: 98, suffix: "%", subtext: "Fortune 500 & HNIs", icon: Users }
   ];
 
   const statIcons = [CalendarCheck, Users, Award, Building2];
