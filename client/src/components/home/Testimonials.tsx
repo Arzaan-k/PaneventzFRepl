@@ -81,22 +81,22 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 bg-[#090D16] relative overflow-hidden border-t border-white/5">
-      {/* Ambient background glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#E8B923]/5 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-24 md:py-32 bg-[#050505] relative overflow-hidden border-t border-white/[0.06]">
+      {/* Ambient champagne gold glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#E5C378]/[0.03] rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 border border-[#E8B923]/30 text-[#E8B923] text-xs font-semibold uppercase tracking-widest mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E5C378]/10 border border-[#E5C378]/30 text-[#E5C378] text-[11px] font-mono uppercase tracking-[0.2em] mb-5 shadow-sm">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>Verified Client Endorsements</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15] mb-4">
-            Praised By <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] via-amber-200 to-[#E8B923]">Industry Leaders</span> & Couples
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cinzel font-bold text-white tracking-tight leading-[1.15] mb-5">
+            Praised By <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F4E8C1] via-[#E5C378] to-[#C5981B]">Industry Leaders</span> & Couples
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base font-light max-w-xl mx-auto">
+          <p className="text-zinc-400 text-sm sm:text-base font-light max-w-xl mx-auto">
             Real experiences from Fortune 500 corporations, luxury wedding couples, and premier festival producers.
           </p>
         </div>
@@ -104,7 +104,7 @@ const Testimonials = () => {
         {/* Testimonials Carousel */}
         <div className="relative max-w-5xl mx-auto">
           {isLoading ? (
-            <div className="p-10 rounded-2xl bg-white/[0.02] border border-white/10 animate-pulse text-center">
+            <div className="p-10 rounded-2xl bg-[#0D0D0E] border border-white/[0.08] animate-pulse text-center">
               <div className="h-6 bg-white/10 rounded w-3/4 mx-auto mb-4"></div>
               <div className="h-4 bg-white/10 rounded w-1/2 mx-auto"></div>
             </div>
@@ -123,43 +123,43 @@ const Testimonials = () => {
                 return (
                   <div
                     key={item.id || idx}
-                    className="p-7 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#E8B923]/40 transition-all duration-300 flex flex-col justify-between group relative"
+                    className="p-7 rounded-2xl bg-[#0D0D0E]/90 hover:bg-[#121214] border border-white/[0.08] hover:border-[#E5C378]/40 transition-all duration-300 flex flex-col justify-between group relative shadow-xl"
                   >
-                    <Quote className="absolute top-6 right-6 w-8 h-8 text-white/5 group-hover:text-[#E8B923]/20 transition-colors pointer-events-none" />
+                    <Quote className="absolute top-6 right-6 w-8 h-8 text-white/[0.04] group-hover:text-[#E5C378]/20 transition-colors pointer-events-none" />
 
                     <div>
                       {/* Star Rating */}
-                      <div className="flex items-center gap-1 text-[#E8B923] mb-4">
+                      <div className="flex items-center gap-1 text-[#E5C378] mb-4">
                         {Array.from({ length: starCount }).map((_, sIdx) => (
-                          <Star key={sIdx} className="w-4 h-4 fill-[#E8B923]" />
+                          <Star key={sIdx} className="w-4 h-4 fill-[#E5C378] text-[#E5C378]" />
                         ))}
                       </div>
 
                       {/* Content */}
-                      <p className="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+                      <p className="text-zinc-300 text-sm leading-relaxed mb-6 font-light italic">
                         "{item.content}"
                       </p>
                     </div>
 
                     {/* Author Footnote */}
-                    <div className="flex items-center gap-3.5 pt-4 border-t border-white/10">
+                    <div className="flex items-center gap-3.5 pt-4 border-t border-white/[0.08]">
                       {authorImage ? (
                         <img
                           src={authorImage}
                           alt={authorName}
-                          className="w-11 h-11 rounded-full object-cover border border-[#E8B923]/30 shrink-0"
+                          className="w-11 h-11 rounded-full object-cover border border-[#E5C378]/40 shrink-0"
                           loading="lazy"
                         />
                       ) : (
-                        <div className="w-11 h-11 rounded-full bg-[#E8B923]/10 border border-[#E8B923]/30 flex items-center justify-center text-[#E8B923] font-bold text-sm shrink-0">
+                        <div className="w-11 h-11 rounded-full bg-[#E5C378]/10 border border-[#E5C378]/40 flex items-center justify-center text-[#E5C378] font-cinzel font-bold text-sm shrink-0">
                           {authorName.charAt(0)}
                         </div>
                       )}
                       <div className="overflow-hidden">
-                        <div className="text-sm font-bold text-white group-hover:text-[#E8B923] transition-colors truncate">
+                        <div className="text-sm font-cinzel font-semibold text-white group-hover:text-[#E5C378] transition-colors truncate">
                           {authorName}
                         </div>
-                        <div className="text-xs text-slate-400 font-light truncate">
+                        <div className="text-xs text-zinc-400 font-light truncate">
                           {authorTitle}
                         </div>
                       </div>
@@ -175,7 +175,7 @@ const Testimonials = () => {
             <button
               onClick={prevSlide}
               aria-label="Previous testimonials"
-              className="w-11 h-11 rounded-full bg-white/[0.05] hover:bg-[#E8B923] text-white hover:text-black border border-white/10 hover:border-[#E8B923] transition-all flex items-center justify-center cursor-pointer"
+              className="w-11 h-11 rounded-full bg-white/[0.03] hover:bg-[#E5C378] text-white hover:text-black border border-white/[0.1] hover:border-[#E5C378] transition-all flex items-center justify-center cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -186,7 +186,7 @@ const Testimonials = () => {
                   onClick={() => setCurrentSlide(dotIdx)}
                   aria-label={`Slide ${dotIdx + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    currentSlide === dotIdx ? "w-8 bg-[#E8B923]" : "w-2 bg-white/20 hover:bg-white/40"
+                    currentSlide === dotIdx ? "w-8 bg-[#E5C378]" : "w-2 bg-white/20 hover:bg-white/40"
                   }`}
                 />
               ))}
@@ -194,7 +194,7 @@ const Testimonials = () => {
             <button
               onClick={nextSlide}
               aria-label="Next testimonials"
-              className="w-11 h-11 rounded-full bg-white/[0.05] hover:bg-[#E8B923] text-white hover:text-black border border-white/10 hover:border-[#E8B923] transition-all flex items-center justify-center cursor-pointer"
+              className="w-11 h-11 rounded-full bg-white/[0.03] hover:bg-[#E5C378] text-white hover:text-black border border-white/[0.1] hover:border-[#E5C378] transition-all flex items-center justify-center cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

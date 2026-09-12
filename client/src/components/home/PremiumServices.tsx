@@ -7,13 +7,10 @@ import {
   Trophy, 
   GraduationCap, 
   Music, 
-  Sparkles, 
   ArrowRight,
   CheckCircle2,
   ChevronRight,
-  ShieldCheck,
-  Layers,
-  Radio
+  Layers
 } from "lucide-react";
 
 interface ServiceItem {
@@ -134,26 +131,25 @@ const PremiumServices = () => {
   ];
 
   return (
-    <section id="services" className="py-20 lg:py-28 bg-[#05070B] text-white relative overflow-hidden border-t border-white/5">
-      {/* Ambient background glows */}
-      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-[#E8B923]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-[#E6193C]/5 rounded-full blur-[140px] pointer-events-none" />
+    <section id="services" className="py-20 lg:py-28 bg-[#050505] text-white relative overflow-hidden border-t border-white/[0.06]">
+      {/* Subtle warm champagne luminescence */}
+      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-[#E5C378]/5 rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 text-[#E8B923] border border-[#E8B923]/30 mb-4 shadow-sm">
-            <Layers className="w-4 h-4 text-[#E8B923]" />
-            <span className="text-xs font-bold uppercase tracking-widest">
-              Turnkey Production Capabilities
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-[#E5C378]/40 mb-4 shadow-sm backdrop-blur-md">
+            <Layers className="w-3.5 h-3.5 text-[#E5C378]" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#F4E8C1] font-mono">
+              Turnkey Production Disciplines
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-montserrat text-white tracking-tight mb-4">
-            Our Core <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E7A9] via-[#E8B923] to-[#C5981B]">Production Disciplines</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-cinzel text-white tracking-tight mb-4">
+            Our Master <span className="gold-foil-text font-cinzel-dec">Production Disciplines</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-400 leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-slate-400 leading-relaxed font-light font-sans">
             From architectural spatial design and concert acoustics to white-glove VVIP hospitality, we engineer unforgettable live experiences.
           </p>
         </div>
@@ -166,8 +162,8 @@ const PremiumServices = () => {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
                 activeCategory === cat.id
-                  ? "bg-[#E8B923] text-black shadow-lg shadow-[#E8B923]/25 scale-105"
-                  : "bg-white/[0.03] text-slate-400 hover:text-white hover:bg-white/[0.08] border border-white/10"
+                  ? "bg-gradient-to-r from-[#E5C378] to-[#D4AF37] text-black shadow-lg shadow-[#E5C378]/25 scale-105 font-bold"
+                  : "bg-black/60 text-slate-400 hover:text-white hover:bg-white/[0.06] border border-white/[0.08]"
               }`}
             >
               {cat.label}
@@ -182,28 +178,28 @@ const PremiumServices = () => {
             return (
               <div 
                 key={service.id}
-                className="group bg-[#0B0F19]/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden hover:border-[#E8B923]/40 hover:shadow-2xl hover:shadow-[#E8B923]/5 transition-all duration-500 flex flex-col hover:-translate-y-2"
+                className="group bg-[#0D0D0E] backdrop-blur-xl border border-white/[0.08] rounded-3xl overflow-hidden hover:border-[#E5C378]/50 hover:shadow-[0_15px_40px_rgba(229,195,120,0.12)] transition-all duration-500 flex flex-col hover:-translate-y-2"
               >
                 {/* Card Image */}
-                <div className="relative h-60 overflow-hidden bg-neutral-950">
+                <div className="relative h-60 overflow-hidden bg-black">
                   <img 
                     src={service.image} 
                     alt={service.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0E] via-[#0D0D0E]/40 to-transparent" />
                   
                   {/* Category Pill */}
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#05070B]/80 backdrop-blur-md text-white text-xs font-semibold border border-white/15">
-                      <Icon className="w-3.5 h-3.5 text-[#E8B923]" />
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-white text-[11px] font-semibold border border-white/15">
+                      <Icon className="w-3.5 h-3.5 text-[#E5C378]" />
                       <span>{service.category}</span>
                     </span>
                   </div>
 
                   {/* Scale Badge */}
-                  <div className="absolute bottom-3 right-4 z-10 text-[11px] font-bold text-amber-300 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg border border-amber-400/20">
+                  <div className="absolute bottom-3 right-4 z-10 text-[10px] font-bold text-[#F4E8C1] bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-lg border border-[#E5C378]/30 font-mono">
                     {service.capacity}
                   </div>
                 </div>
@@ -211,18 +207,18 @@ const PremiumServices = () => {
                 {/* Card Body */}
                 <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-6">
                   <div className="space-y-3">
-                    <h3 className="text-xl font-bold font-montserrat text-white group-hover:text-[#E8B923] transition-colors leading-snug">
+                    <h3 className="text-xl font-bold font-cinzel text-white group-hover:text-[#E5C378] transition-colors leading-snug">
                       {service.title}
                     </h3>
-                    <p className="text-sm text-slate-400 leading-relaxed font-light">
+                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light font-sans">
                       {service.description}
                     </p>
 
                     {/* Features List */}
                     <div className="pt-3 space-y-2.5">
                       {service.features.map((feat, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-300 font-light">
-                          <CheckCircle2 className="w-4 h-4 text-[#E8B923] shrink-0 mt-0.5" />
+                        <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-300 font-light font-sans">
+                          <CheckCircle2 className="w-4 h-4 text-[#E5C378] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -230,10 +226,10 @@ const PremiumServices = () => {
                   </div>
 
                   {/* Card Bottom CTA */}
-                  <div className="pt-5 border-t border-white/10 flex items-center justify-between">
+                  <div className="pt-5 border-t border-white/[0.08] flex items-center justify-between">
                     <Link 
                       href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-[#E8B923] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-[#E5C378] transition-colors cursor-pointer font-mono"
                     >
                       <span>Explore Specs</span>
                       <ChevronRight className="w-4 h-4" />
@@ -242,7 +238,7 @@ const PremiumServices = () => {
                     <Link href={`/contact?service=${service.slug}`}>
                       <Button 
                         size="sm"
-                        className="bg-[#E8B923]/10 hover:bg-[#E8B923] text-[#E8B923] hover:text-black border border-[#E8B923]/30 rounded-xl px-4 text-xs font-bold transition-all cursor-pointer"
+                        className="bg-[#E5C378]/10 hover:bg-[#E5C378] text-[#E5C378] hover:text-black border border-[#E5C378]/40 rounded-xl px-4 text-xs font-bold transition-all cursor-pointer font-mono"
                       >
                         Book Production
                       </Button>
@@ -259,10 +255,10 @@ const PremiumServices = () => {
           <Link href="/services">
             <Button 
               size="lg"
-              className="bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/20 font-bold rounded-2xl px-8 py-6 text-base shadow-xl gap-2 hover:scale-105 transition-all cursor-pointer"
+              className="bg-black/60 hover:bg-white/[0.08] text-white border border-white/20 font-bold rounded-2xl px-8 py-6 text-sm uppercase tracking-wider shadow-xl gap-2 hover:scale-105 transition-all cursor-pointer"
             >
               <span>View Full Services Catalog</span>
-              <ArrowRight className="w-5 h-5 text-[#E8B923]" />
+              <ArrowRight className="w-4 h-4 text-[#E5C378]" />
             </Button>
           </Link>
         </div>
@@ -272,4 +268,3 @@ const PremiumServices = () => {
 };
 
 export default PremiumServices;
-

@@ -64,12 +64,12 @@ const Statistics = () => {
   const displayStats = Array.isArray(stats) && stats.length > 0 ? stats : fallbackStats;
 
   return (
-    <section ref={sectionRef} className="py-14 sm:py-20 bg-[#060910] border-y border-white/5 relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 sm:py-24 bg-[#050505] border-y border-white/[0.06] relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {isLoading ? (
             Array(4).fill(0).map((_, index) => (
-              <div key={index} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 animate-pulse text-center">
+              <div key={index} className="p-6 rounded-2xl bg-[#0D0D0E] border border-white/[0.08] animate-pulse text-center">
                 <div className="h-10 bg-white/10 rounded-full w-24 mx-auto mb-3"></div>
                 <div className="h-4 bg-white/10 rounded w-2/3 mx-auto"></div>
               </div>
@@ -86,13 +86,13 @@ const Statistics = () => {
               return (
                 <div
                   key={stat.id || idx}
-                  className="p-5 sm:p-7 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-[#E8B923]/40 transition-all duration-300 text-center group relative overflow-hidden"
+                  className="p-6 sm:p-8 rounded-2xl bg-[#0D0D0E]/90 hover:bg-[#121214] border border-white/[0.08] hover:border-[#E5C378]/40 transition-all duration-300 text-center group relative overflow-hidden shadow-xl"
                 >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#E8B923]/10 border border-[#E8B923]/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-[#E8B923]" />
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#E5C378]/10 border border-[#E5C378]/25 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-[#E5C378]" />
                   </div>
 
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] via-amber-200 to-[#E8B923] mb-1.5 tracking-tight">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F4E8C1] via-[#E5C378] to-[#C5981B] mb-2 tracking-tight">
                     {hasAnimated ? (
                       <CountUp end={numericVal} suffix={suffix} />
                     ) : (
@@ -100,12 +100,12 @@ const Statistics = () => {
                     )}
                   </div>
 
-                  <h3 className="text-sm sm:text-base font-bold text-white mb-0.5">
+                  <h3 className="text-sm sm:text-base font-cinzel font-semibold text-white mb-1">
                     {label}
                   </h3>
 
                   {subtext && (
-                    <p className="text-[11px] sm:text-xs text-slate-400 font-light">
+                    <p className="text-[11px] sm:text-xs text-zinc-400 font-light">
                       {subtext}
                     </p>
                   )}

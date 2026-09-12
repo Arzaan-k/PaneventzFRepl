@@ -6,11 +6,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Plus Jakarta Sans', 'Open Sans', 'sans-serif'],
-        'montserrat': ['Montserrat', 'sans-serif'],
-        'playfair': ['Playfair Display', 'serif'],
+        'sans': ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        'italiana': ['Italiana', 'Cinzel', 'serif'],
+        'marcellus': ['Marcellus', 'serif'],
         'cinzel': ['Cinzel', 'serif'],
+        'cinzel-dec': ['Cinzel Decorative', 'Cinzel', 'serif'],
         'cormorant': ['Cormorant Garamond', 'serif'],
+        'syne': ['Syne', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
         'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
       },
       borderRadius: {
@@ -19,23 +22,22 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        obsidian: {
-          DEFAULT: "#030508",
-          card: "#090D16",
-          elevated: "#0E1422",
-          border: "rgba(255, 255, 255, 0.08)",
+        onyx: {
+          DEFAULT: "#050505",
+          card: "#0D0D0E",
+          elevated: "#141416",
+          border: "rgba(229, 195, 120, 0.15)",
         },
-        gold: {
-          light: "#FFF6D6",
-          DEFAULT: "#E8B923",
+        champagne: {
+          light: "#FFF9E6",
+          DEFAULT: "#F4E8C1",
+          gold: "#E5C378",
           metallic: "#D4AF37",
-          dark: "#AA820A",
-          glow: "rgba(232, 185, 35, 0.25)",
+          dark: "#A47C28",
         },
-        crimson: {
-          DEFAULT: "#E6193C",
-          dark: "#B80F2A",
-          glow: "rgba(230, 25, 60, 0.35)",
+        pearl: {
+          DEFAULT: "#F5F5F7",
+          muted: "#9CA3AF",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

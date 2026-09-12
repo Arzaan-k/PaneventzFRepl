@@ -47,50 +47,50 @@ const AboutSection = () => {
       icon: Award,
       title: "Our Mission",
       desc: content.mission || fallbackAbout.mission,
-      color: "text-amber-400",
-      bg: "bg-amber-400/10 border-amber-400/20"
+      color: "text-[#E5C378]",
+      bg: "bg-[#E5C378]/10 border-[#E5C378]/30"
     },
     {
       icon: Sparkles,
       title: "Our Vision",
       desc: content.vision || fallbackAbout.vision,
-      color: "text-rose-400",
-      bg: "bg-rose-400/10 border-rose-400/20"
+      color: "text-[#F4E8C1]",
+      bg: "bg-[#F4E8C1]/10 border-[#F4E8C1]/30"
     },
     {
       icon: Users,
       title: "Expert Team",
       desc: content.team || fallbackAbout.team,
-      color: "text-cyan-400",
-      bg: "bg-cyan-400/10 border-cyan-400/20"
+      color: "text-[#D4AF37]",
+      bg: "bg-[#D4AF37]/10 border-[#D4AF37]/30"
     },
     {
       icon: ShieldCheck,
       title: "Quality Commitment",
       desc: content.quality || fallbackAbout.quality,
-      color: "text-emerald-400",
-      bg: "bg-emerald-400/10 border-emerald-400/20"
+      color: "text-[#E5C378]",
+      bg: "bg-[#E5C378]/10 border-[#E5C378]/30"
     }
   ];
 
   return (
-    <section id="about" className="py-20 md:py-28 bg-[#090D16] relative overflow-hidden border-t border-white/5">
-      {/* Ambient background glows */}
-      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#E8B923]/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="about" className="py-24 md:py-32 bg-[#050505] relative overflow-hidden border-t border-white/[0.06]">
+      {/* Ambient champagne gold glows */}
+      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[#E5C378]/[0.03] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#E5C378]/[0.03] rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Story & Pillars */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 border border-[#E8B923]/30 text-[#E8B923] text-xs font-semibold uppercase tracking-widest mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E5C378]/10 border border-[#E5C378]/30 text-[#E5C378] text-[11px] font-mono uppercase tracking-[0.2em] mb-5 shadow-sm">
               <Trophy className="w-3.5 h-3.5" />
               <span>30+ Years of Industry Leadership</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
-              Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] via-amber-200 to-[#E8B923]">Spectacular Moments</span> With Flawless Execution
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cinzel font-bold text-white tracking-tight leading-[1.15] mb-6">
+              Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F4E8C1] via-[#E5C378] to-[#C5981B]">Spectacular Moments</span> With Flawless Execution
             </h2>
 
             {isLoading ? (
@@ -100,7 +100,7 @@ const AboutSection = () => {
                 <div className="h-4 bg-white/10 rounded w-4/6"></div>
               </div>
             ) : (
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light mb-8">
+              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-light mb-8">
                 {content.description}
               </p>
             )}
@@ -112,17 +112,17 @@ const AboutSection = () => {
                 return (
                   <div
                     key={idx}
-                    className="p-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#E8B923]/40 transition-all duration-300 group"
+                    className="p-5 rounded-2xl bg-[#0D0D0E]/90 hover:bg-[#121214] border border-white/[0.08] hover:border-[#E5C378]/40 transition-all duration-300 group"
                   >
                     <div className="flex items-start gap-3.5">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border ${pillar.bg}`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${pillar.bg}`}>
                         <Icon className={`w-5 h-5 ${pillar.color}`} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-white text-base group-hover:text-[#E8B923] transition-colors mb-1">
+                        <h4 className="font-cinzel font-semibold text-white text-base group-hover:text-[#E5C378] transition-colors mb-1">
                           {pillar.title}
                         </h4>
-                        <p className="text-xs sm:text-sm text-slate-400 leading-relaxed line-clamp-2">
+                        <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2 font-light">
                           {pillar.desc}
                         </p>
                       </div>
@@ -135,13 +135,13 @@ const AboutSection = () => {
             {/* CTA row */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link href="/about">
-                <Button className="bg-gradient-to-r from-[#E6193C] to-[#b8132e] hover:from-[#f02246] hover:to-[#c71734] text-white font-semibold px-7 py-5 rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all flex items-center gap-2 text-sm sm:text-base cursor-pointer">
+                <Button className="bg-gradient-to-r from-[#D4AF37] via-[#E5C378] to-[#C5981B] hover:brightness-110 text-black font-cinzel font-bold px-7 py-5 rounded-xl shadow-lg shadow-[#E5C378]/15 transition-all flex items-center gap-2 text-xs sm:text-sm uppercase tracking-widest cursor-pointer">
                   <span>Explore Our Legacy</span>
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button variant="outline" className="border-white/20 hover:border-[#E8B923] text-white hover:text-[#E8B923] bg-white/[0.02] hover:bg-[#E8B923]/10 font-medium px-6 py-5 rounded-xl transition-all text-sm sm:text-base cursor-pointer">
+                <Button variant="outline" className="border-white/20 hover:border-[#E5C378] text-zinc-200 hover:text-[#E5C378] bg-white/[0.02] hover:bg-[#E5C378]/10 font-cinzel font-medium px-6 py-5 rounded-xl transition-all text-xs sm:text-sm uppercase tracking-widest cursor-pointer">
                   Get In Touch
                 </Button>
               </Link>
@@ -154,7 +154,7 @@ const AboutSection = () => {
               
               {/* Image 1 */}
               <div className="space-y-4">
-                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-56 sm:h-64">
+                <div className="relative group overflow-hidden rounded-2xl border border-white/[0.08] shadow-2xl h-56 sm:h-64">
                   <img
                     src={content?.images?.[0] || fallbackAbout.images[0]}
                     alt="Pan Eventz Production"
@@ -162,12 +162,12 @@ const AboutSection = () => {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-cinzel font-medium text-white/90">
                     Grand Stage Production
                   </div>
                 </div>
 
-                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-44 sm:h-52">
+                <div className="relative group overflow-hidden rounded-2xl border border-white/[0.08] shadow-2xl h-44 sm:h-52">
                   <img
                     src={content?.images?.[1] || fallbackAbout.images[1]}
                     alt="Corporate Gala"
@@ -175,7 +175,7 @@ const AboutSection = () => {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-cinzel font-medium text-white/90">
                     Corporate Conclaves
                   </div>
                 </div>
@@ -183,7 +183,7 @@ const AboutSection = () => {
 
               {/* Image 2 */}
               <div className="space-y-4 pt-6">
-                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-44 sm:h-52">
+                <div className="relative group overflow-hidden rounded-2xl border border-white/[0.08] shadow-2xl h-44 sm:h-52">
                   <img
                     src={content?.images?.[2] || fallbackAbout.images[2]}
                     alt="Luxury Wedding"
@@ -191,12 +191,12 @@ const AboutSection = () => {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-cinzel font-medium text-white/90">
                     Destination Weddings
                   </div>
                 </div>
 
-                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-56 sm:h-64">
+                <div className="relative group overflow-hidden rounded-2xl border border-white/[0.08] shadow-2xl h-56 sm:h-64">
                   <img
                     src={content?.images?.[3] || fallbackAbout.images[3]}
                     alt="Live Concert"
@@ -204,18 +204,18 @@ const AboutSection = () => {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-cinzel font-medium text-white/90">
                     Stadium Concerts
                   </div>
                 </div>
               </div>
 
               {/* Floating Center Experience Badge */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 rounded-2xl bg-[#090D16]/95 backdrop-blur-xl border border-[#E8B923]/40 shadow-2xl text-center z-20 min-w-[160px]">
-                <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] to-amber-200">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 rounded-2xl bg-[#0D0D0E]/95 backdrop-blur-xl border border-[#E5C378]/40 shadow-2xl text-center z-20 min-w-[160px]">
+                <div className="text-2xl sm:text-3xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F4E8C1] via-[#E5C378] to-[#C5981B]">
                   30+ Years
                 </div>
-                <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider mt-0.5">
+                <div className="text-[10px] font-mono font-medium text-zinc-300 uppercase tracking-[0.2em] mt-0.5">
                   Mastery & Trust
                 </div>
               </div>
