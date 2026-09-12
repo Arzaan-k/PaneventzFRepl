@@ -8,7 +8,7 @@ async function seed() {
 
     // Create admin users
     const existingAdmin = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.username, "admin")
+      where: (users: any, { eq }: any) => eq(users.username, "admin")
     });
 
     if (!existingAdmin) {
@@ -29,7 +29,7 @@ async function seed() {
     
     // Create eventninja12@ admin user
     const existingEventNinja = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.username, "eventninja12@")
+      where: (users: any, { eq }: any) => eq(users.username, "eventninja12@")
     });
 
     if (!existingEventNinja) {
@@ -101,7 +101,7 @@ async function seed() {
         const [newService] = await db.insert(schema.services).values(service).returning();
         
         // Add features for each service
-        let features = [];
+        let features: any[] = [];
         if (service.slug === "corporate") {
           features = [
             { serviceId: newService.id, text: "Conferences & Seminars" },

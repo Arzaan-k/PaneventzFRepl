@@ -233,7 +233,7 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <div className="space-y-1">
-                  {data.recentEvents.map((event) => (
+                  {data.recentEvents.map((event: any) => (
                     <div key={event.id} className="flex items-center justify-between py-2 border-b last:border-0">
                       <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
@@ -291,7 +291,7 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <div className="space-y-1">
-                  {data.recentInquiries.map((inquiry) => (
+                  {data.recentInquiries.map((inquiry: any) => (
                     <div key={inquiry.id} className="flex items-center justify-between py-2 border-b last:border-0">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center">

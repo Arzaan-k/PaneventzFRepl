@@ -19,7 +19,7 @@ const Testimonials = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: testimonials = [] } = useQuery({
+  const { data: testimonials = [] } = useQuery<any[]>({
     queryKey: ['/api/testimonials'],
   });
 

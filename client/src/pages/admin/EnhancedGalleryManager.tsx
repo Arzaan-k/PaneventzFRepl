@@ -44,11 +44,11 @@ const EnhancedGalleryManager = () => {
   const queryClient = useQueryClient();
 
   // Fetch gallery items and events
-  const { data: galleryItems = [] } = useQuery({
+  const { data: galleryItems = [] } = useQuery<any[]>({
     queryKey: ['/api/gallery'],
   });
 
-  const { data: events = [] } = useQuery({
+  const { data: events = [] } = useQuery<any[]>({
     queryKey: ['/api/events'],
   });
 
@@ -524,7 +524,7 @@ const EnhancedGalleryManager = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Select Event</FormLabel>
-                                <Select onValueChange={(value) => field.onChange(parseInt(value))} defaultValue={field.value?.toString()}>
+                                <Select onValueChange={(value) => field.onChange(parseInt(value))} defaultValue={field.value ? String(field.value) : undefined}>
                                   <FormControl>
                                     <SelectTrigger>
                                       <SelectValue placeholder="Choose an event" />

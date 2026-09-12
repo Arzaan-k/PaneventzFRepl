@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
-import { useRoute } from "wouter";
+import { useRoute, Link } from "wouter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
 import { formatDate } from "@/lib/utils";
+import { 
+  Calendar, 
+  Clock, 
+  ArrowLeft, 
+  ArrowRight, 
+  Tag, 
+  Share2, 
+  Bookmark, 
+  Check, 
+  Sparkles,
+  Building2,
+  CheckCircle2
+} from "lucide-react";
 
 interface BlogPost {
   id: number;
@@ -16,6 +28,7 @@ interface BlogPost {
   authorTitle: string;
   authorImage: string;
   publishDate: string;
+  readTime: string;
   category: string;
   image: string;
   tags: string[];
@@ -24,149 +37,149 @@ interface BlogPost {
 const BlogDetailPage = () => {
   const [match, params] = useRoute("/blog/:slug");
   const [post, setPost] = useState<BlogPost | null>(null);
+  const [copied, setCopied] = useState(false);
 
-  // Hardcoded blog posts - same as BlogPage
   const blogPosts: BlogPost[] = [
     {
       id: 1,
-      title: "Top 10 Wedding Trends for 2024",
+      title: "Top 10 Ultra-Luxury Wedding Trends Dominating 2024 & Beyond",
       slug: "top-10-wedding-trends-2024",
-      excerpt: "Discover the newest wedding trends that are expected to dominate the event industry in 2024.",
-      content: "Drawing from Imran Mirza's 30+ years of experience in event management, here are the wedding trends dominating 2024. Since founding Pan Eventz in 2017, we've witnessed these trends evolve and become essential for modern celebrations.\n\n**1. Sustainable Celebrations**\nEco-conscious couples are choosing sustainable options for their weddings. From locally sourced flowers to biodegradable confetti, environmental responsibility is becoming a top priority. Venues that offer solar power, waste reduction programs, and locally sourced catering are increasingly popular.\n\n**2. Intimate Micro Weddings**\nThe trend toward smaller, more intimate gatherings continues to grow. Couples are choosing quality over quantity, focusing on meaningful connections with their closest family and friends. These smaller celebrations allow for more personalized attention to detail and often result in more memorable experiences.\n\n**3. Technology Integration**\nVirtual reality experiences, drone photography, and livestreaming capabilities are becoming standard offerings. Couples want to share their special moments with loved ones who cannot attend in person, making technology an essential component of modern weddings.\n\n**4. Bold Color Palettes**\nGone are the days of muted pastels. 2024 weddings are embracing vibrant, bold color combinations that reflect the couple's personality. Think deep emeralds paired with gold, or rich burgundy combined with copper accents.\n\n**5. Interactive Food Experiences**\nStatic buffets are being replaced with interactive culinary experiences. Live cooking stations, customizable food bars, and chef demonstrations are creating engaging dining experiences that serve as entertainment as well as nourishment.",
+      excerpt: "From multi-tiered kinetic floral canopies to German acoustic mapping, explore the high-end wedding innovations shaping the international luxury scene.",
+      content: `Drawing from Imran Mirza's 30+ years of experience orchestrating bespoke royal weddings, here are the landmark architectural and acoustic trends dominating 2024 and beyond.
+
+**1. Kinetic Floral Sculptures & Dynamic Ceiling Architecture**
+Modern luxury couples are moving beyond static floral arrangements. The new benchmark integrates motorized ceiling trusses that lower and raise thousands of suspended blooms in choreographed synchronization with ambient orchestral music, creating an immersive living canopy.
+
+**2. Acoustic Zone Precision with German Line-Arrays**
+A recurring challenge in high-society weddings is balancing vibrant dance floor energy with crystal-clear conversation in VIP dining suites. Pan Eventz utilizes computerized d&b audiotechnik line-arrays, acoustically shaping soundwaves so that the dance floor experiences thunderous concert-grade fidelity while surrounding dining lounges remain intimately conversational.
+
+**3. Architectural 3D Video Mapping on Custom Facades**
+Traditional backdrops are giving way to bespoke 3D projection-mapped architectural facades. Historic fortresses, palace courtyards, and grand ballrooms are transformed into dynamic visual tapestries showcasing the couple's personal journey in cinema-grade 4K resolution.
+
+**4. Midnight Speakeasy & Bespoke Mixology Enclosures**
+After the main reception, guests are ushered through concealed corridors into secret, ultra-exclusive afterparty lounges featuring custom velvet banquettes, curated molecular cocktail bars, and international guest DJs.
+
+**5. Seamless Drone Choreography & Zero-Latency Livestreaming**
+For high-profile destination weddings with global dignitaries unable to travel, synchronized outdoor drone light formations create bespoke celestial signatures, while multi-camera 4K broadcast arrays beam ultra-private streams to private residences worldwide.`,
       author: "Imran Mirza",
-      authorTitle: "Founder & CEO",
-      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+      authorTitle: "Founder & Master Orchestrator",
+      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80",
       publishDate: "2024-01-15",
-      category: "Wedding",
-      image: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
-      tags: ["wedding", "trends", "events", "planning"]
+      readTime: "6 min read",
+      category: "Weddings",
+      image: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&h=800&q=80",
+      tags: ["Royal Weddings", "Luxury Decor", "Floral Architecture", "Celebrations"]
     },
     {
       id: 2,
-      title: "How to Plan a Successful Corporate Conference",
+      title: "Executing High-Stakes Corporate Summits for Fortune 500 Leaders",
       slug: "successful-corporate-conference-planning",
-      excerpt: "Learn the key strategies for organizing a memorable and productive corporate conference that achieves your business objectives.",
-      content: "Corporate conferences are powerful tools for building relationships, sharing knowledge, and driving business growth. However, organizing a successful conference requires careful planning, attention to detail, and strategic thinking.\n\n**Setting Clear Objectives**\nBefore diving into logistics, establish clear goals for your conference. Are you launching a new product, building team morale, or facilitating knowledge sharing? Your objectives will guide every decision from venue selection to speaker lineup.\n\n**Choosing the Right Venue**\nYour venue sets the tone for the entire event. Consider factors like accessibility, technical capabilities, catering options, and ambiance. The space should align with your company culture and conference objectives.\n\n**Creating Engaging Content**\nYour content strategy is crucial for maintaining attendee engagement. Mix keynote presentations with interactive workshops, panel discussions, and networking sessions. Ensure your content addresses real challenges and provides actionable insights.\n\n**Technology and AV Setup**\nInvest in professional audio-visual equipment and technical support. Nothing derails a conference faster than technical difficulties. Have backup plans for internet connectivity, microphones, and presentation systems.\n\n**Measuring Success**\nDefine key performance indicators (KPIs) before the event. Post-conference surveys, engagement metrics, and follow-up actions will help you measure success and improve future events.",
+      excerpt: "Strategic blueprints for multi-city business conventions, VIP dignitary protocols, and zero-latency audiovisual broadcasting.",
+      content: `High-stakes corporate summits require flawless precision. When global CEOs, government ministers, and investors convene, technical failure is not an option.
+
+**1. Presidential-Grade Protocol & Redundant Security**
+From biometrically monitored green rooms to armored convoy logistical coordination, the VIP experience begins miles before the venue threshold.
+
+**2. Zero-Latency Multi-Hub Broadcasting**
+Linking international executive hubs across London, Dubai, and Mumbai requires dedicated enterprise fiber conduits and backup satellite uplinks with sub-millisecond audio synchronization.
+
+**3. Interactive Data Visualization on 200-Foot LED Curved Matrices**
+Keynotes no longer rely on standard slides. Our engineers develop real-time 3D telemetry displays mapped seamlessly onto curved P2.6 ultra-HD LED video walls.
+
+**4. Ergonomic VIP Breakout Lounges**
+Sustaining cognitive engagement across multi-day summits demands curated acoustic isolation, circadian rhythm lighting, and artisanal catering.`,
       author: "Imran Mirza",
-      authorTitle: "Founder & CEO",
-      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+      authorTitle: "Founder & Master Orchestrator",
+      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80",
       publishDate: "2024-01-08",
+      readTime: "8 min read",
       category: "Corporate",
-      image: "https://images.unsplash.com/photo-1591115765373-5207764f72e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
-      tags: ["corporate", "conference", "planning", "business"]
+      image: "https://images.unsplash.com/photo-1591115765373-5207764f72e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&h=800&q=80",
+      tags: ["Conferences", "AV Production", "Protocol", "Enterprise"]
     },
     {
       id: 3,
-      title: "The Power of Live Events in Digital Marketing",
+      title: "The Power of Live Experiential Events in Brand Positioning",
       slug: "live-events-digital-marketing",
-      excerpt: "Explore how live events can enhance your digital marketing strategy and create authentic connections with your audience.",
-      content: "In an increasingly digital world, live events offer something that virtual experiences often can't match: authentic human connection. Smart marketers are leveraging live events as powerful tools in their digital marketing arsenal.\n\n**Building Authentic Relationships**\nLive events provide opportunities for face-to-face interactions that build trust and rapport in ways that digital communications cannot. These genuine connections often translate into stronger business relationships and customer loyalty.\n\n**Content Creation Opportunities**\nEvents generate a wealth of content for digital channels. From behind-the-scenes footage to keynote highlights, live events provide months of social media content, blog posts, and marketing materials.\n\n**Data Collection and Insights**\nEvents offer unique opportunities to gather customer data and insights through surveys, interactions, and behavioral observations. This information can inform future marketing strategies and product development.\n\n**Brand Experience and Positioning**\nLive events allow you to control every aspect of the brand experience, from ambiance to messaging. This level of control helps reinforce brand positioning and values in a memorable way.\n\n**Amplification Through Social Media**\nEncourage attendees to share their experiences on social media with branded hashtags and photo opportunities. This user-generated content extends your event's reach far beyond the physical attendees.",
+      excerpt: "Why face-to-face grand architectural brand activations create 10x more lasting engagement than purely digital campaigns.",
+      content: `In an era of hyper-saturated digital screens, physical grandeur creates irreversible psychological impact.
+
+**1. Tactile Brand Immersion**
+A physical environment engages all five senses simultaneously—olfactory bespoke scents, tactile architectural textures, and directional soundscapes.
+
+**2. Amplification through High-Production Content Capture**
+Live events serve as the premier content studio. Our cinematic production teams capture 4K broadcast footage, aerial drone cinematography, and immediate social dispatches that generate millions of organic impressions.`,
       author: "Imran Mirza",
-      authorTitle: "Founder & CEO",
-      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+      authorTitle: "Founder & Master Orchestrator",
+      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80",
       publishDate: "2023-12-22",
-      category: "Marketing",
-      image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
-      tags: ["marketing", "digital", "events", "strategy"]
-    },
-    {
-      id: 4,
-      title: "Creating Memorable Cultural Events",
-      slug: "creating-memorable-cultural-events",
-      excerpt: "Learn the art of organizing cultural events that celebrate diversity and create lasting memories for communities.",
-      content: "Cultural events serve as bridges between communities, celebrating diversity while bringing people together through shared experiences. Creating memorable cultural events requires sensitivity, creativity, and deep understanding of the communities being served.\n\n**Understanding Cultural Context**\nSuccessful cultural events begin with thorough research and understanding of the cultural traditions, values, and sensitivities involved. Engage with community leaders and cultural experts to ensure authenticity and respect.\n\n**Inclusive Programming**\nDesign your event program to be inclusive and accessible to diverse audiences. Consider language barriers, dietary restrictions, accessibility needs, and cultural customs when planning activities and logistics.\n\n**Authentic Representation**\nEnsure that cultural elements are represented authentically rather than as stereotypes or oversimplifications. Work with cultural consultants and community members to maintain integrity and respect.\n\n**Community Engagement**\nInvolve the community in the planning process. Their input and participation not only ensures authenticity but also builds investment in the event's success.\n\n**Educational Components**\nIncorporate educational elements that help attendees learn about and appreciate different cultures. This might include workshops, demonstrations, storytelling sessions, or interactive exhibits.",
-      author: "Imran Mirza",
-      authorTitle: "Founder & CEO",
-      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
-      publishDate: "2023-12-10",
-      category: "Cultural",
-      image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
-      tags: ["cultural", "community", "diversity", "events"]
-    },
-    {
-      id: 5,
-      title: "Event Technology Trends Shaping 2024",
-      slug: "event-technology-trends-2024",
-      excerpt: "Discover the latest technology trends that are transforming the event industry and enhancing attendee experiences.",
-      content: "Technology continues to revolutionize the event industry, offering new ways to engage audiences, streamline operations, and create immersive experiences. Here are the key technology trends shaping events in 2024.\n\n**Artificial Intelligence and Automation**\nAI is streamlining event planning through automated scheduling, personalized recommendations, and intelligent chatbots for attendee support. Machine learning algorithms help optimize everything from seating arrangements to catering quantities.\n\n**Hybrid Event Platforms**\nSeamless integration between in-person and virtual experiences is becoming standard. Advanced platforms now offer synchronized activities, shared networking opportunities, and unified engagement metrics.\n\n**Immersive Technologies**\nVirtual and augmented reality are creating new possibilities for product demonstrations, virtual venue tours, and interactive presentations. These technologies make events more engaging and memorable.\n\n**Advanced Analytics**\nReal-time data collection and analysis provide immediate insights into attendee behavior, engagement levels, and event performance. This data drives real-time adjustments and improves future events.\n\n**Sustainable Tech Solutions**\nDigital-first approaches reduce paper waste, while energy-efficient technologies minimize environmental impact. Smart lighting and climate control systems optimize energy usage based on occupancy.",
-      author: "Imran Mirza",
-      authorTitle: "Founder & CEO",
-      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
-      publishDate: "2023-11-28",
-      category: "Technology",
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
-      tags: ["technology", "innovation", "events", "trends"]
-    },
-    {
-      id: 6,
-      title: "Budget-Friendly Event Planning Tips",
-      slug: "budget-friendly-event-planning-tips",
-      excerpt: "Maximize your event's impact while minimizing costs with these proven budget-friendly planning strategies.",
-      content: "Creating memorable events doesn't require unlimited budgets. With strategic planning and creative thinking, you can deliver exceptional experiences while staying within financial constraints.\n\n**Strategic Venue Selection**\nChoose venues during off-peak times for significant savings. Consider unconventional spaces like community centers, parks, or even corporate offices that can be transformed with creative decoration.\n\n**Smart Catering Choices**\nOpt for buffet-style serving over plated meals, choose seasonal ingredients, and consider daytime events which typically have lower catering costs. Food trucks and local caterers often provide excellent value.\n\n**DIY Decoration Elements**\nCreate impactful decorations using affordable materials. Lighting can dramatically transform a space at relatively low cost. Consider renting or borrowing items instead of purchasing.\n\n**Technology Leveraging**\nUse free or low-cost digital tools for registration, communication, and event management. Social media marketing is cost-effective for promotion and engagement.\n\n**Volunteer and Partner Support**\nEngage volunteers for non-critical tasks and seek partnerships with local businesses for sponsorship opportunities. These relationships can provide both cost savings and added value.",
-      author: "Imran Mirza",
-      authorTitle: "Founder & CEO",
-      authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
-      publishDate: "2023-11-15",
-      category: "Planning",
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80",
-      tags: ["budget", "planning", "tips", "cost-effective"]
+      readTime: "5 min read",
+      category: "Brand Activations",
+      image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&h=800&q=80",
+      tags: ["Experiential", "Brand Gala", "PR Events", "Innovation"]
     }
   ];
 
   useEffect(() => {
     if (params?.slug) {
-      const foundPost = blogPosts.find(p => p.slug === params.slug);
-      setPost(foundPost || null);
-      
-      if (foundPost) {
-        document.title = `${foundPost.title} - Pan Eventz Blog`;
-      } else {
-        document.title = "Post Not Found - Pan Eventz Blog";
-      }
+      const foundPost = blogPosts.find(p => p.slug === params.slug) || blogPosts[0];
+      setPost(foundPost);
+      document.title = `${foundPost.title} | Pan Eventz Editorial`;
+      window.scrollTo(0, 0);
     }
   }, [params?.slug]);
 
-  if (!match) {
-    return null;
-  }
+  const handleShare = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    }
+  };
 
-  if (!post) {
+  if (!match || !post) {
     return (
-      <>
+      <div className="bg-[#090D16] text-[#F9FAFB] min-h-screen">
         <Header />
-        <main className="py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold text-neutral-800 mb-4">Post Not Found</h1>
-            <p className="text-lg text-neutral-600 mb-8">The blog post you're looking for doesn't exist.</p>
-            <Link href="/blog">
-              <Button className="bg-primary hover:bg-primary/90 text-white">
-                Back to Blog
-              </Button>
-            </Link>
-          </div>
+        <main className="py-32 text-center">
+          <h1 className="text-3xl font-bold text-white mb-4">Editorial Post Not Found</h1>
+          <Link href="/blog">
+            <Button className="bg-[#E8B923] text-black font-semibold">Back to Journal</Button>
+          </Link>
         </main>
         <Footer />
-      </>
+      </div>
     );
   }
 
-  // Format content with basic markdown-style formatting
   const formatContent = (content: string) => {
     return content
       .split('\n\n')
       .map((paragraph, index) => {
-        if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
-          // Handle bold headings
+        if (paragraph.startsWith('**') && paragraph.includes('**\n')) {
+          const parts = paragraph.split('**\n');
+          const heading = parts[0].replace(/\*\*/g, '');
+          const body = parts[1];
+          return (
+            <div key={index} className="mb-8">
+              <h3 className="text-xl sm:text-2xl font-playfair font-bold text-[#E8B923] mb-3">
+                {heading}
+              </h3>
+              <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light">
+                {body}
+              </p>
+            </div>
+          );
+        } else if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
           const text = paragraph.replace(/\*\*/g, '');
           return (
-            <h3 key={index} className="text-xl font-bold text-neutral-800 mb-3 mt-6">
+            <h3 key={index} className="text-xl sm:text-2xl font-playfair font-bold text-[#E8B923] mb-3 mt-8">
               {text}
             </h3>
           );
         } else {
-          // Regular paragraphs
           return (
-            <p key={index} className="text-neutral-700 mb-4 leading-relaxed">
+            <p key={index} className="text-neutral-300 text-base sm:text-lg leading-relaxed font-light mb-6">
               {paragraph}
             </p>
           );
@@ -174,97 +187,177 @@ const BlogDetailPage = () => {
       });
   };
 
-  return (
-    <>
-      <Header />
-      
-      <main>
-        {/* Hero Section */}
-        <section 
-          className="relative py-32 bg-center bg-cover"
-          style={{ 
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${post.image}')`
-          }}
-        >
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center text-white">
-              <div className="mb-4">
-                <span className="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium">
-                  {post.category}
-                </span>
-              </div>
-              <h1 className="text-3xl md:text-5xl font-bold font-montserrat mb-6">
-                {post.title}
-              </h1>
-              <div className="flex items-center justify-center gap-6 text-sm opacity-90">
-                <div className="flex items-center gap-2">
-                  <img 
-                    src={post.authorImage} 
-                    alt={post.author}
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <span>{post.author}</span>
-                </div>
-                <span>•</span>
-                <span>{formatDate(new Date(post.publishDate))}</span>
-              </div>
-            </div>
-          </div>
-        </section>
+  const relatedPosts = blogPosts.filter(p => p.slug !== post.slug).slice(0, 2);
 
-        {/* Article Content */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              {/* Author Info */}
-              <div className="flex items-center gap-4 mb-8 p-6 bg-neutral-50 rounded-xl">
+  return (
+    <div className="bg-[#090D16] text-[#F9FAFB] min-h-screen selection:bg-[#E8B923]/30 selection:text-[#E8B923]">
+      <Header />
+
+      <main className="pt-24 md:pt-32 pb-24">
+        {/* Article Breadcrumb & Back */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+          <Link href="/blog">
+            <button className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-neutral-400 hover:text-[#E8B923] transition-colors py-2">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Executive Journal
+            </button>
+          </Link>
+        </div>
+
+        {/* Article Hero */}
+        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <header className="mb-10">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 border border-[#E8B923]/30 text-[#E8B923] text-xs font-bold uppercase tracking-wider">
+                {post.category}
+              </span>
+              <span className="text-xs text-neutral-500 font-mono">•</span>
+              <span className="text-xs text-neutral-400 font-mono flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-[#E8B923]" />
+                {post.readTime}
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-playfair font-bold text-white tracking-tight leading-tight mb-8">
+              {post.title}
+            </h1>
+
+            {/* Author bar & share actions */}
+            <div className="p-5 rounded-2xl glass-card border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
                 <img 
                   src={post.authorImage} 
-                  alt={post.author}
-                  className="w-16 h-16 rounded-full"
+                  alt={post.author} 
+                  className="w-12 h-12 rounded-full object-cover border-2 border-[#E8B923]"
                 />
                 <div>
-                  <h3 className="font-bold text-neutral-800">{post.author}</h3>
-                  <p className="text-neutral-600">{post.authorTitle}</p>
+                  <h4 className="text-sm font-semibold text-white">{post.author}</h4>
+                  <p className="text-xs text-neutral-400">{post.authorTitle} • Published {formatDate(new Date(post.publishDate))}</p>
                 </div>
               </div>
 
-              {/* Article Content */}
-              <div className="prose prose-lg max-w-none">
-                {formatContent(post.content)}
+              <div className="flex items-center gap-2">
+                <Button 
+                  onClick={handleShare}
+                  variant="outline" 
+                  className="border-white/10 hover:border-[#E8B923]/50 text-neutral-300 hover:text-white bg-white/[0.02] text-xs px-4 py-2 rounded-xl flex items-center gap-2"
+                >
+                  {copied ? <Check className="w-4 h-4 text-green-400" /> : <Share2 className="w-4 h-4 text-[#E8B923]" />}
+                  {copied ? "Link Copied!" : "Share Article"}
+                </Button>
               </div>
+            </div>
+          </header>
 
-              {/* Tags */}
-              <div className="mt-12 pt-8 border-t border-neutral-200">
-                <h4 className="font-bold text-neutral-800 mb-4">Tags:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag, index) => (
-                    <span 
-                      key={index}
-                      className="bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full text-sm"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+          {/* Lead Image */}
+          <div className="relative rounded-3xl overflow-hidden mb-12 border border-white/10 shadow-2xl">
+            <img 
+              src={post.image} 
+              alt={post.title} 
+              className="w-full h-[400px] sm:h-[500px] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#090D16]/60 via-transparent to-transparent"></div>
+          </div>
 
-              {/* Back to Blog */}
-              <div className="mt-12 text-center">
-                <Link href="/blog">
-                  <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
-                    <i className="fas fa-arrow-left mr-2"></i>
-                    Back to Blog
-                  </Button>
-                </Link>
+          {/* Executive Summary Box */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#121826] to-[#0A0E17] border border-[#E8B923]/30 mb-12 shadow-xl">
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-4 h-4 text-[#E8B923]" />
+              <h4 className="text-xs font-bold uppercase tracking-widest text-[#E8B923]">Executive Takeaway</h4>
+            </div>
+            <p className="text-sm sm:text-base text-neutral-200 leading-relaxed font-light italic">
+              "{post.excerpt}"
+            </p>
+          </div>
+
+          {/* Rich Content */}
+          <div className="prose prose-invert max-w-none mb-14">
+            {formatContent(post.content)}
+          </div>
+
+          {/* Tag Badges */}
+          <div className="pt-8 pb-10 border-t border-b border-white/10 mb-12">
+            <div className="flex items-center gap-2 mb-4">
+              <Tag className="w-4 h-4 text-[#E8B923]" />
+              <span className="text-xs font-bold uppercase tracking-widest text-neutral-400">Indexed Themes</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag, idx) => (
+                <span 
+                  key={idx} 
+                  className="px-3 py-1 rounded-xl bg-white/[0.04] border border-white/10 text-neutral-300 text-xs font-medium"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Author Biography Box */}
+          <div className="p-8 rounded-3xl glass-card border border-[#E8B923]/20 mb-16 relative overflow-hidden">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+              <img 
+                src={post.authorImage} 
+                alt={post.author} 
+                className="w-20 h-20 rounded-2xl object-cover border-2 border-[#E8B923] shadow-lg shadow-[#E8B923]/20"
+              />
+              <div>
+                <h4 className="text-lg font-playfair font-bold text-white mb-1">{post.author}</h4>
+                <p className="text-xs text-[#E8B923] font-semibold mb-3">{post.authorTitle}</p>
+                <p className="text-xs text-neutral-300 leading-relaxed font-light">
+                  With over 30 years of elite industry stewardship, Imran Mirza has directed landmark corporate summits, presidential state galas, and ultra-luxury weddings across India and the Middle East.
+                </p>
               </div>
             </div>
           </div>
-        </section>
+
+          {/* Related Articles Section */}
+          <div>
+            <h3 className="text-2xl font-playfair font-bold text-white mb-8 flex items-center justify-between">
+              <span>Related Editorial Dispatches</span>
+              <Link href="/blog">
+                <span className="text-xs text-[#E8B923] font-sans font-semibold flex items-center gap-1 hover:underline">
+                  All Articles <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </Link>
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {relatedPosts.map((rel) => (
+                <Link key={rel.id} href={`/blog/${rel.slug}`}>
+                  <div className="glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-[#E8B923]/40 transition-all p-5 flex flex-col justify-between group cursor-pointer h-full">
+                    <div>
+                      <div className="relative h-40 rounded-xl overflow-hidden mb-4">
+                        <img 
+                          src={rel.image} 
+                          alt={rel.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
+                        />
+                        <span className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[#E8B923] text-[10px] font-bold uppercase">
+                          {rel.category}
+                        </span>
+                      </div>
+                      <h4 className="text-base font-playfair font-bold text-white mb-2 line-clamp-2 group-hover:text-[#E8B923] transition-colors">
+                        {rel.title}
+                      </h4>
+                      <p className="text-xs text-neutral-400 line-clamp-2 font-light mb-4">
+                        {rel.excerpt}
+                      </p>
+                    </div>
+
+                    <span className="text-xs text-[#E8B923] font-semibold flex items-center gap-1 pt-2 border-t border-white/5">
+                      Read Dispatch <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </article>
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

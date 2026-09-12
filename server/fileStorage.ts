@@ -632,6 +632,20 @@ class FileStorage {
   }
 
   // Contact Submissions
+  submitContactForm(data: any) {
+    const submissions = this.readCollection('contactSubmissions');
+    const newSubmission = {
+      id: this.getNextId('contactSubmissions'),
+      ...data,
+      status: data.status || 'new',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    submissions.push(newSubmission);
+    this.writeCollection('contactSubmissions', submissions);
+    return newSubmission;
+  }
+
   getContactSubmissions() {
     return this.readCollection('contactSubmissions');
   }

@@ -1,156 +1,181 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { 
+  Sparkles, 
+  Award, 
+  ShieldCheck, 
+  Eye, 
+  X,
+  Star,
+  CheckCircle2
+} from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-interface CloudinaryImage {
-  asset_id: string;
+interface CelebrityImage {
+  id: string;
   public_id: string;
   secure_url: string;
-  url: string;
-  width: number;
-  height: number;
-  format: string;
-  created_at: string;
-  folder?: string;
+  title: string;
+  subtitle: string;
+  tag: string;
 }
 
 const CelebritySection = () => {
-  const [celebrityImages, setCelebrityImages] = useState<CloudinaryImage[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<CelebrityImage | null>(null);
 
-  // Use the 4 specific celebrity images provided by user
-  useEffect(() => {
-    const specificImages = [
-      {
-        asset_id: "1",
-        public_id: "11_imp_cover_page_umrvw4",
-        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972657/11_imp_cover_page_umrvw4.jpg",
-        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972657/11_imp_cover_page_umrvw4.jpg",
-        width: 1920,
-        height: 1080,
-        format: "jpg",
-        created_at: new Date().toISOString()
-      },
-      {
-        asset_id: "2", 
-        public_id: "DSC_0634_l5nc6v",
-        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972673/DSC_0634_l5nc6v.jpg",
-        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972673/DSC_0634_l5nc6v.jpg",
-        width: 3216,
-        height: 2136,
-        format: "jpg",
-        created_at: new Date().toISOString()
-      },
-      {
-        asset_id: "3",
-        public_id: "16_pi03mq", 
-        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972656/16_pi03mq.jpg",
-        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972656/16_pi03mq.jpg",
-        width: 1920,
-        height: 1080,
-        format: "jpg",
-        created_at: new Date().toISOString()
-      },
-      {
-        asset_id: "4",
-        public_id: "DSC_0632_lvbvde",
-        secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972672/DSC_0632_lvbvde.jpg", 
-        url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972672/DSC_0632_lvbvde.jpg",
-        width: 3216,
-        height: 2136,
-        format: "jpg",
-        created_at: new Date().toISOString()
-      }
-    ];
-    
-    setCelebrityImages(specificImages);
-    setIsLoading(false);
-  }, []);
+  const celebrityImages: CelebrityImage[] = [
+    {
+      id: "1",
+      public_id: "11_imp_cover_page_umrvw4",
+      secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972657/11_imp_cover_page_umrvw4.jpg",
+      title: "Celebrity Gala & Red Carpet",
+      subtitle: "CEO Imran Mirza with Bollywood & Industry Dignitaries",
+      tag: "Red Carpet Gala"
+    },
+    {
+      id: "2", 
+      public_id: "DSC_0634_l5nc6v",
+      secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972673/DSC_0634_l5nc6v.jpg",
+      title: "Star-Studded Award Night",
+      subtitle: "National Entertainment & Media Excellence",
+      tag: "Award Ceremony"
+    },
+    {
+      id: "3",
+      public_id: "16_pi03mq", 
+      secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972656/16_pi03mq.jpg",
+      title: "High-Profile Event Management",
+      subtitle: "VVIP Dignitaries & Celebrity Hospitality",
+      tag: "VVIP Hospitality"
+    },
+    {
+      id: "4",
+      public_id: "DSC_0632_lvbvde",
+      secure_url: "https://res.cloudinary.com/dhxetyrkb/image/upload/v1749972672/DSC_0632_lvbvde.jpg",
+      title: "Celebrity Stage Production",
+      subtitle: "Live Concert & Artist Coordination",
+      tag: "Live Production"
+    }
+  ];
 
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-b from-neutral-50 to-white relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 -right-40 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 lg:py-28 bg-[#07090E] relative overflow-hidden border-t border-white/5">
+      {/* Ambient background glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#E8B923]/5 rounded-full blur-[140px] pointer-events-none" />
+      
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <div className="inline-flex items-center justify-center mb-4">
-            <span className="h-[2px] w-8 bg-primary"></span>
-            <span className="mx-3 text-primary text-sm font-semibold uppercase tracking-wider">Celebrity Recognition</span>
-            <span className="h-[2px] w-8 bg-primary"></span>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 text-[#E8B923] border border-[#E8B923]/30 mb-4 shadow-sm">
+            <Award className="w-4 h-4 text-[#E8B923]" />
+            <span className="text-xs font-bold uppercase tracking-widest">
+              Industry Trust & Credibility
+            </span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-montserrat mb-4">
-            Recognised by <span className="text-primary">Celebrities</span>
+          
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-montserrat text-white tracking-tight mb-4">
+            Recognised by <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E7A9] via-[#E8B923] to-[#C5981B]">Celebrities</span> & Icons
           </h2>
-          <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-            Our exceptional event management services have been trusted by renowned personalities and celebrities across various industries.
+          
+          <p className="text-base sm:text-lg text-slate-400 leading-relaxed font-light">
+            From India's top business leaders to beloved cinema and sports celebrities, Pan Eventz has orchestrated landmark moments with flawless VVIP management and turnkey execution.
           </p>
         </div>
 
-        {/* Celebrity Images Grid */}
-        {isLoading ? (
-          <div className="flex justify-center items-center py-16">
-            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-            {celebrityImages.length > 0 ? (
-              celebrityImages.map((image, index) => (
-                <div 
-                  key={image.asset_id}
-                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
-                >
-                  {/* Image container with aspect ratio */}
-                  <div className="aspect-square relative">
-                    <img
-                      src={image.secure_url}
-                      alt={`Celebrity event ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    
-                    {/* Content overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <h3 className="font-bold text-sm md:text-base mb-1">Celebrity Event {index + 1}</h3>
-                      <p className="text-xs md:text-sm text-white/90">Imran with Celebrities</p>
-                    </div>
-
-                    {/* Decorative border */}
-                    <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/50 rounded-2xl transition-colors duration-300"></div>
-                  </div>
-
-                  {/* Floating badge */}
-                  <div className="absolute top-3 right-3 bg-primary/90 text-white text-xs font-medium px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    ⭐ Featured
-                  </div>
+        {/* Celebrity Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {celebrityImages.map((image) => (
+            <div 
+              key={image.id}
+              onClick={() => setSelectedImage(image)}
+              className="group relative bg-[#0B0F19] rounded-3xl overflow-hidden shadow-2xl hover:shadow-[#E8B923]/10 transition-all duration-500 hover:-translate-y-2 cursor-pointer border border-white/10 hover:border-[#E8B923]/50"
+            >
+              {/* Image with Aspect Ratio */}
+              <div className="aspect-[4/5] relative overflow-hidden bg-neutral-950">
+                <img
+                  src={image.secure_url}
+                  alt={image.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#05070B] via-[#05070B]/40 to-transparent opacity-85 group-hover:opacity-90 transition-opacity" />
+                
+                {/* Top Badge */}
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#05070B]/80 backdrop-blur-md text-[#E8B923] text-xs font-bold border border-[#E8B923]/30 shadow-md">
+                    <Star className="w-3 h-3 fill-[#E8B923] text-[#E8B923]" />
+                    <span>{image.tag}</span>
+                  </span>
                 </div>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-8">
-                <p className="text-neutral-500">No celebrity images available at the moment.</p>
-              </div>
-            )}
-          </div>
-        )}
 
-        {/* Bottom text */}
-        <div className="text-center mt-12 md:mt-16">
-          <div className="inline-flex items-center justify-center bg-white px-8 py-4 rounded-full shadow-lg">
-            <div className="flex items-center space-x-2 text-neutral-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <span className="font-medium">Trusted by industry leaders and celebrities nationwide</span>
+                {/* View Lightbox Indicator */}
+                <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/15 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100 shadow-md border border-white/20">
+                  <Eye className="w-4 h-4" />
+                </div>
+
+                {/* Content Info */}
+                <div className="absolute bottom-0 inset-x-0 p-5 text-white z-10 transform transition-transform duration-300">
+                  <h3 className="text-lg font-bold font-montserrat tracking-tight mb-1 text-white group-hover:text-[#E8B923] transition-colors">
+                    {image.title}
+                  </h3>
+                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed font-light">
+                    {image.subtitle}
+                  </p>
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Trust Badges Strip */}
+        <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-slate-400 text-xs sm:text-sm font-medium">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#E8B923] shrink-0" />
+            <span>500+ High-Profile Celebrations</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#E8B923] shrink-0" />
+            <span>Strict VVIP Privacy & Security Protocols</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#E8B923] shrink-0" />
+            <span>Turnkey AV & Sound Staging</span>
           </div>
         </div>
       </div>
+
+      {/* Lightbox Dialog */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-4xl p-0 overflow-hidden bg-[#07090E] border-white/15 text-white shadow-2xl">
+          {selectedImage && (
+            <div className="relative">
+              <div className="max-h-[80vh] flex items-center justify-center bg-black">
+                <img 
+                  src={selectedImage.secure_url} 
+                  alt={selectedImage.title}
+                  className="max-h-[75vh] w-auto object-contain mx-auto"
+                />
+              </div>
+              <div className="p-6 bg-[#0B0F19] border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <div className="inline-block text-xs font-bold uppercase tracking-wider text-[#E8B923] mb-1">
+                    {selectedImage.tag}
+                  </div>
+                  <h3 className="text-xl font-bold font-montserrat text-white">
+                    {selectedImage.title}
+                  </h3>
+                  <p className="text-sm text-slate-400 mt-0.5 font-light">
+                    {selectedImage.subtitle}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
 
-export default CelebritySection;
+export default CelebritySection;

@@ -10,24 +10,24 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 const Statistics = () => {
   const [timeRange, setTimeRange] = useState("month");
 
-  const { data: stats = [] } = useQuery({
+  const { data: stats = [] } = useQuery<any[]>({
     queryKey: ['/api/stats'],
   });
 
-  const { data: events = [] } = useQuery({
+  const { data: events = [] } = useQuery<any[]>({
     queryKey: ['/api/events'],
   });
 
-  const { data: contactSubmissions = [] } = useQuery({
+  const { data: contactSubmissions = [] } = useQuery<any[]>({
     queryKey: ['/api/contact'],
   });
 
   // Calculate analytics data
   const totalEvents = events.length;
-  const completedEvents = events.filter(e => e.status === 'completed').length;
-  const upcomingEvents = events.filter(e => e.status === 'upcoming').length;
+  const completedEvents = events.filter((e: any) => e.status === 'completed').length;
+  const upcomingEvents = events.filter((e: any) => e.status === 'upcoming').length;
   const totalInquiries = contactSubmissions.length;
-  const pendingInquiries = contactSubmissions.filter(c => c.status === 'pending').length;
+  const pendingInquiries = contactSubmissions.filter((c: any) => c.status === 'pending').length;
 
   // Sample data for charts
   const monthlyData = [

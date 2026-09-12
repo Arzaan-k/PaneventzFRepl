@@ -14,11 +14,11 @@ import { useToast } from "@/hooks/use-toast";
 
 const Services = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingService, setEditingService] = useState(null);
+  const [editingService, setEditingService] = useState<any>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: services = [] } = useQuery({
+  const { data: services = [] } = useQuery<any[]>({
     queryKey: ['/api/services'],
   });
 
@@ -34,12 +34,9 @@ const Services = () => {
   });
 
   const createServiceMutation = useMutation({
-    mutationFn: (data) => apiRequest('/api/services', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    }),
+    mutationFn: (data: any) => apiRequest('POST', '/api/services', data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['/api/services']);
+      queryClient.invalidateQueries({ queryKey: ['/api/services'] });
       setIsDialogOpen(false);
       form.reset();
       toast({
@@ -50,12 +47,9 @@ const Services = () => {
   });
 
   const updateServiceMutation = useMutation({
-    mutationFn: ({ id, data }) => apiRequest(`/api/services/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data)
-    }),
+    mutationFn: ({ id, data }: any) => apiRequest('PUT', `/api/services/${id}`, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['/api/services']);
+      queryClient.invalidateQueries({ queryKey: ['/api/services'] });
       setIsDialogOpen(false);
       setEditingService(null);
       form.reset();
@@ -67,9 +61,9 @@ const Services = () => {
   });
 
   const deleteServiceMutation = useMutation({
-    mutationFn: (id) => apiRequest(`/api/services/${id}`, { method: 'DELETE' }),
+    mutationFn: (id: any) => apiRequest('DELETE', `/api/services/${id}`),
     onSuccess: () => {
-      queryClient.invalidateQueries(['/api/services']);
+      queryClient.invalidateQueries({ queryKey: ['/api/services'] });
       toast({
         title: "Success",
         description: "Service deleted successfully!"
@@ -77,7 +71,7 @@ const Services = () => {
     }
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     if (editingService) {
       updateServiceMutation.mutate({ id: editingService.id, data });
     } else {
@@ -85,7 +79,7 @@ const Services = () => {
     }
   };
 
-  const handleEdit = (service) => {
+  const handleEdit = (service: any) => {
     setEditingService(service);
     form.reset({
       title: service.title,
@@ -98,7 +92,7 @@ const Services = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: any) => {
     if (confirm("Are you sure you want to delete this service?")) {
       deleteServiceMutation.mutate(id);
     }

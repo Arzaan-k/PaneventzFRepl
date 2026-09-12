@@ -17,7 +17,7 @@ const Team = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: teamMembers = [] } = useQuery({
+  const { data: teamMembers = [] } = useQuery<any[]>({
     queryKey: ['/api/team'],
   });
 
@@ -35,10 +35,7 @@ const Team = () => {
   });
 
   const createMemberMutation = useMutation({
-    mutationFn: (data: any) => apiRequest('/api/team', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    }),
+    mutationFn: (data: any) => apiRequest('POST', '/api/team', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/team'] });
       setIsDialogOpen(false);
@@ -51,10 +48,7 @@ const Team = () => {
   });
 
   const updateMemberMutation = useMutation({
-    mutationFn: ({ id, data }: any) => apiRequest(`/api/team/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data)
-    }),
+    mutationFn: ({ id, data }: any) => apiRequest('PUT', `/api/team/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/team'] });
       setIsDialogOpen(false);
@@ -68,7 +62,7 @@ const Team = () => {
   });
 
   const deleteMemberMutation = useMutation({
-    mutationFn: (id: any) => apiRequest(`/api/team/${id}`, { method: 'DELETE' }),
+    mutationFn: (id: any) => apiRequest('DELETE', `/api/team/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/team'] });
       toast({

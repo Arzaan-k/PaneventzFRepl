@@ -46,14 +46,7 @@ export const AdminContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
       const method = data.id ? 'PUT' : 'POST';
       const url = data.id ? `${endpoint}/${data.id}` : endpoint;
       
-      await apiRequest({
-        url,
-        method,
-        data,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      await apiRequest(method, url, data);
       
       toast({
         title: "Success",

@@ -1,25 +1,34 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { scrollToSection } from "@/lib/utils";
-
-
-interface CTA {
-  text: string;
-  link: string;
-}
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Sparkles, 
+  ArrowRight, 
+  Calendar, 
+  Award, 
+  Users, 
+  ShieldCheck,
+  Flame,
+  Volume2
+} from "lucide-react";
 
 interface Slide {
   id: number;
+  tagline: string;
+  preTitle: string;
   title: string;
   titleHighlight: string;
+  subtitle: string;
   description: string;
   backgroundImage: string;
-  primaryCta?: {
+  badge: string;
+  primaryCta: {
     text: string;
     link: string;
   };
-  secondaryCta?: {
+  secondaryCta: {
     text: string;
     link: string;
   };
@@ -27,252 +36,238 @@ interface Slide {
 
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Hardcoded slides for reliable display
   const slides: Slide[] = [
     {
       id: 1,
-      title: "Creating",
-      titleHighlight: "Memorable",
-      description: "Pan Eventz - Your trusted partner for extraordinary corporate events, weddings, and celebrations.",
-      backgroundImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
+      tagline: "India's Premier Event & Live Production House",
+      preTitle: "Mega Live Arenas &",
+      title: "Stadium Scale",
+      titleHighlight: "Spectacles",
+      subtitle: "30+ Years of Acoustic & Spatial Mastery",
+      description: "From explosive stadium concert tours and Bollywood celebrity galas to Fortune 500 corporate summits, Pan Eventz engineers transcendent live moments with d&b audiotechnik acoustics and 4K LED spatial architecture.",
+      backgroundImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=85",
+      badge: "Stadium Concerts & Mega Galas",
       primaryCta: {
-        text: "Our Services",
-        link: "services"
+        text: "Initiate VIP RFP",
+        link: "/contact"
       },
       secondaryCta: {
-        text: "Contact Us",
-        link: "contact"
+        text: "Explore Disciplines",
+        link: "/services"
       }
     },
     {
       id: 2,
-      title: "Stunning",
-      titleHighlight: "Wedding",
-      description: "We bring your dream wedding to life with impeccable planning and magical execution.",
-      backgroundImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
+      tagline: "Bespoke Royal Heritage & Palatial Celebrations",
+      preTitle: "Curating Pure",
+      title: "Royal Luxury",
+      titleHighlight: "Weddings",
+      subtitle: "Udaipur • Jaipur • Jodhpur • Goa • International",
+      description: "We orchestrate multi-day palatial destination weddings with white-glove VVIP hospitality, royal architectural scenography, celebrity artist booking, and breathtaking timecode fireworks.",
+      backgroundImage: "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=85",
+      badge: "Palatial Destination Weddings",
       primaryCta: {
-        text: "Wedding Services",
-        link: "services/wedding"
+        text: "Plan Royal Wedding",
+        link: "/contact?service=wedding"
       },
       secondaryCta: {
-        text: "View Gallery",
-        link: "gallery"
+        text: "Curated Portfolio",
+        link: "/media"
       }
     },
     {
       id: 3,
-      title: "Spectacular",
-      titleHighlight: "Cultural",
-      description: "From TED Talks to music festivals, we create immersive cultural experiences that inspire.",
-      backgroundImage: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800&q=80",
+      tagline: "Turnkey Staging & Global Brand Reveals",
+      preTitle: "Fortune 500",
+      title: "Enterprise",
+      titleHighlight: "Conclaves",
+      subtitle: "Reliance • Tata Motors • Aditya Birla • HDFC",
+      description: "Delivering international-grade keynote staging, ultra-low-latency 4K multi-camera broadcast feeds, and immersive interactive brand experience zones for the world's most influential corporations.",
+      backgroundImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=85",
+      badge: "Corporate Leadership Summits",
       primaryCta: {
-        text: "Cultural Events",
-        link: "services/cultural"
+        text: "Corporate Inquiries",
+        link: "/contact?service=corporate"
       },
       secondaryCta: {
-        text: "Get a Quote",
-        link: "contact"
+        text: "AV Tech Specifications",
+        link: "/services"
       }
     }
   ];
 
-  // Use hardcoded slides for reliability
-  const displaySlides = slides;
-
   const nextSlide = useCallback(() => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    setCurrentSlide((prev) => (prev + 1) % displaySlides.length);
-    
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  }, [displaySlides.length, isAnimating]);
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, [slides.length]);
 
   const prevSlide = useCallback(() => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    setCurrentSlide((prev) => (prev - 1 + displaySlides.length) % displaySlides.length);
-    
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  }, [displaySlides.length, isAnimating]);
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length]);
 
-  const goToSlide = useCallback((index: number) => {
-    if (isAnimating || index === currentSlide) return;
-    
-    setIsAnimating(true);
-    setCurrentSlide(index);
-    
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  }, [currentSlide, isAnimating]);
-
-  // Auto-advance slides
   useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000);
-    
+    }, 7000);
     return () => clearInterval(interval);
-  }, [nextSlide]);
-
-  // Remove loading state since we're using hardcoded images
+  }, [nextSlide, isPaused]);
 
   return (
-    <section id="home" className="hero-slider pt-20 md:pt-16 relative overflow-hidden min-h-[70vh] md:min-h-[80vh]">
-      <div className="relative h-full min-h-[70vh] md:min-h-[80vh]">
-        {displaySlides.map((slide: Slide, index: number) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 w-full h-full bg-center bg-cover bg-no-repeat transition-all duration-1000 ${
-              index === currentSlide ? "opacity-100 z-10 scale-100" : "opacity-0 z-0 scale-110"
-            }`}
+    <section 
+      className="relative min-h-[92vh] lg:min-h-screen flex items-center bg-[#05070B] overflow-hidden pt-20"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Background Slides */}
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out ${
+            index === currentSlide ? "opacity-100 scale-100 z-10" : "opacity-0 scale-105 z-0 pointer-events-none"
+          }`}
+        >
+          {/* Background image with high contrast vignette */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[12000ms] ease-out scale-105"
             style={{ backgroundImage: `url('${slide.backgroundImage}')` }}
-          >
-            {/* Gradient overlay with accent color */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
-            
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-              <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/20 blur-3xl"></div>
-              <div className="absolute bottom-20 right-30 w-80 h-80 rounded-full bg-accent/10 blur-3xl"></div>
-            </div>
-            
-            <div className="container mx-auto px-4 h-full min-h-[70vh] md:min-h-[80vh] flex items-center">
-              <div className="text-white max-w-3xl z-10 relative">
-                {/* Animated slide content */}
-                <div className={`transform transition-all duration-1000 delay-300 ${
-                  index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-                }`}>
-                  {/* Tag line */}
-                  <div className="inline-block bg-primary/90 text-white text-sm font-medium px-4 py-1 rounded-full mb-4">
-                    Premium Event Services
+          />
+          
+          {/* Cinematic Dark Obsidian Gradients */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#05070B] via-[#05070B]/85 to-[#05070B]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#05070B] via-transparent to-[#05070B]/70" />
+          
+          {/* Luxury Gold & Crimson Atmospheric Glows */}
+          <div className="absolute top-1/3 left-10 w-[500px] h-[500px] rounded-full bg-[#E8B923]/10 blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-10 right-10 w-[450px] h-[450px] rounded-full bg-[#E6193C]/10 blur-[140px] pointer-events-none" />
+        </div>
+      ))}
+
+      {/* Content Container */}
+      <div className="container mx-auto px-4 sm:px-6 relative z-20 py-16 lg:py-24">
+        <div className="max-w-4xl">
+          {slides.map((slide, index) => {
+            if (index !== currentSlide) return null;
+            return (
+              <div 
+                key={slide.id}
+                className="animate-in fade-in slide-in-from-bottom-8 duration-700 space-y-6"
+              >
+                {/* Prestige Category Pill */}
+                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] backdrop-blur-2xl border border-[#E8B923]/30 text-white shadow-2xl">
+                  <div className="w-2 h-2 rounded-full bg-[#E8B923] animate-ping" />
+                  <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#FFF0C2] via-[#E8B923] to-[#E5C07B]">
+                    {slide.tagline}
+                  </span>
+                </div>
+
+                {/* Main Luxury Headline */}
+                <div className="space-y-1">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-light text-slate-300 tracking-wide font-montserrat">
+                    {slide.preTitle}
                   </div>
-                  
-                  {/* Main heading with gradient text - responsive */}
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-montserrat leading-tight mb-4 md:mb-6">
+                  <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white tracking-tight leading-[1.05] font-montserrat">
                     {slide.title}{" "}
-                    <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F7E7A9] via-[#E8B923] to-[#C5981B]">
                       {slide.titleHighlight}
-                    </span>{" "}
-                    <span className="relative">
-                      Experiences
-                      <span className="absolute bottom-1 md:bottom-2 left-0 w-full h-0.5 md:h-1 bg-primary rounded-full"></span>
                     </span>
                   </h1>
-                  
-                  <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 font-sans text-white/90 max-w-2xl leading-relaxed">
-                    {slide.description}
-                  </p>
-                  
-                  <div className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6">
-                    {slide.primaryCta && slide.primaryCta.link ? (
-                      slide.primaryCta.link.startsWith("http") ? (
-                        <a 
-                          href={slide.primaryCta.link}
-                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl text-sm md:text-base"
-                        >
-                          {slide.primaryCta.text || "Learn More"}
-                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                        </a>
-                      ) : (
-                        <Button
-                          onClick={() => scrollToSection(slide.primaryCta?.link || 'services')}
-                          className="group bg-primary hover:bg-primary/90 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl text-sm md:text-base"
-                        >
-                          {slide.primaryCta?.text || "Learn More"}
-                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                        </Button>
-                      )
-                    ) : (
-                      <Button
-                        onClick={() => scrollToSection('services')}
-                        className="group bg-primary hover:bg-primary/90 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all shadow-lg hover:shadow-primary/50 hover:shadow-xl text-sm md:text-base"
-                      >
-                        Our Services
-                        <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                      </Button>
-                    )}
-                    
-                    {slide.secondaryCta && slide.secondaryCta.link ? (
-                      slide.secondaryCta.link.startsWith("http") ? (
-                        <a 
-                          href={slide.secondaryCta.link}
-                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all flex items-center text-sm md:text-base"
-                        >
-                          {slide.secondaryCta.text || "Contact Us"}
-                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                        </a>
-                      ) : (
-                        <Button
-                          variant="outline"
-                          onClick={() => scrollToSection(slide.secondaryCta?.link || 'contact')}
-                          className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full transition-all flex items-center text-sm md:text-base"
-                        >
-                          {slide.secondaryCta?.text || "Contact Us"}
-                          <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                        </Button>
-                      )
-                    ) : (
-                      <Button
-                        variant="outline"
-                        onClick={() => scrollToSection('contact')}
-                        className="group bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white font-medium px-8 py-4 rounded-full transition-all flex items-center"
-                      >
-                        Contact Us
-                        <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                      </Button>
-                    )}
+                </div>
+
+                {/* Subtitle / Description */}
+                <p className="text-base sm:text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl">
+                  {slide.description}
+                </p>
+
+                {/* CTAs & Direct Contact */}
+                <div className="flex flex-wrap items-center gap-4 pt-4">
+                  <Link href={slide.primaryCta.link}>
+                    <Button 
+                      size="lg"
+                      className="bg-gradient-to-r from-[#E6193C] to-[#b8132e] hover:from-[#f02246] hover:to-[#c71734] text-white font-bold rounded-2xl px-8 py-6 text-base shadow-2xl shadow-primary/30 hover:scale-105 transition-all duration-300 gap-2 cursor-pointer"
+                    >
+                      <span>{slide.primaryCta.text}</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </Button>
+                  </Link>
+
+                  <Link href={slide.secondaryCta.link}>
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      className="bg-white/[0.03] hover:bg-[#E8B923]/10 text-white hover:text-[#E8B923] border border-white/20 hover:border-[#E8B923]/50 backdrop-blur-xl font-medium rounded-2xl px-7 py-6 text-base hover:scale-105 transition-all duration-300 gap-2 cursor-pointer"
+                    >
+                      <span>{slide.secondaryCta.text}</span>
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* Prestige Metrics Ticker Strip */}
+                <div className="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl">
+                  <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md">
+                    <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] to-amber-200">
+                      30+
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-0.5">
+                      Years Heritage
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md">
+                    <div className="text-2xl sm:text-3xl font-black text-white">
+                      2,500+
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-0.5">
+                      Mega Productions
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md">
+                    <div className="text-2xl sm:text-3xl font-black text-[#E8B923]">
+                      100+
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-0.5">
+                      Cities Worldwide
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Slider Controls */}
+      <div className="absolute bottom-8 right-6 sm:right-12 z-20 flex items-center gap-3 bg-[#090D16]/80 backdrop-blur-xl px-4 py-2.5 rounded-full border border-white/10 shadow-2xl">
+        <button
+          onClick={prevSlide}
+          aria-label="Previous Slide"
+          className="p-2 text-white/80 hover:text-[#E8B923] rounded-full hover:bg-white/10 transition-colors cursor-pointer"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
         
-        {/* Modern Slider Controls */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-3 z-20 backdrop-blur-md bg-black/20 px-4 py-2 rounded-full">
-          {displaySlides.map((_: Slide, index: number) => (
+        {/* Slide Indicators */}
+        <div className="flex items-center gap-2">
+          {slides.map((_, i) => (
             <button
-              key={index}
-              className={`relative w-10 h-2 rounded-full transition-all duration-300 overflow-hidden ${
-                index === currentSlide ? "w-16 bg-primary" : "bg-white/30 hover:bg-white/50"
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
+                i === currentSlide ? "w-8 bg-[#E8B923] shadow-[0_0_10px_rgba(232,185,35,0.6)]" : "w-2.5 bg-white/30 hover:bg-white/60"
               }`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            >
-              {index === currentSlide && (
-                <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent animate-pulse"></span>
-              )}
-            </button>
+            />
           ))}
         </div>
-        
-        {/* Modern Slider Arrows */}
+
         <button
-          className="absolute left-8 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white w-14 h-14 rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all hover:scale-110 border border-white/10"
-          onClick={prevSlide}
-          aria-label="Previous slide"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
-        </button>
-        <button
-          className="absolute right-8 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white w-14 h-14 rounded-full flex items-center justify-center z-20 backdrop-blur-md transition-all hover:scale-110 border border-white/10"
           onClick={nextSlide}
-          aria-label="Next slide"
+          aria-label="Next Slide"
+          className="p-2 text-white/80 hover:text-[#E8B923] rounded-full hover:bg-white/10 transition-colors cursor-pointer"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m9 18 6-6-6-6"/>
-          </svg>
+          <ChevronRight className="w-5 h-5" />
         </button>
       </div>
     </section>
@@ -280,3 +275,5 @@ const HeroSlider = () => {
 };
 
 export default HeroSlider;
+
+

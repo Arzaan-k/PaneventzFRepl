@@ -5,7 +5,21 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMobile } from "@/hooks/use-mobile";
+import { 
+  Building2, 
+  Heart, 
+  Trophy, 
+  GraduationCap, 
+  Theater, 
+  Radio, 
+  CheckCircle2, 
+  ArrowRight, 
+  Sparkles, 
+  PhoneCall, 
+  Calendar,
+  Layers,
+  Flame
+} from "lucide-react";
 
 interface ServiceDetail {
   id: number;
@@ -18,394 +32,383 @@ interface ServiceDetail {
   gallery: { id: number; imageUrl: string; alt: string }[];
 }
 
+const serviceMeta: Record<string, { icon: any; title: string; tag: string; banner: string; price: string }> = {
+  corporate: {
+    icon: Building2,
+    title: "Corporate Conclaves & Annual Summits",
+    tag: "Fortune 500 Grade",
+    banner: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1920&q=80",
+    price: "Custom Packages Available"
+  },
+  wedding: {
+    icon: Heart,
+    title: "Royal Destination Weddings",
+    tag: "Ultra-Luxury Curation",
+    banner: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80",
+    price: "Bespoke Royal Production"
+  },
+  sports: {
+    icon: Trophy,
+    title: "Stadium Sports Leagues & Marathons",
+    tag: "Mass-Audience AV",
+    banner: "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=1920&q=80",
+    price: "Arena & Stadium Scaled"
+  },
+  education: {
+    icon: GraduationCap,
+    title: "School & University Mega Festivals",
+    tag: "High Energy Concerts",
+    banner: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1920&q=80",
+    price: "Campus Fest Packages"
+  },
+  cultural: {
+    icon: Theater,
+    title: "Live Concerts & Celebrity Management",
+    tag: "A-List Artists",
+    banner: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1920&q=80",
+    price: "Artist & Rider Management"
+  },
+  logistics: {
+    icon: Radio,
+    title: "Live AV Infrastructure & Equipment Rental",
+    tag: "German Line Array & 4K LED",
+    banner: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1920&q=80",
+    price: "Technical Inventory Rental"
+  }
+};
+
 const ServicePage = () => {
   const [, params] = useRoute("/services/:serviceType?");
   const serviceType = params?.serviceType || "all";
-  const [activeTab, setActiveTab] = useState(serviceType !== "all" ? serviceType : "corporate");
+  const [activeTab, setActiveTab] = useState(
+    serviceType !== "all" && serviceMeta[serviceType] ? serviceType : "corporate"
+  );
 
   // Fetch service details
-  const { data: services = [], isLoading: loadingAll } = useQuery({
+  const { data: services = [] } = useQuery({
     queryKey: ['/api/services'],
-    queryFn: () => fetch('/api/services').then(res => res.json()),
+    queryFn: async () => {
+      try {
+        const res = await fetch('/api/services');
+        if (!res.ok) return [];
+        return await res.json();
+      } catch {
+        return [];
+      }
+    },
   });
 
-  // Fetch specific service details
   const { data: serviceDetail, isLoading: loadingDetail } = useQuery({
     queryKey: ['/api/services', activeTab],
-    queryFn: () => fetch(`/api/services/${activeTab}`).then(res => res.json()),
+    queryFn: async () => {
+      try {
+        const res = await fetch(`/api/services/${activeTab}`);
+        if (!res.ok) return null;
+        return await res.json();
+      } catch {
+        return null;
+      }
+    },
     enabled: !!activeTab && activeTab !== "all"
   });
 
-  // Fallback service details
+  const currentMeta = serviceMeta[activeTab] || serviceMeta.corporate;
+
   const fallbackServiceDetail: ServiceDetail = {
     id: 1,
     slug: activeTab,
-    title: activeTab === "corporate" ? "Corporate Event Management" : 
-           activeTab === "wedding" ? "Wedding Events" : 
-           activeTab === "sports" ? "Sports Events" :
-           activeTab === "education" ? "School & College Events" :
-           activeTab === "cultural" ? "Cultural Events" : "Logistics & Production",
-    banner: `https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1900&h=500&q=80`,
-    description: "We deliver exceptional event experiences that align with your goals and exceed expectations. Our team of experts handles everything from initial planning to flawless execution, ensuring your event creates a lasting impression.",
+    title: currentMeta.title,
+    banner: currentMeta.banner,
+    description: "Pan Eventz engineers end-to-end event infrastructure, combining architectural spatial layouts, high-fidelity concert acoustics, laser visual choreography, and white-glove hospitality to make your event a triumph.",
     features: [
       {
         id: 1,
-        title: "Expert Planning",
-        description: "Our experienced team works closely with you to understand your vision and create a tailored event plan."
+        title: "Architectural Spatial Design",
+        description: "Custom 3D stage schematics, attendee flow engineering, and immersive ambient decor."
       },
       {
         id: 2,
-        title: "State-of-the-Art Equipment",
-        description: "We utilize the latest audio, video, and lighting technology to create immersive event experiences."
+        title: "Concert Acoustic & 4K LED Walls",
+        description: "German line array sound reinforcement with ultra-high-definition LED matrices."
       },
       {
         id: 3,
-        title: "Seamless Execution",
-        description: "Our on-site management team ensures every aspect of your event runs smoothly from start to finish."
+        title: "A-List Celebrity & Artist Management",
+        description: "Direct talent procurement, rider fulfillment, security escorts, and rehearsal supervision."
+      },
+      {
+        id: 4,
+        title: "Military-Grade Contingency Management",
+        description: "Redundant power generators, backup audio channels, and comprehensive crowd control."
       }
     ],
     process: [
       {
         id: 1,
-        title: "Consultation",
-        description: "We begin with an in-depth consultation to understand your goals, preferences, and requirements."
+        title: "Vision & Creative Scoping",
+        description: "In-depth briefing with our senior directors to map attendee profile, brand essence, and key milestones."
       },
       {
         id: 2,
-        title: "Proposal & Planning",
-        description: "Based on your input, we create a comprehensive event proposal with detailed planning and timelines."
+        title: "Technical Blueprint & 3D Renderings",
+        description: "Complete stage CAD models, sound coverage heatmaps, lighting cues, and vendor timelines."
       },
       {
         id: 3,
-        title: "Execution",
-        description: "Our team handles all aspects of setup, management, and coordination on the event day."
+        title: "Live Production Execution",
+        description: "On-site master control desk commanding audio, lighting, video, artist entries, and hospitality."
       },
       {
         id: 4,
-        title: "Post-Event Analysis",
-        description: "We provide a detailed report and analysis to measure the success of your event."
+        title: "Post-Production Archive",
+        description: "Complete 4K aftermovies, executive telemetry reports, and financial reconciliation."
       }
     ],
     gallery: [
       {
         id: 1,
-        imageUrl: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
-        alt: "Corporate event setup"
+        imageUrl: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=700&q=80",
+        alt: "Main Stage Production"
       },
       {
         id: 2,
-        imageUrl: "https://images.unsplash.com/photo-1560523160-754a9e25c68f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
-        alt: "Product launch event"
+        imageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=700&q=80",
+        alt: "Grand Lighting Setup"
       },
       {
         id: 3,
-        imageUrl: "https://images.unsplash.com/photo-1591115765373-5207764f72e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
-        alt: "Corporate conference"
+        imageUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=700&q=80",
+        alt: "VIP Audience Experience"
       }
     ]
   };
 
-  // Use service detail or fallback - ensure features are always available
   const displayServiceDetail = serviceDetail ? {
     ...serviceDetail,
-    features: (serviceDetail.features && serviceDetail.features.length > 0) 
-      ? serviceDetail.features.map((feature: any, index: number) => ({
-          id: index + 1,
-          title: feature.text || feature.title || `Feature ${index + 1}`,
-          description: feature.description || "Professional event management service"
+    title: serviceDetail.title || currentMeta.title,
+    banner: serviceDetail.banner || currentMeta.banner,
+    features: (serviceDetail.features && serviceDetail.features.length > 0)
+      ? serviceDetail.features.map((f: any, idx: number) => ({
+          id: idx + 1,
+          title: f.title || f.text || `Service Advantage ${idx + 1}`,
+          description: f.description || "Delivered to international concert and corporate specifications."
         }))
       : fallbackServiceDetail.features,
-    process: (serviceDetail.processSteps && serviceDetail.processSteps.length > 0) 
-      ? serviceDetail.processSteps.map((step: any) => ({
-          id: step.order || step.id,
-          title: step.title,
-          description: step.description
+    process: (serviceDetail.processSteps && serviceDetail.processSteps.length > 0)
+      ? serviceDetail.processSteps.map((s: any, idx: number) => ({
+          id: s.order || idx + 1,
+          title: s.title,
+          description: s.description
         }))
-      : fallbackServiceDetail.process
+      : fallbackServiceDetail.process,
+    gallery: serviceDetail.gallery && serviceDetail.gallery.length > 0 ? serviceDetail.gallery : fallbackServiceDetail.gallery
   } : fallbackServiceDetail;
 
-  // Update active tab when route param changes
   useEffect(() => {
-    if (serviceType !== "all" && services.some((service: any) => service.slug === serviceType)) {
+    if (serviceType !== "all" && serviceMeta[serviceType]) {
       setActiveTab(serviceType);
     }
-  }, [serviceType, services]);
+  }, [serviceType]);
 
-  // Set page title
   useEffect(() => {
-    const pageTitle = serviceType === "all" 
-      ? "Our Services - Pan Eventz" 
-      : `${displayServiceDetail?.title || "Event Services"} - Pan Eventz`;
-    document.title = pageTitle;
-  }, [serviceType, displayServiceDetail]);
+    document.title = `${displayServiceDetail.title} | Pan Eventz Services`;
+  }, [displayServiceDetail.title]);
 
-  const isLoading = loadingAll || loadingDetail;
-  const isMobile = useMobile();
+  const categories = Object.keys(serviceMeta);
 
   return (
-    <>
+    <div className="min-h-screen bg-[#090D16] text-white selection:bg-[#E8B923] selection:text-black">
       <Header />
 
-      <main>
-        {/* Modern Service Banner with 3D effect and decorative elements */}
+      <main className="pt-20">
+        {/* Hero Section */}
         <section 
-          className="relative min-h-[50vh] sm:min-h-[60vh] md:min-h-[70vh] flex items-center bg-center bg-cover overflow-hidden"
+          className="relative min-h-[55vh] flex items-center justify-center bg-center bg-cover overflow-hidden border-b border-white/10"
           style={{ 
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${displayServiceDetail?.banner}')`
+            backgroundImage: `linear-gradient(to bottom, rgba(9, 13, 22, 0.85), rgba(9, 13, 22, 0.95)), url('${displayServiceDetail.banner}')`
           }}
         >
-          {/* Decorative elements - conditionally rendered based on device size */}
-          {!isMobile && (
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-20 left-0 w-full h-full">
-                <div className="absolute top-20 left-20 w-96 h-96 bg-primary/10 rounded-full filter blur-[120px]"></div>
-                <div className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full filter blur-[100px]"></div>
-              </div>
-              
-              {/* Floating particles effect */}
-              <div className="absolute inset-0 opacity-30">
-                <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-white rounded-full"></div>
-                <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-white rounded-full"></div>
-                <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-white rounded-full"></div>
-                <div className="absolute top-2/3 right-1/4 w-2 h-2 bg-white rounded-full"></div>
-                <div className="absolute bottom-1/3 right-2/3 w-4 h-4 bg-white rounded-full"></div>
-              </div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="container mx-auto px-4 text-center relative z-10 py-16 max-w-4xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 border border-[#E8B923]/30 text-[#E8B923] text-xs font-semibold uppercase tracking-widest mb-6">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{currentMeta.tag}</span>
             </div>
-          )}
-          
-          <div className="container mx-auto px-4 text-center text-white relative z-10 py-10 md:py-20">
-            {/* Decorative accent line */}
-            <div className="flex items-center justify-center mb-4 md:mb-6">
-              <div className="w-8 md:w-12 h-1 bg-primary rounded-full"></div>
-              <div className="w-2 h-2 bg-primary rounded-full mx-2"></div>
-              <div className="w-8 md:w-12 h-1 bg-primary rounded-full"></div>
-            </div>
-            
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat mb-4 md:mb-6 tracking-tighter">
-              {serviceType === "all" ? (
-                <>Our <span className="relative inline-block">
-                  <span className="relative z-10">Services</span>
-                  <span className="absolute -bottom-2 left-0 right-0 h-3 bg-primary/30 -z-10 transform skew-x-3 rounded"></span>
-                </span>
-                </>
-              ) : (
-                <>
-                  <span className="relative inline-block">
-                    <span className="relative z-10">{displayServiceDetail?.title}</span>
-                    <span className="absolute -bottom-2 left-0 right-0 h-3 bg-primary/30 -z-10 transform skew-x-3 rounded"></span>
-                  </span>
-                </>
-              )}
+
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15] mb-6 font-montserrat">
+              {displayServiceDetail.title}
             </h1>
-            
-            {serviceType !== "all" && (
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto text-white/90 leading-relaxed">
-                {displayServiceDetail?.description?.split('.')[0]}.
-              </p>
-            )}
-            
-            {/* Scroll indicator - smaller on mobile */}
-            <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 md:h-10 md:w-10 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+
+            <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed mb-8">
+              {displayServiceDetail.description}
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link href="/contact">
+                <Button className="bg-gradient-to-r from-[#E6193C] to-[#b8132e] hover:from-[#f02246] hover:to-[#c71734] text-white font-bold px-7 py-5 rounded-xl shadow-lg shadow-primary/30 transition-all flex items-center gap-2 text-sm sm:text-base cursor-pointer">
+                  <Calendar className="w-4 h-4" />
+                  <span>Request Proposal</span>
+                </Button>
+              </Link>
+              <a href="tel:+919821337523">
+                <Button variant="outline" className="border-white/20 hover:border-[#E8B923] text-white hover:text-[#E8B923] bg-white/[0.04] font-medium px-6 py-5 rounded-xl transition-all flex items-center gap-2 text-sm sm:text-base cursor-pointer">
+                  <PhoneCall className="w-4 h-4 text-[#E8B923]" />
+                  <span>Direct Inquiry</span>
+                </Button>
+              </a>
             </div>
           </div>
         </section>
 
-        {/* Service Tabs with modern design - improved for mobile */}
-        <section className="py-10 md:py-20 bg-gradient-to-b from-white to-neutral-50 relative overflow-hidden">
-          {/* Decorative elements - only show on larger screens */}
-          {!isMobile && (
-            <>
-              <div className="absolute -right-40 bottom-0 w-80 h-80 bg-primary/5 rounded-full"></div>
-              <div className="absolute -left-40 top-0 w-96 h-96 bg-accent/5 rounded-full"></div>
-            </>
-          )}
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-6 md:mb-10">
-              <div className="inline-flex items-center justify-center mb-2 md:mb-3">
-                <span className="h-[2px] w-6 md:w-8 bg-primary"></span>
-                <span className="mx-2 md:mx-3 text-primary text-xs md:text-sm font-semibold uppercase tracking-wider">Explore Our Services</span>
-                <span className="h-[2px] w-6 md:w-8 bg-primary"></span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-montserrat mb-4">
-                Tailored Solutions for Every <span className="text-primary">Occasion</span>
-              </h2>
+        {/* Category Navigation Tabs */}
+        <section className="py-8 bg-[#060910] border-b border-white/5 sticky top-20 z-30 backdrop-blur-md bg-opacity-95">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar justify-start md:justify-center">
+              {categories.map((catKey) => {
+                const meta = serviceMeta[catKey];
+                const Icon = meta.icon;
+                const isActive = activeTab === catKey;
+                return (
+                  <button
+                    key={catKey}
+                    onClick={() => setActiveTab(catKey)}
+                    className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer border flex items-center gap-2 ${
+                      isActive
+                        ? "bg-[#E8B923] text-black border-[#E8B923] shadow-lg shadow-[#E8B923]/20"
+                        : "bg-white/[0.03] text-slate-300 border-white/10 hover:border-[#E8B923]/40 hover:text-white"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{meta.title.split('&')[0].trim()}</span>
+                  </button>
+                );
+              })}
             </div>
+          </div>
+        </section>
+
+        {/* Service Core Details */}
+        <section className="py-16 md:py-24 bg-[#090D16]">
+          <div className="container mx-auto px-4 max-w-6xl">
             
-            <Tabs 
-              defaultValue={activeTab} 
-              value={activeTab}
-              onValueChange={setActiveTab}
-              className="w-full"
-            >
-              <div className="flex justify-center mb-6 md:mb-12 overflow-x-auto pb-4 scrollbar-hide">
-                <TabsList className="bg-white p-1 md:p-2 rounded-full shadow-lg flex-nowrap whitespace-nowrap">
-                  {["corporate", "wedding", "sports", "education", "cultural", "logistics"].map((type) => (
-                    <TabsTrigger 
-                      key={type}
-                      value={type} 
-                      className="px-2 py-1 sm:px-3 sm:py-2 md:px-6 md:py-3 text-xs sm:text-sm md:text-base rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-300 capitalize font-medium"
-                    >
-                      {type}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
+            {/* Features Grid */}
+            <div className="mb-20">
+              <div className="text-center max-w-2xl mx-auto mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8B923]/10 text-[#E8B923] text-xs font-semibold uppercase tracking-wider mb-3">
+                  <Flame className="w-3.5 h-3.5" />
+                  <span>Key Technical Capabilities</span>
+                </div>
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+                  Why Industry Leaders Choose Pan Eventz
+                </h2>
               </div>
 
-              {isLoading ? (
-                <div className="text-center py-12">
-                  <div className="flex flex-col items-center space-y-8">
-                    <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-neutral-500">Loading service details...</p>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  {["corporate", "wedding", "sports", "education", "cultural", "logistics"].map((type) => (
-                    <TabsContent key={type} value={type} className="animate-in fade-in-50">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-8 lg:gap-10 items-start">
-                        <div className="lg:col-span-2">
-                          <div className="flex items-center mb-3">
-                            <div className="w-10 h-1 bg-primary rounded-full mr-3"></div>
-                            <h2 className="text-3xl font-bold font-montserrat">
-                              {displayServiceDetail?.title}
-                            </h2>
-                          </div>
-                          <p className="text-lg text-neutral-700 leading-relaxed mb-10">
-                            {displayServiceDetail?.description}
-                          </p>
-                          
-                          {/* Features with modern cards - mobile responsive */}
-                          <div className="mb-8 md:mb-14">
-                            <div className="flex items-center mb-4 md:mb-6">
-                              <h3 className="text-xl md:text-2xl font-bold font-montserrat">
-                                Key Features
-                              </h3>
-                              <div className="h-px bg-neutral-200 flex-grow ml-4"></div>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                              {displayServiceDetail.features.map((feature: { id: number; title: string; description: string }) => (
-                                <div 
-                                  key={feature.id} 
-                                  className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden"
-                                >
-                                  {/* Decorative background */}
-                                  <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -mr-20 -mt-20 transition-transform duration-500 group-hover:scale-150"></div>
-                                  
-                                  <div className="relative z-10">
-                                    <h4 className="text-xl font-bold mb-3 flex items-center">
-                                      <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary mr-3 flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                        </svg>
-                                      </span>
-                                      {feature.title}
-                                    </h4>
-                                    <p className="text-neutral-700 leading-relaxed">{feature.description}</p>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                          
-                          {/* Process with modern timeline */}
-                          <div className="mb-14">
-                            <div className="flex items-center mb-8">
-                              <h3 className="text-2xl font-bold font-montserrat">
-                                Our Process
-                              </h3>
-                              <div className="h-px bg-neutral-200 flex-grow ml-4"></div>
-                            </div>
-                            
-                            <div className="relative">
-                              {/* Timeline vertical line */}
-                              <div className="absolute left-6 top-0 bottom-0 w-1 bg-neutral-200 hidden md:block"></div>
-                              
-                              <div className="space-y-10">
-                                {displayServiceDetail.process.map((step: { id: number; title: string; description: string }, index: number) => (
-                                  <div key={step.id} className="relative flex">
-                                    {/* Timeline dot */}
-                                    <div className="relative z-10 mr-6">
-                                      <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center font-bold text-xl shadow-lg">
-                                        {index + 1}
-                                      </div>
-                                    </div>
-                                    
-                                    <div className="flex-1 bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-                                      <h4 className="text-xl font-bold mb-3">{step.title}</h4>
-                                      <p className="text-neutral-700 leading-relaxed">{step.description}</p>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                          
-                          {/* CTA with modern gradient */}
-                          <div className="bg-gradient-to-r from-primary/90 to-primary p-10 rounded-2xl shadow-xl text-white relative overflow-hidden mb-12">
-                            {/* Decorative elements */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
-                            <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/10 rounded-full -ml-20 -mb-20"></div>
-                            
-                            <div className="relative z-10 text-center md:flex items-center justify-between md:text-left">
-                              <div className="mb-6 md:mb-0 md:mr-8">
-                                <h3 className="text-2xl md:text-3xl font-bold font-montserrat mb-3">
-                                  Ready to Create Your Perfect Event?
-                                </h3>
-                                <p className="text-white/90 text-lg">
-                                  Contact us today to discuss how we can bring your vision to life.
-                                </p>
-                              </div>
-                              <Link href="/contact" className="inline-block shrink-0">
-                                <Button className="bg-white text-primary hover:bg-white/90 font-medium px-8 py-3 rounded-full shadow-md hover:shadow-lg transition-all text-lg">
-                                  Get a Quote
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                  </svg>
-                                </Button>
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Sidebar with Service Highlights */}
-                        <div className="bg-white p-6 rounded-2xl shadow-lg">
-                          <h3 className="text-xl font-bold font-montserrat mb-6 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary mr-2" viewBox="0 0 20 20" fill="currentColor">
-                              <path fillRule="evenodd" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" clipRule="evenodd" />
-                            </svg>
-                            Why Choose Us?
-                          </h3>
-                          <div className="space-y-6">
-                            <div className="p-4 bg-primary/5 rounded-xl">
-                              <h4 className="font-bold text-primary mb-2">🏆 Expert Team</h4>
-                              <p className="text-sm text-neutral-600">Professional event managers with years of experience</p>
-                            </div>
-                            <div className="p-4 bg-accent/5 rounded-xl">
-                              <h4 className="font-bold text-accent mb-2">⚡ Quick Response</h4>
-                              <p className="text-sm text-neutral-600">24/7 support and rapid project turnaround</p>
-                            </div>
-                            <div className="p-4 bg-orange-50 rounded-xl">
-                              <h4 className="font-bold text-orange-600 mb-2">💡 Creative Solutions</h4>
-                              <p className="text-sm text-neutral-600">Innovative approaches for memorable events</p>
-                            </div>
-                          </div>
-                        </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {displayServiceDetail.features.map((feature: any) => (
+                  <div
+                    key={feature.id}
+                    className="p-6 sm:p-8 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#E8B923]/40 transition-all duration-300 group"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-[#E8B923]/10 border border-[#E8B923]/20 flex items-center justify-center text-[#E8B923] shrink-0 group-hover:scale-110 transition-transform">
+                        <CheckCircle2 className="w-5 h-5" />
                       </div>
-                    </TabsContent>
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#E8B923] transition-colors mb-2">
+                          {feature.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-400 font-light leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Step-by-Step Execution Process */}
+            <div className="mb-20">
+              <div className="text-center max-w-2xl mx-auto mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-3">
+                  <Layers className="w-3.5 h-3.5" />
+                  <span>Standardized Production Pipeline</span>
+                </div>
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+                  Flawless Execution from Concept to Reality
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {displayServiceDetail.process.map((step: any, idx: number) => (
+                  <div
+                    key={step.id || idx}
+                    className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 relative overflow-hidden"
+                  >
+                    <div className="text-4xl font-black text-white/10 mb-4">
+                      0{idx + 1}
+                    </div>
+                    <h4 className="text-base font-bold text-white mb-2">
+                      {step.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-slate-400 font-light leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Gallery Previews */}
+            {displayServiceDetail.gallery && displayServiceDetail.gallery.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white font-montserrat">
+                      Recent Production Captures
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-400 font-light">
+                      Live photographs from our executed events.
+                    </p>
+                  </div>
+                  <Link href="/media">
+                    <Button variant="outline" className="border-white/20 text-white hover:border-[#E8B923] hover:text-[#E8B923] bg-white/[0.02] text-xs sm:text-sm rounded-xl cursor-pointer">
+                      <span>View Full Media Archive</span>
+                      <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                    </Button>
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                  {displayServiceDetail.gallery.map((img: any, gIdx: number) => (
+                    <div
+                      key={img.id || gIdx}
+                      className="rounded-2xl overflow-hidden border border-white/10 aspect-[4/3] bg-black/40 group relative"
+                    >
+                      <img
+                        src={img.imageUrl}
+                        alt={img.alt || "Pan Eventz Production"}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span className="text-xs font-semibold text-white">
+                          {img.alt}
+                        </span>
+                      </div>
+                    </div>
                   ))}
-                </>
-              )}
-            </Tabs>
+                </div>
+              </div>
+            )}
+
           </div>
         </section>
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

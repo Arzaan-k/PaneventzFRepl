@@ -2,13 +2,11 @@ I’m working on the website for PanEventz, and I want to make some structural c
 
 Instead, I want to add a new tab called “Media” in the same position where “Gallery” used to be. This new Media tab should open a route /media, where I want to display images directly from Cloudinary. I have already uploaded all the images to Cloudinary, organized neatly into folders. These folders represent various events, and I want the images on the /media page to be fetched dynamically from Cloudinary using their API and grouped based on these folder names.
 
-Here are the Cloudinary credentials to use:
+Here are the Cloudinary credentials to use (configured via environment variables):
 
-Cloud name: dhxetyrkb
-
-API key: 878769551721862
-
-API secret: 0v3eRiejau1m-tdnK7xgoR1Cetc
+Cloud name: [CONFIGURED_IN_ENV]
+API key: [CONFIGURED_IN_ENV]
+API secret: [CONFIGURED_IN_ENV]
 
 The folders on Cloudinary that you need to fetch images from are:
 Topspin event 1, Topspin event 2, Topspin event 3, Topspin event 4, Topspin event 5, Topspin event 7, Topspin event 8, College + aamir khan, Jio event, Leap 1, Leap 2, Leap 3, Mix, Imran (CEO) with Celebs, Reliance 40 years anniversary, Reliance corporate event, Reliance Jio Launch, Richa Housing event, and Rotary event. The display should be organized by folder – each folder’s name should be shown as a heading, followed by a grid of images from that folder. The layout should be clean and responsive, using a CSS Grid or Flexbox format, similar to how Google Drive organizes folders.

@@ -325,7 +325,7 @@ const ContentManager = () => {
       updatedSlides[slideIndex] = {
         ...updatedSlides[slideIndex],
         [parentField]: {
-          ...updatedSlides[slideIndex][parentField as keyof typeof updatedSlides[typeof slideIndex]],
+          ...((updatedSlides[slideIndex] as any)[parentField] || {}),
           [childField]: value
         }
       };

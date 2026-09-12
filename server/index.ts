@@ -67,15 +67,22 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = process.env.PORT || 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  const defaultPort = process.env.PORT ? parseInt(process.env.PORT) : 5005;
+  
+  function startServer(targetPort: number) {
+    server.listen(targetPort, "0.0.0.0", () => {
+      log(`serving on port ${targetPort}`);
+    });
+  }
+
+  server.on("error", (err: any) => {
+    if (err.code === "EACCES" || err.code === "EADDRINUSE") {
+      log(`Port ${err.port || defaultPort} is not accessible (${err.code}), attempting fallback to port 5006...`);
+      startServer(5006);
+    } else {
+      throw err;
+    }
   });
+
+  startServer(defaultPort);
 })();

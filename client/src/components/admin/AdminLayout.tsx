@@ -103,7 +103,7 @@ const AdminLayout = ({ children, title = "Dashboard", requireAuth = true }: Admi
                 onClick={handleLogout}
               >
                 <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-                  {user && user.username ? user.username.charAt(0).toUpperCase() : 'A'}
+                  {(user as any)?.username ? (user as any).username.charAt(0).toUpperCase() : 'A'}
                 </div>
               </Button>
             </div>

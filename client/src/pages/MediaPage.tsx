@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { Image as ImageIcon, ZoomIn, X, Sparkles, Layers } from "lucide-react";
 
 interface CloudinaryImage {
   public_id: string;
@@ -27,7 +26,6 @@ interface MediaFolder {
 }
 
 const MediaPage = () => {
-  const [, setLocation] = useLocation();
   const [selectedImage, setSelectedImage] = useState<CloudinaryImage | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState<string>("all");
@@ -58,13 +56,11 @@ const MediaPage = () => {
   const fetchCloudinaryImages = async (folderName: string): Promise<CloudinaryImage[]> => {
     try {
       const response = await fetch(`/api/cloudinary/${encodeURIComponent(folderName)}`);
-
       if (!response.ok) {
         throw new Error(`Failed to fetch images from ${folderName}`);
       }
-
       const data = await response.json();
-      return data || [];
+      return Array.isArray(data) ? data : [];
     } catch (error) {
       console.error(`Error fetching images from ${folderName}:`, error);
       return [];
@@ -73,36 +69,44 @@ const MediaPage = () => {
 
   // Load all folders and their images
   useEffect(() => {
+    let isMounted = true;
     const loadAllFolders = async () => {
       setIsLoading(true);
       
-      const folders: MediaFolder[] = await Promise.all(
-        folderNames.map(async (folderName) => ({
-          name: folderName,
-          displayName: folderName,
-          images: [],
-          isLoading: true
-        }))
-      );
+      const folders: MediaFolder[] = folderNames.map((folderName) => ({
+        name: folderName,
+        displayName: folderName,
+        images: [],
+        isLoading: true
+      }));
 
-      setMediaFolders(folders);
+      if (isMounted) setMediaFolders(folders);
       
-      // Load images for each folder
-      for (let i = 0; i < folderNames.length; i++) {
-        const folderName = folderNames[i];
+      // Load images for each folder concurrently
+      const folderPromises = folderNames.map(async (folderName) => {
         const images = await fetchCloudinaryImages(folderName);
-        
-        setMediaFolders(prev => prev.map(folder => 
-          folder.name === folderName 
-            ? { ...folder, images, isLoading: false }
-            : folder
-        ));
-      }
+        return { folderName, images };
+      });
+
+      const results = await Promise.all(folderPromises);
       
-      setIsLoading(false);
+      if (isMounted) {
+        setMediaFolders(
+          folders.map((folder) => {
+            const found = results.find((r) => r.folderName === folder.name);
+            return {
+              ...folder,
+              images: found ? found.images : [],
+              isLoading: false
+            };
+          })
+        );
+        setIsLoading(false);
+      }
     };
 
     loadAllFolders();
+    return () => { isMounted = false; };
   }, []);
 
   // Get all images for display
@@ -131,139 +135,142 @@ const MediaPage = () => {
     setIsModalOpen(false);
   };
 
-  // Set page title
   useEffect(() => {
-    document.title = "Media Gallery - Pan Eventz";
+    document.title = "Visual Archive & Event Gallery | Pan Eventz";
   }, []);
 
   const filteredImages = getFilteredImages();
   const totalImages = getAllImages().length;
 
   return (
-    <>
+    <div className="min-h-screen bg-[#090D16] text-white selection:bg-[#E8B923] selection:text-black">
       <Header />
       
-      <main className="pt-20">
+      <main className="pt-24 pb-20">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-16 md:py-24">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold font-montserrat mb-6">
-              Event <span className="text-primary">Media Gallery</span>
+        <section className="py-16 md:py-24 relative overflow-hidden border-b border-white/5">
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="container mx-auto px-4 text-center relative z-10 max-w-4xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 border border-[#E8B923]/30 text-[#E8B923] text-xs font-semibold uppercase tracking-widest mb-4">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Visual Production Showcase</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6 font-montserrat">
+              Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] via-amber-200 to-[#E8B923]">Media Gallery</span>
             </h1>
-            <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
-              Explore our comprehensive collection of event photography from our portfolio of successful events. 
-              Each folder showcases the unique moments and professional execution that defines Pan Eventz.
+
+            <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed mb-6">
+              A visual chronicle of stadium concerts, high-profile corporate summits, celebrity engagements, and luxury destination weddings curated by Pan Eventz.
             </p>
-            <div className="mt-8">
-              <Badge variant="secondary" className="px-4 py-2 text-sm">
-                {totalImages} Total Images • {mediaFolders.length} Event Collections
-              </Badge>
+
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs sm:text-sm text-slate-300">
+              <Layers className="w-4 h-4 text-[#E8B923]" />
+              <span>{totalImages > 0 ? totalImages : "100+"} Production Captures • {mediaFolders.length} Curated Collections</span>
             </div>
           </div>
         </section>
 
         {/* Filter Section */}
-        <section className="py-8 bg-white border-b">
+        <section className="py-6 bg-[#060910] border-b border-white/5 sticky top-20 z-30 backdrop-blur-md bg-opacity-95">
           <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-3">
-              <Button
-                variant={selectedFolder === "all" ? "default" : "secondary"}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
+              <button
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                  "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer border",
                   selectedFolder === "all" 
-                    ? "bg-primary text-white shadow-lg" 
-                    : "bg-neutral-100 text-neutral-700 hover:bg-primary hover:text-white"
+                    ? "bg-gradient-to-r from-[#E6193C] to-[#b8132e] text-white border-primary shadow-lg shadow-primary/20" 
+                    : "bg-white/[0.03] text-slate-300 border-white/10 hover:border-[#E8B923]/40 hover:text-white"
                 )}
                 onClick={() => setSelectedFolder("all")}
               >
                 All Events ({totalImages})
-              </Button>
+              </button>
               
               {mediaFolders.map((folder) => (
-                <Button
+                <button
                   key={folder.name}
-                  variant={selectedFolder === folder.name ? "default" : "secondary"}
                   className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                    "px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap shrink-0 cursor-pointer border",
                     selectedFolder === folder.name 
-                      ? "bg-primary text-white shadow-lg" 
-                      : "bg-neutral-100 text-neutral-700 hover:bg-primary hover:text-white"
+                      ? "bg-[#E8B923] text-black border-[#E8B923] font-bold shadow-lg shadow-[#E8B923]/20" 
+                      : "bg-white/[0.03] text-slate-300 border-white/10 hover:border-[#E8B923]/40 hover:text-white"
                   )}
                   onClick={() => setSelectedFolder(folder.name)}
                   disabled={folder.isLoading}
                 >
-                  {folder.displayName} ({folder.images.length})
-                </Button>
+                  {folder.displayName} {folder.images.length > 0 && `(${folder.images.length})`}
+                </button>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Media Gallery */}
-        <section className="py-12 md:py-20 bg-neutral-50">
+        {/* Media Gallery Grid */}
+        <section className="py-12 md:py-20 bg-[#090D16]">
           <div className="container mx-auto px-4">
             {isLoading ? (
-              <div className="text-center py-20">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-6"></div>
-                <p className="text-lg text-neutral-600">Loading media from Cloudinary...</p>
+              <div className="text-center py-20 space-y-4">
+                <div className="animate-spin rounded-full h-12 w-12 border-2 border-[#E8B923] border-t-transparent mx-auto"></div>
+                <p className="text-sm text-slate-400 font-light">Loading high-resolution media gallery...</p>
               </div>
             ) : filteredImages.length === 0 ? (
-              <div className="text-center py-20">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-neutral-400 mx-auto mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <p className="text-xl text-neutral-500 font-medium">No images found</p>
-                <p className="text-neutral-400 mt-2">
+              <div className="text-center py-20 bg-white/[0.02] rounded-3xl border border-white/5 max-w-lg mx-auto p-8">
+                <ImageIcon className="h-12 w-12 text-slate-600 mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-white mb-1">No Captures Found</h3>
+                <p className="text-xs text-slate-400">
                   {selectedFolder === "all" 
-                    ? "No images available in any folder." 
-                    : `No images found in the "${selectedFolder}" folder.`}
+                    ? "No images currently available in the archive." 
+                    : `No images currently indexed under "${selectedFolder}".`}
                 </p>
               </div>
             ) : (
               <>
-                {/* Selected folder display */}
+                {/* Active Filter Header */}
                 {selectedFolder !== "all" && (
-                  <div className="mb-8 text-center">
-                    <h2 className="text-2xl md:text-3xl font-bold font-montserrat mb-2">
-                      {selectedFolder}
-                    </h2>
-                    <p className="text-neutral-600">
-                      {filteredImages.length} images in this collection
-                    </p>
+                  <div className="mb-8 flex items-center justify-between">
+                    <div>
+                      <h2 className="text-2xl sm:text-3xl font-bold text-white font-montserrat">
+                        {selectedFolder}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-[#E8B923] font-light mt-0.5">
+                        {filteredImages.length} High-Resolution Photographs
+                      </p>
+                    </div>
                   </div>
                 )}
 
-                {/* Image Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                {/* Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                   {filteredImages.map((image, index) => (
-                    <Card 
+                    <div 
                       key={`${image.public_id}-${index}`}
-                      className="overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      className="group cursor-pointer rounded-2xl overflow-hidden bg-white/[0.02] border border-white/10 hover:border-[#E8B923]/40 transition-all duration-500 relative"
                       onClick={() => openImageModal(image)}
                     >
-                      <div className="aspect-square relative overflow-hidden">
+                      <div className="aspect-[4/3] relative overflow-hidden bg-black/40">
                         <img 
                           src={image.secure_url}
-                          alt={`Event image from ${image.folder || 'gallery'}`}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          alt={`Pan Eventz ${image.folder || 'production'}`}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                          <div className="bg-white/90 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                            </svg>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="w-10 h-10 rounded-full bg-[#E8B923] text-black flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform">
+                            <ZoomIn className="w-5 h-5" />
                           </div>
                         </div>
+
                         {image.folder && (
-                          <div className="absolute bottom-2 left-2 right-2">
-                            <Badge variant="secondary" className="text-xs truncate bg-white/90 text-neutral-800">
+                          <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                            <span className="inline-block text-[11px] font-semibold text-slate-200 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 truncate max-w-full">
                               {image.folder}
-                            </Badge>
+                            </span>
                           </div>
                         )}
                       </div>
-                    </Card>
+                    </div>
                   ))}
                 </div>
               </>
@@ -272,45 +279,40 @@ const MediaPage = () => {
         </section>
       </main>
 
-      {/* Image Modal */}
+      {/* Lightbox Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
+        <DialogContent className="max-w-5xl bg-[#090D16] border border-white/10 p-2 overflow-hidden shadow-2xl rounded-2xl text-white">
           <DialogTitle className="sr-only">
-            Image from {selectedImage?.folder || 'Event Gallery'}
+            {selectedImage?.folder || 'Pan Eventz Media'}
           </DialogTitle>
           {selectedImage && (
-            <div className="relative">
-              <img 
-                src={selectedImage.secure_url}
-                alt={`Event image from ${selectedImage.folder || 'gallery'}`}
-                className="w-full h-auto max-h-[80vh] object-contain"
-              />
-              <div className="absolute top-4 right-4">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="bg-white/90 hover:bg-white"
+            <div className="relative flex flex-col items-center">
+              <div className="w-full flex items-center justify-between p-3 border-b border-white/10 mb-2">
+                <span className="text-xs font-semibold text-[#E8B923] uppercase tracking-wider">
+                  {selectedImage.folder || "Pan Eventz Gallery"}
+                </span>
+                <button
                   onClick={closeImageModal}
+                  className="w-8 h-8 rounded-full bg-white/[0.05] hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </Button>
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-              {selectedImage.folder && (
-                <div className="absolute bottom-4 left-4">
-                  <Badge variant="secondary" className="bg-white/90 text-neutral-800">
-                    {selectedImage.folder}
-                  </Badge>
-                </div>
-              )}
+
+              <div className="w-full max-h-[75vh] flex items-center justify-center overflow-hidden rounded-xl bg-black">
+                <img 
+                  src={selectedImage.secure_url}
+                  alt={`Pan Eventz ${selectedImage.folder || 'production'}`}
+                  className="max-h-[75vh] w-auto max-w-full object-contain"
+                />
+              </div>
             </div>
           )}
         </DialogContent>
       </Dialog>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

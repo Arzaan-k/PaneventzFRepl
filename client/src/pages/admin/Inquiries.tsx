@@ -17,7 +17,7 @@ const Inquiries = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: inquiries = [] } = useQuery({
+  const { data: inquiries = [] } = useQuery<any[]>({
     queryKey: ['/api/contact'],
   });
 

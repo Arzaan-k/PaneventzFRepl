@@ -284,7 +284,7 @@ const AdminDashboard = () => {
                           </div>
                         ))
                       ) : (
-                        displayData.recentEvents.map((event) => (
+                        displayData.recentEvents.map((event: any) => (
                           <div key={event.id} className="grid grid-cols-12 items-center p-4 text-sm">
                             <div className="col-span-5 font-medium">{event.title}</div>
                             <div className="col-span-3 text-neutral-500">{new Date(event.date).toLocaleDateString()}</div>
@@ -354,7 +354,7 @@ const AdminDashboard = () => {
                           </div>
                         ))
                       ) : (
-                        displayData.recentInquiries.map((inquiry) => (
+                        displayData.recentInquiries.map((inquiry: any) => (
                           <div key={inquiry.id} className="grid grid-cols-12 items-center p-4 text-sm">
                             <div className="col-span-3 font-medium">{inquiry.name}</div>
                             <div className="col-span-3 text-neutral-500">{inquiry.email}</div>

@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "name": "Rohit Singhania",
+    "email": "rohit@singhaniagroup.com",
+    "phone": "+91 98200 12345",
+    "eventType": "corporate",
+    "message": "We are requesting a proposal for our Annual Tech Conclave 2024 with 1,500 VIP delegates.",
+    "status": "new",
+    "createdAt": "2026-09-12T23:09:56.342Z",
+    "updatedAt": "2026-09-12T23:09:56.342Z"
+  },
+  {
+    "id": 2,
+    "name": "O'Connor <script>alert('xss')</script> -- DROP TABLE users;",
+    "email": "security_test@domain.co.in",
+    "phone": "+91 99999 88888",
+    "eventType": "wedding",
+    "message": "Special chars test: !@#$%^&*()_+~`|}{[]:;?><,./",
+    "status": "new",
+    "createdAt": "2026-09-12T23:09:56.363Z",
+    "updatedAt": "2026-09-12T23:09:56.363Z"
+  },
+  {
+    "id": 3,
+    "name": "Rohit Singhania",
+    "email": "rohit@singhaniagroup.com",
+    "phone": "+91 98200 12345",
+    "eventType": "corporate",
+    "message": "We are requesting a proposal for our Annual Tech Conclave 2024 with 1,500 VIP delegates.",
+    "status": "new",
+    "createdAt": "2026-09-12T23:10:03.354Z",
+    "updatedAt": "2026-09-12T23:10:03.354Z"
+  },
+  {
+    "id": 4,
+    "name": "O'Connor <script>alert('xss')</script> -- DROP TABLE users;",
+    "email": "security_test@domain.co.in",
+    "phone": "+91 99999 88888",
+    "eventType": "wedding",
+    "message": "Special chars test: !@#$%^&*()_+~`|}{[]:;?><,./",
+    "status": "new",
+    "createdAt": "2026-09-12T23:10:03.366Z",
+    "updatedAt": "2026-09-12T23:10:03.366Z"
+  },
+  {
+    "id": 5,
+    "name": "Rohit Singhania",
+    "email": "rohit@singhaniagroup.com",
+    "phone": "+91 98200 12345",
+    "eventType": "corporate",
+    "message": "We are requesting a proposal for our Annual Tech Conclave 2024 with 1,500 VIP delegates.",
+    "status": "new",
+    "createdAt": "2026-09-12T23:22:40.503Z",
+    "updatedAt": "2026-09-12T23:22:40.503Z"
+  },
+  {
+    "id": 6,
+    "name": "O'Connor <script>alert('xss')</script> -- DROP TABLE users;",
+    "email": "security_test@domain.co.in",
+    "phone": "+91 99999 88888",
+    "eventType": "wedding",
+    "message": "Special chars test: !@#$%^&*()_+~`|}{[]:;?><,./",
+    "status": "new",
+    "createdAt": "2026-09-12T23:22:52.768Z",
+    "updatedAt": "2026-09-12T23:22:52.768Z"
+  },
+  {
+    "id": 7,
+    "name": "Rohit Singhania",
+    "email": "rohit@singhaniagroup.com",
+    "phone": "+91 98200 12345",
+    "eventType": "corporate",
+    "message": "We are requesting a proposal for our Annual Tech Conclave 2024 with 1,500 VIP delegates.",
+    "status": "new",
+    "createdAt": "2026-09-12T23:23:11.829Z",
+    "updatedAt": "2026-09-12T23:23:11.829Z"
+  },
+  {
+    "id": 8,
+    "name": "O'Connor <script>alert('xss')</script> -- DROP TABLE users;",
+    "email": "security_test@domain.co.in",
+    "phone": "+91 99999 88888",
+    "eventType": "wedding",
+    "message": "Special chars test: !@#$%^&*()_+~`|}{[]:;?><,./",
+    "status": "new",
+    "createdAt": "2026-09-12T23:23:11.862Z",
+    "updatedAt": "2026-09-12T23:23:11.862Z"
+  }
+]

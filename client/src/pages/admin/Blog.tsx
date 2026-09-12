@@ -20,7 +20,7 @@ const Blog = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: blogPosts = [] } = useQuery({
+  const { data: blogPosts = [] } = useQuery<any[]>({
     queryKey: ['/api/blog'],
   });
 

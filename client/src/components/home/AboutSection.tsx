@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { Award, Sparkles, Users, ShieldCheck, ArrowRight, Trophy } from "lucide-react";
 
 interface AboutContent {
   description: string;
@@ -14,173 +15,214 @@ interface AboutContent {
 const AboutSection = () => {
   const { data: aboutContent, isLoading } = useQuery({
     queryKey: ['/api/about'],
-    queryFn: () => fetch('/api/about').then(res => res.json()),
+    queryFn: async () => {
+      try {
+        const res = await fetch('/api/about');
+        if (!res.ok) return null;
+        return await res.json();
+      } catch {
+        return null;
+      }
+    },
   });
 
-  // Fallback about content if API fails or is loading
   const fallbackAbout: AboutContent = {
-    description: "Founded in 2017 by Imran Mirza with 30+ years of experience, Pan Eventz is a premier event management company dedicated to creating extraordinary experiences through innovation, creativity, and flawless execution. We specialize in conceptualizing, planning, and executing events of all scales - from intimate gatherings to grand celebrations. Our expert team handles everything from initial concept development to final execution, ensuring every detail is perfect.",
-    mission: "To create memorable events that exceed client expectations.",
-    vision: "To be the most trusted event management partner nationally.",
-    team: "Skilled professionals with diverse expertise.",
-    quality: "We never compromise on quality and service.",
+    description: "Founded in 2017 by Imran Mirza with over 30 years of premier entertainment and event industry experience, Pan Eventz has orchestrated some of the nation's most iconic corporate galas, celebrity concerts, royal weddings, and large-scale sports leagues. Our multidisciplinary team combines architectural spatial design, state-of-the-art concert acoustics, and meticulous logistics to deliver truly bespoke, unforgettable experiences.",
+    mission: "To craft transcendent live experiences that captivate audiences, elevate brands, and create everlasting memories.",
+    vision: "To set the pinnacle benchmark for innovative event production and live entertainment across India and globally.",
+    team: "A handpicked elite ensemble of creative directors, audio-visual engineers, and logistics virtuosos.",
+    quality: "Zero-compromise engineering, military-grade contingency planning, and white-glove hospitality.",
     images: [
-      "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
-      "https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"
+      "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=700&q=80"
     ]
   };
 
-  // Use actual about content or fallback
   const content = aboutContent || fallbackAbout;
 
+  const pillars = [
+    {
+      icon: Award,
+      title: "Our Mission",
+      desc: content.mission || fallbackAbout.mission,
+      color: "text-amber-400",
+      bg: "bg-amber-400/10 border-amber-400/20"
+    },
+    {
+      icon: Sparkles,
+      title: "Our Vision",
+      desc: content.vision || fallbackAbout.vision,
+      color: "text-rose-400",
+      bg: "bg-rose-400/10 border-rose-400/20"
+    },
+    {
+      icon: Users,
+      title: "Expert Team",
+      desc: content.team || fallbackAbout.team,
+      color: "text-cyan-400",
+      bg: "bg-cyan-400/10 border-cyan-400/20"
+    },
+    {
+      icon: ShieldCheck,
+      title: "Quality Commitment",
+      desc: content.quality || fallbackAbout.quality,
+      color: "text-emerald-400",
+      bg: "bg-emerald-400/10 border-emerald-400/20"
+    }
+  ];
+
   return (
-    <section id="about" className="py-12 md:py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div>
-            <div className="flex items-center mb-2 md:mb-6">
-              <div className="w-10 h-1 bg-primary rounded-full mr-3"></div>
-              <h2 className="text-2xl md:text-4xl font-bold font-montserrat">
-                About <span className="text-primary">Pan Eventz</span>
-              </h2>
+    <section id="about" className="py-20 md:py-28 bg-[#090D16] relative overflow-hidden border-t border-white/5">
+      {/* Ambient background glows */}
+      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#E8B923]/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column: Story & Pillars */}
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8B923]/10 border border-[#E8B923]/30 text-[#E8B923] text-xs font-semibold uppercase tracking-widest mb-4">
+              <Trophy className="w-3.5 h-3.5" />
+              <span>30+ Years of Industry Leadership</span>
             </div>
-            
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
+              Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] via-amber-200 to-[#E8B923]">Spectacular Moments</span> With Flawless Execution
+            </h2>
+
             {isLoading ? (
-              <div className="space-y-4 md:space-y-6 animate-pulse">
-                <div className="h-3 md:h-4 bg-neutral-200 rounded w-full"></div>
-                <div className="h-3 md:h-4 bg-neutral-200 rounded w-full"></div>
-                <div className="h-3 md:h-4 bg-neutral-200 rounded w-5/6"></div>
-                <div className="h-3 md:h-4 bg-neutral-200 rounded w-full"></div>
-                <div className="h-3 md:h-4 bg-neutral-200 rounded w-4/5"></div>
-                <div className="flex flex-wrap mt-8">
-                  <div className="w-1/2 pr-4 mb-4">
-                    <div className="h-6 bg-neutral-200 rounded w-1/2 mb-2"></div>
-                    <div className="h-3 bg-neutral-200 rounded w-full"></div>
+              <div className="space-y-4 animate-pulse mb-8">
+                <div className="h-4 bg-white/10 rounded w-full"></div>
+                <div className="h-4 bg-white/10 rounded w-5/6"></div>
+                <div className="h-4 bg-white/10 rounded w-4/6"></div>
+              </div>
+            ) : (
+              <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light mb-8">
+                {content.description}
+              </p>
+            )}
+
+            {/* Value Highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              {pillars.map((pillar, idx) => {
+                const Icon = pillar.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#E8B923]/40 transition-all duration-300 group"
+                  >
+                    <div className="flex items-start gap-3.5">
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border ${pillar.bg}`}>
+                        <Icon className={`w-5 h-5 ${pillar.color}`} />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white text-base group-hover:text-[#E8B923] transition-colors mb-1">
+                          {pillar.title}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-400 leading-relaxed line-clamp-2">
+                          {pillar.desc}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-1/2 pr-4 mb-4">
-                    <div className="h-6 bg-neutral-200 rounded w-1/2 mb-2"></div>
-                    <div className="h-3 bg-neutral-200 rounded w-full"></div>
+                );
+              })}
+            </div>
+
+            {/* CTA row */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Link href="/about">
+                <Button className="bg-gradient-to-r from-[#E6193C] to-[#b8132e] hover:from-[#f02246] hover:to-[#c71734] text-white font-semibold px-7 py-5 rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all flex items-center gap-2 text-sm sm:text-base cursor-pointer">
+                  <span>Explore Our Legacy</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" className="border-white/20 hover:border-[#E8B923] text-white hover:text-[#E8B923] bg-white/[0.02] hover:bg-[#E8B923]/10 font-medium px-6 py-5 rounded-xl transition-all text-sm sm:text-base cursor-pointer">
+                  Get In Touch
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Column: Luxury Image Grid & Badges */}
+          <div className="lg:col-span-5 relative">
+            <div className="grid grid-cols-2 gap-4 relative">
+              
+              {/* Image 1 */}
+              <div className="space-y-4">
+                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-56 sm:h-64">
+                  <img
+                    src={content?.images?.[0] || fallbackAbout.images[0]}
+                    alt="Pan Eventz Production"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                    Grand Stage Production
+                  </div>
+                </div>
+
+                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-44 sm:h-52">
+                  <img
+                    src={content?.images?.[1] || fallbackAbout.images[1]}
+                    alt="Corporate Gala"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                    Corporate Conclaves
                   </div>
                 </div>
               </div>
-            ) : (
-              <>
-                <p className="text-base md:text-lg text-neutral-600 mb-6 md:mb-8 leading-relaxed">
-                  {content?.description || "Founded in 2017 by Imran Mirza with 30+ years of experience, Pan Eventz is a premier event management company dedicated to creating extraordinary experiences through innovation, creativity, and flawless execution. We specialize in conceptualizing, planning, and executing events of all scales - from intimate gatherings to grand celebrations. Our expert team handles everything from initial concept development to final execution, ensuring every detail is perfect."}
-                </p>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
-                  <div className="flex items-start bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="text-primary text-xl mr-3 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-neutral-800 mb-1 text-base md:text-lg">Our Mission</h3>
-                      <p className="text-neutral-600 text-sm md:text-base">{content.mission}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="text-primary text-xl mr-3 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-neutral-800 mb-1 text-base md:text-lg">Our Vision</h3>
-                      <p className="text-neutral-600 text-sm md:text-base">{content.vision}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="text-primary text-xl mr-3 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-neutral-800 mb-1 text-base md:text-lg">Expert Team</h3>
-                      <p className="text-neutral-600 text-sm md:text-base">{content.team}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="text-primary text-xl mr-3 mt-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-neutral-800 mb-1 text-base md:text-lg">Quality Commitment</h3>
-                      <p className="text-neutral-600 text-sm md:text-base">{content?.quality || "We never compromise on quality and service excellence"}</p>
-                    </div>
+
+              {/* Image 2 */}
+              <div className="space-y-4 pt-6">
+                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-44 sm:h-52">
+                  <img
+                    src={content?.images?.[2] || fallbackAbout.images[2]}
+                    alt="Luxury Wedding"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                    Destination Weddings
                   </div>
                 </div>
-                
-                <Link href="/contact">
-                  <Button className="bg-primary hover:bg-primary/90 text-white font-medium px-8 py-3 rounded-full transition-colors">
-                    Get In Touch
-                  </Button>
-                </Link>
-              </>
-            )}
+
+                <div className="relative group overflow-hidden rounded-2xl border border-white/10 shadow-2xl h-56 sm:h-64">
+                  <img
+                    src={content?.images?.[3] || fallbackAbout.images[3]}
+                    alt="Live Concert"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/90">
+                    Stadium Concerts
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Center Experience Badge */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 rounded-2xl bg-[#090D16]/95 backdrop-blur-xl border border-[#E8B923]/40 shadow-2xl text-center z-20 min-w-[160px]">
+                <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#E8B923] to-amber-200">
+                  30+ Years
+                </div>
+                <div className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider mt-0.5">
+                  Mastery & Trust
+                </div>
+              </div>
+
+            </div>
           </div>
-          
-          <div className="grid grid-cols-2 gap-4">
-            {isLoading ? (
-              // Image loading placeholders
-              <>
-                <div className="space-y-4">
-                  <div className="rounded-lg overflow-hidden shadow-lg h-64 bg-neutral-200 animate-pulse"></div>
-                  <div className="rounded-lg overflow-hidden shadow-lg h-48 bg-neutral-200 animate-pulse"></div>
-                </div>
-                <div className="space-y-4 mt-6">
-                  <div className="rounded-lg overflow-hidden shadow-lg h-48 bg-neutral-200 animate-pulse"></div>
-                  <div className="rounded-lg overflow-hidden shadow-lg h-64 bg-neutral-200 animate-pulse"></div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="space-y-4">
-                  <div className="rounded-lg overflow-hidden shadow-lg h-64">
-                    <img 
-                      src={content?.images && content.images.length > 0 ? content.images[0] : "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
-                      alt="Event Planning" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-lg h-48">
-                    <img 
-                      src={content?.images && content.images.length > 1 ? content.images[1] : "https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
-                      alt="Corporate Event" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4 mt-6">
-                  <div className="rounded-lg overflow-hidden shadow-lg h-48">
-                    <img 
-                      src={content?.images && content.images.length > 2 ? content.images[2] : "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
-                      alt="Wedding Event" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="rounded-lg overflow-hidden shadow-lg h-64">
-                    <img 
-                      src={content?.images && content.images.length > 3 ? content.images[3] : "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80"} 
-                      alt="Stage Setup" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
+
         </div>
       </div>
     </section>
