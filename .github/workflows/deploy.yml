@@ -1,0 +1,41 @@
+name: Build and Auto-Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+      - ultra-luxury-redesign
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🔨 Build Production Bundles
+        run: npm run build
+
+      - name: 🚀 Deploy to Hostinger Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
+          script: |
+            cd /var/www/paneventz.com || cd ~/paneventz || exit 1
+            git pull origin ${{ github.ref_name }}
+            npm install --production
+            npm run build
+            pm2 restart paneventz || pm2 restart all
