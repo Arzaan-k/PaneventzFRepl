@@ -377,7 +377,7 @@ const EventDetailPage = () => {
                     </a>
                   </div>
                   <div className="text-slate-400 text-[11px]">
-                    +91 98213 37523 / +91 99991 32800
+                    Direct Line: +91 98213 37523
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2 pt-1">

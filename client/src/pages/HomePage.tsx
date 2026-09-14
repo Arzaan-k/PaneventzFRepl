@@ -4,7 +4,6 @@ import Footer from "@/components/layout/Footer";
 import HeroSlider from "@/components/home/HeroSlider";
 import PremiumServices from "@/components/home/PremiumServices";
 import FeaturedTechnologies from "@/components/home/FeaturedTechnologies";
-import InteractiveStageEstimator from "@/components/home/InteractiveStageEstimator";
 import Testimonials from "@/components/home/Testimonials";
 import AboutSection from "@/components/home/AboutSection";
 import Statistics from "@/components/home/Statistics";
@@ -83,7 +82,6 @@ const HomePage = () => {
         <CelebritySection />
         <PremiumServices />
         <FeaturedTechnologies />
-        <InteractiveStageEstimator />
         <AboutSection />
         <Testimonials />
         <Statistics />

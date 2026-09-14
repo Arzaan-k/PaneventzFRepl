@@ -102,8 +102,8 @@ const FloatingWhatsApp = ({
               </a>
             </div>
             <div className="flex items-center justify-between text-slate-400 text-[10px]">
-              <span className="text-slate-500">Direct Lines:</span>
-              <span>+91 98213 37523 / +91 99991 32800</span>
+              <span className="text-slate-500">Direct Line:</span>
+              <a href="tel:+919821337523" className="hover:text-white transition-colors">+91 98213 37523</a>
             </div>
           </div>
 

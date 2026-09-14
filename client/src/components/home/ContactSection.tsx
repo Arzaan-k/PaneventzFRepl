@@ -304,10 +304,8 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold text-white">Direct Production Hotline</h4>
-                    <p className="text-xs sm:text-sm text-slate-300 font-light font-mono space-x-2">
+                    <p className="text-xs sm:text-sm text-slate-300 font-light font-mono">
                       <a href="tel:+919821337523" className="hover:text-[#E8B923] transition-colors">+91 98213 37523</a>
-                      <span className="text-slate-500">/</span>
-                      <a href="tel:+919999132800" className="hover:text-[#E8B923] transition-colors">+91 99991 32800</a>
                     </p>
                   </div>
                 </div>

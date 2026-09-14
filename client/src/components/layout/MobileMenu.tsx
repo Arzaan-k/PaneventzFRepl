@@ -136,22 +136,13 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 </a>
 
                 {/* Direct Call Lines */}
-                <div className="grid grid-cols-2 gap-2">
-                  <a 
-                    href="tel:+919821337523" 
-                    className="flex items-center gap-2 px-3 py-2.5 bg-white/[0.03] border border-white/10 rounded-xl text-white font-mono text-[11px] font-semibold hover:border-[#E8B923]/40 transition-colors"
-                  >
-                    <PhoneCall className="w-3.5 h-3.5 text-[#E8B923] shrink-0" />
-                    <span className="truncate">+91 98213 37523</span>
-                  </a>
-                  <a 
-                    href="tel:+919999132800" 
-                    className="flex items-center gap-2 px-3 py-2.5 bg-white/[0.03] border border-white/10 rounded-xl text-white font-mono text-[11px] font-semibold hover:border-[#E8B923]/40 transition-colors"
-                  >
-                    <PhoneCall className="w-3.5 h-3.5 text-[#E8B923] shrink-0" />
-                    <span className="truncate">+91 99991 32800</span>
-                  </a>
-                </div>
+                <a 
+                  href="tel:+919821337523" 
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white/[0.03] border border-white/10 rounded-xl text-white font-mono text-xs font-semibold hover:border-[#E8B923]/40 transition-colors"
+                >
+                  <PhoneCall className="w-3.5 h-3.5 text-[#E8B923] shrink-0" />
+                  <span>Direct Line: +91 98213 37523</span>
+                </a>
               </div>
             </nav>
             

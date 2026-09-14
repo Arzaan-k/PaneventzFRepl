@@ -58,9 +58,8 @@ const ContactPage = () => {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white mb-0.5">Direct Lines</h3>
+                  <h3 className="text-sm font-bold text-white mb-0.5">Direct Line</h3>
                   <a href="tel:+919821337523" className="text-xs font-mono text-slate-300 font-light hover:text-[#E8B923] transition-colors block">+91 98213 37523</a>
-                  <a href="tel:+919999132800" className="text-xs font-mono text-slate-300 font-light hover:text-[#E8B923] transition-colors block">+91 99991 32800</a>
                 </div>
               </div>
 
